@@ -1,0 +1,41 @@
+@import "../../../shared/styles/theme.scss";
+
+::ng-deep.social-links {
+    .social-links-item {
+        flex-direction: column;
+        cx-banner{
+            flex: initial;
+            padding-right: 1px;
+        }
+        img {
+            width: 3.75rem;
+            height: 3.75rem;
+            padding: 0;
+            margin: 0;
+            transition: all 0.1s ease-out;
+            &:hover {
+                padding: 0.125rem;
+            }
+        }
+    }
+}
+@media screen and (max-width: $mobileScreenPotrait-767) {
+    ::ng-deep.social-links{
+        justify-content: center;
+        padding-top: 15px;
+        .social-links-item{
+            flex-direction: row;
+            margin: 0 5px;
+        }
+    }
+}
+@media screen and (max-width: $smallmobileScreenPotrait576) {
+    ::ng-deep.social-links{
+        .social-links-item{
+            img {
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+    }
+}

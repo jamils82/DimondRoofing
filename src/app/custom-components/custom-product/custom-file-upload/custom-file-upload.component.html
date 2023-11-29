@@ -1,0 +1,149 @@
+
+<div class=" ">
+    <div class="col-sm-12 bg-white">
+        <div class="upload-main-container text-center">
+            <div class="col-md-12">
+                <div [hidden]="!fileUploadSection" Dropzone (onFileDropped)="droppedFiles($event)" class="pre-fileupload-container">
+                    <p>
+                        <img src="../../../../assets/images/file-upload-add.svg" title="File Upload" />
+                    </p>
+                    <p class="mb-2">Drag file here, or</p>
+                    <p class="invisible-container">
+                        <input #fileUploader type="file" id="file" class="invisible-container btn primary-button px-5" accept="application/pdf,image/png,image/jpeg" (change)="handleFileInput($event)" />
+                    </p>
+                    <p>
+                        <button type="button" (click)="uploadButtonCLick()" class="btn primary-button px-5">
+            Upload
+            </button>
+                    </p>
+                    <p class="mb-0">
+                        Max. file size:<span class="font-weight-bold"> 5 MB</span>
+                    </p>
+                    <p class="mb-0 word-break">
+                        Accepted file format:<span class="font-weight-bold">
+              .jpeg, .png, .pdf</span
+            >
+          </p>
+        </div>
+        <div *ngIf="isFileUploaded" class="post-fileupload-container">
+          <p>
+            <img
+              src="../../../../assets/images/checkmark-circle-outline.svg"
+              title="File Upload"
+            />
+          </p>
+          <div class="file-uploding">
+            <p class="mb-0 font-weight-bold">{{ fileName }}</p>
+            <p>{{ fileSize | number : "1.2-2" }} MB</p>
+            <p>
+              <a
+                class="anchor-link pr-3"
+                title="Preview"
+                *ngIf="fileType == 'application/pdf'"
+                target="_blank"
+                [href]="url"
+              >Preview</a>
+              <a
+                class="anchor-link pr-3"
+                title="Preview"
+                *ngIf="fileType != 'application/pdf'"
+                data-toggle="modal"
+                data-target="#uploadedPreviewModal"
+                href="javascript:void(0)"
+              >Preview</a>
+              |
+              <a
+                class="anchor-link pl-3"
+                (click)="removeClicked()"
+                title="Remove"
+                href="javascript:void(0)"
+              >Remove</a>
+            </p>
+          </div>
+        </div>
+        <div *ngIf="notCorrectFormat" class="fileupload-error-container">
+          <p class="mb-2">
+            <img
+              src="../../../../assets/images/Erroricon-triangle.svg"
+              title="Error Icon"
+            />
+          </p>
+          <p class="mb-1 error-text">
+            Error uploading: {{ fileName }} is not in an acceptable file format
+          </p>
+          <p class="mb-4 font-weight-bold">
+            Accepted file format: .jpeg, .png, .pdf
+          </p>
+          <p>
+            <a
+              class="anchor-link"
+              title="Replace"
+              (click)="replaceClicked()"
+              href="javascript:void(0)"
+            >Replace</a
+            >
+          </p>
+        </div>
+        <div *ngIf="maxFileSize" class="fileupload-error-container">
+          <p class="mb-2">
+            <img
+              src="../../../../assets/images/Erroricon-triangle.svg"
+              title="Error Icon"
+            />
+          </p>
+          <p class="mb-1 error-text">
+            Error uploading: {{ fileName }} exceeds maximum size limit
+          </p>
+          <p class="mb-4 font-weight-bold">Accepted Max. file size: 5 MB</p>
+          <p>
+            <a
+              class="anchor-link"
+              (click)="replaceClicked()"
+              title="Replace"
+              href="javascript:void(0)"
+            >Replace</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Image preview Modal -->
+<div class="modal fade uploaded-preview-modal" id="uploadedPreviewModal">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{ fileName }}</h4>
+        <i
+          class="icon-close preview-pop-close ml-auto"
+          data-dismiss="modal"
+          aria-label="Close"
+        ></i>
+      </div>
+      <div class="modal-body text-center">
+        <img
+          *ngIf="fileType != 'application/pdf'"
+          class="uploaded-image"
+          [src]="url"
+          alt="Preview Image"
+        />
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn secondary-button"
+          (click)="removeClicked()"
+          data-dismiss="modal"
+        >
+          Remove
+        </button>
+        <button type="button" class="btn primary-button" data-dismiss="modal">
+          Keep
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

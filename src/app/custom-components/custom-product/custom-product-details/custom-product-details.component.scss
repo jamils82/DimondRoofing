@@ -1,0 +1,15 @@
+
+@import '../../../shared/styles/theme.scss';
+
+::ng-deep cx-page-layout {
+        &.ProductDetailsPageTemplate {
+            padding-top: 0;
+            cx-page-slot {
+                &.Summary {
+                    display: flex;
+                    padding: 0;
+                    max-width: 100%; 
+                }
+            }
+        }
+}

@@ -1,0 +1,2977 @@
+<div class="loading" *ngIf="showWaitCursor | async">Loading&#8230;</div>
+<app-custom-breadcrum
+  [customCrumbData]="breadcrumbData"
+  [ngStyle]="{ top: breadcrumbTop }"
+  class="products-breadcums"
+></app-custom-breadcrum>
+<div (window:resize)="onResize($event)">
+  <div class="container pdp-container-top" [ngClass]="{ 'has-flashing-modal': hasFlashingModal }">
+    <ng-container *ngIf="productDetails">
+      <h2 class="product-name mb-0 mt-3">
+        {{ productDetails?.name }}
+      </h2>
+      <span *ngIf="selectedSkuCode" class="product-code font-weight-bold">
+        SKU: {{ selectedSkuCode }}
+      </span>
+      <p
+        *ngIf="
+          productDetails &&
+          productDetails.classifications &&
+          productDetails?.classifications[0] &&
+          productDetails?.classifications[0]?.features
+        "
+        class="product-summary font-weight-bold mt-2 mb-0"
+        [innerHTML]="getClassifications()"
+      ></p>
+
+      <div class="row pt-0">
+        <div *ngIf="isTemplateProduct && !isBundleEnabled" class="col-12">
+          <div class="row mt-4">
+            <div class="col-sm-4 file-uploader-steps">
+              <cx-page-slot
+                class="text-left"
+                position="UploadCustomDesignSlot"
+              ></cx-page-slot>
+            </div>
+            <span *ngIf="!isMobile" class="separator">|</span>
+            <div class="col-sm-8 file-uploader-steps"> 
+               <cx-page-slot
+                class="text-left"
+                position="SpecifyDetailsSlot-ProductDetailsPage"
+              ></cx-page-slot>
+            </div>
+          </div>
+        </div>
+        <div
+          class="product-image col-lg-3 bg-white mb-3 ml-0 p-3 p-sm-3 mt-sm-4"
+        >
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-12 p-0 image-container">
+              <ng-container *ngIf="isTemplateProduct && !isBundleEnabled">
+                <app-custom-file-upload
+                  [resetFileUpload]="resetFileUpload"
+                  (updatedFileData)="getupdatedFileData($event)"
+                ></app-custom-file-upload>
+              </ng-container>
+              <div
+                class="cds-img-container"
+                #cdsImageContainer
+                [ngClass]="{ 'd-none': !isTemplateProduct || !isBundleEnabled }"
+              >
+                <div class="cds-img-buttons ml-3">
+                  <span
+                    class="view-btn pl-3 pt-1 pb-1 pr-3"
+                    (click)="displayView($event, '2D')"
+                    [ngClass]="{ active: is2DView }"
+                    >2D</span
+                  ><span
+                    class="view-btn pl-3 pt-1 pb-1 pr-3"
+                    (click)="displayView($event, '3D')"
+                    [ngClass]="{ active: !is2DView }"
+                    >3D</span
+                  >
+                  <span class="cursor-pointer ml-4 enlarge-button">
+                    <img
+                      data-toggle="modal"
+                      [attr.data-target]="'#imageLargerModal'"
+                      class="flashing-enlarge-icon"
+                      title="Click here to view larger image"
+                      src="../../../../assets/images/expand-icon.svg"
+                    />
+                  </span>
+                </div>
+                <div id="visualization-container" #visualizationContainer></div>
+              </div>
+              <ng-container *ngIf="!isTemplateProduct">
+                <img
+                  *ngIf="!variantImage && !getProductImage()"
+                  [src]="noImage"
+                  class="category-image"
+                  alt="no-image"
+                />
+                <img
+                  *ngIf="!variantImage && getProductImage()"
+                  class="category-image"
+                  [src]="productImage"
+                />
+                <img
+                  *ngIf="variantImage"
+                  class="category-image"
+                  [src]="variantImage"
+                />
+              </ng-container>
+              <div class="display_color">
+                {{ getColourName(selectedColour) }}
+              </div>
+            </div>
+
+            <div
+              id="tabMenu"
+              #tabMenu
+              class="navbar d-md-block d-sm-block d-xs-block d-lg-none d-lg-none p-0"
+              [ngClass]="{
+                active: setNavTabActive
+              }"
+              [ngStyle]="{ 'max-width': screenWidth }"
+            >
+              <ul class="nav smart-navs nav-pills" #navPills>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    [ngClass]="{
+                      active: selectedNavTab == 'colourInfo'
+                    }"
+                    (click)="
+                      scrollTo($event, colourInfo, 'colourInfo', navPills)
+                    "
+                    href="#colourInfo"
+                    >Colour</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    [ngClass]="{
+                      active: selectedNavTab == 'specsInfo'
+                    }"
+                    (click)="scrollTo($event, specsInfo, 'specsInfo', navPills)"
+                    href="#specsInfo"
+                    >Specifications</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    [ngClass]="{
+                      active: selectedNavTab == 'priceInfo'
+                    }"
+                    (click)="scrollTo($event, priceInfo, 'priceInfo', navPills)"
+                    href="#priceInfo"
+                    >Price</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    [ngClass]="{
+                      active: selectedNavTab == 'productInfo'
+                    }"
+                    (click)="
+                      scrollTo($event, productInfo, 'productInfo', navPills)
+                    "
+                    href="#productInfo"
+                    >Product Details</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div
+              class="col-sm-12 col-md-6 col-lg-12"
+              [ngClass]="{ 'mt-5 pt-4': setNavTabActive }"
+              #colourInfo
+              id="colourInfo"
+            ></div>
+          </div>
+        </div>
+        <div
+          class="product-info col-lg-6 bg-white mb-3 p-sm-3 mt-sm-4"
+          #specsInfo
+          id="specsInfo"
+        >
+          <ng-container
+            [formGroup]="!isTemplateProduct ? productForm : templateProductForm"
+          >
+            <div *ngIf="(availableColours && availableColours?.length > 0) || (additionalColours && additionalColours?.length > 0)" class="row pt-0 pl-3 pr-3 pb-3">
+              <label class="font-weight-bold mb-0 mt-3 c2">Colour Selection</label> 
+              <div class="quantity border p-2"> 
+                
+              <ng-container>
+                <p *ngIf="!isColorSelected" class="mb-0">
+                  <span class="pr-4"> Please select colour </span>
+                  <span
+                    (click)="
+                      updateSelectedColour($event, sessionSelectedColour.color)
+                    "
+                    *ngIf="showAlreadySelectedOption"
+                  >
+                    <span class="text-underline cursor-pointer">
+                      (<ng-container *ngIf="!isMobile">Reuse Last Choice </ng-container>
+                      <span class="font-weight-bold ">{{ sessionSelectedColour?.color?.name }}</span>)
+                    </span>
+                  </span>
+                </p>
+                <div
+                  *ngIf="getColourInfo(selectedColour)?.code"
+                  class="text-left col-sm-12 col-xs-12 px-0"
+                  [ngClass]="!isTemplateProduct ? 'col-md-12' : 'col-12'"
+                >
+                  <div>
+                    <span class="colours">
+                      <span
+                        class="colour mr-2 selected"
+                        [ngStyle]="{
+                          background:
+                            getColourInfo(selectedColour)?.hexadecimalCode ||
+                            '#fff'
+                        }"
+                      ></span>
+                      {{ getColourInfo(selectedColour)?.name || "None" }}
+                    </span>
+                    <span 
+                      (click)="isColorSelected = !isColorSelected"
+                      class="text-underline cursor-pointer"
+                    >
+                      <b> (Show {{ isColorSelected ? 'More' : 'Less' }} ) </b>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  *ngIf="!isColorSelected"
+                  class="col-sm-12 col-md-12 col-lg-12 p-0"
+                  #colourInfo
+                  id="colourInfo"
+                >
+                  <div
+                    *ngIf="
+                      availableColours && availableColours?.length > 0;
+                      else noAvailableColours
+                    "
+                    class="colours m-1 pt-1"
+                  >
+                    <ng-container *ngFor="let colour of availableColours">
+                      <div
+                        (click)="updateSelectedColour($event, colour)"
+                        class="colour m-1 mb-3 main"
+                        [ngStyle]="{
+                          background: getColourInfo(colour)?.hexadecimalCode
+                        }"
+                        [ngClass]="{
+                          selected: getColourInfo(colour)?.hexadecimalCode
+                            ? selectedColour?.hexadecimalCode ==
+                              getColourInfo(colour)?.hexadecimalCode
+                            : selectedColour?.code ==
+                              getColourInfo(colour)?.code
+                        }"
+                      >
+                        <div class="checkbox"></div>
+                        <p
+                          class="colour-title"
+                          placement="bottom"
+                          ngbTooltip="{{ getColourInfo(colour)?.name }}"
+                        >
+                          {{ getColourInfo(colour)?.name }}
+                        </p>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <ng-template #noAvailableColours>
+                    <div class="more-content-colors d-flex justify-content-start align-items-center add-to-cart-error my-2">
+                      <img
+                      class="mr-3"
+                      src="../../../../assets/images/warningicon.svg"
+                      alt="alert">
+                      <p class="mb-0">
+                        <cx-page-slot position="ColourSelectionLabelSlotName"></cx-page-slot>
+                      </p>
+                    </div>
+                  </ng-template>
+                  <div
+                    *ngIf="additionalColours?.length > 0"
+                    class="d-block text-left"
+                  >
+                    <a
+                      class="colours-link mt-3"
+                      data-toggle="modal"
+                      data-target="#additionalColorsModal"
+                      >Additional colours may be available</a
+                    >
+                  </div>
+                </div>
+                <div
+                  class="col text-left col-xs-12 col-sm-12 col-8 mt-3 mb-3 pl-0"
+                  *ngIf="isTemplateProduct"
+                >
+                 
+                <label class="font-weight-bold mb-3">
+                    Coloured Side
+                    <span
+                      *ngIf="colouredSideInfoContent"
+                      class="info-icon cursor-pointer"
+                      tooltipClass="colouredside-container"
+                      ngbTooltip="{{ colouredSideInfoContent }}"
+                      placement="bottom"
+                    ></span>
+                  </label>
+                  <select
+                    class="form-control form-select colour-side"
+                    formControlName="colouredSide"
+                    (change)="updateCDS($event, 'colouredSide')"
+                  >
+                    <option *ngFor="let item of colouredSideConfigValues">
+                      {{ item }}
+                    </option>
+                  </select>
+                </div>
+
+                <div
+                  class="col bundling customisation"
+                  *ngIf="
+                    isTemplateProduct && isBundleEnabled && customisationAllowed
+                  "
+                >
+                  <span
+                    [ngClass]="{ customisation_mobile: hasCustomisation }"
+                    class="pr-2 font-weight-bold text"
+                    >Customisation
+                    <span
+                      class="info-icon cursor-pointer"
+                      [ngbTooltip]="customisationInfoContent"
+                      placement="bottom"
+                    >
+                    </span>
+                  </span>
+                  <span>
+                    <label
+                      [ngClass]="{ slider_mobile: hasCustomisation }"
+                      class="switch"
+                    >
+                      <input
+                        type="checkbox"
+                        formControlName="customisation"
+                        (change)="updateCustomisation($event)"
+                      />
+                      <span class="slider round"></span>
+                    </label>
+                  </span>
+                </div>
+              </ng-container>
+              </div>
+            </div>
+            <div
+              class="row pt-0 pl-3 pr-3 pb-4"
+              [ngClass]="{ 'mt-0': !isTemplateProduct && !isFinishedProduct }"
+            >
+              <div
+                class="quantity border p-2 mb-3"
+                [ngClass]="{ flashing: isTemplateProduct }"
+                *ngIf="!isOutOfStock() && isTemplateProduct"
+              >
+                <ng-container>
+                  <div class="first-edge-treatement mb-4">
+                    <div class="dropdown-main">
+                      <h4 class="heading">First Edge Treatment</h4>
+                      <div class="dropdown show dropdown_dialog main-screen">
+                        <a
+                          class="btn dropdown-toggle dropdownlink"
+                          href="#"
+                          role="button"
+                          id="firstEdgeDropdownMenuLink"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          (click)="
+                            mobileView($event, null, true, null, 'first')
+                          "
+                          aria-expanded="false"
+                        >
+                          <div class="open_item">
+                            {{
+                              getFullEdgeName(
+                                this.firstEdgeTreatmentVals?.configVal
+                              )
+                            }}
+                            {{ this.firstEdgeTreatmentVals?.gapVal }}
+                          </div>
+                          <div class="dimentions">
+                            {{ this.firstEdgeTreatmentVals?.dimensionVal }}
+                            <span
+                              *ngIf="
+                                this.firstEdgeTreatmentVals?.dimensionVal &&
+                                this.firstEdgeTreatmentVals?.foldsVal
+                              "
+                              >,
+                            </span>
+                            {{
+                              this.firstEdgeTreatmentVals?.foldsVal | titlecase
+                            }}
+                          </div>
+                        </a>
+
+                        <i class="fas fa-chevron-down dropdown-icon"></i>
+
+                        <div
+                          class="dropdown-menu mobile-drop-menu"
+                          aria-labelledby="firstEdgeDropdownMenuLink"
+                        >
+                          <div class="box pr-4 pl-4 pt-3 pb-4">
+                            <div class="box-container mb-3">
+                              <input
+                                type="hidden"
+                                formControlName="firstEdgeTreatmentCode"
+                              />
+                              <ng-container
+                                *ngFor="
+                                  let item of firstEdgeConfigValues;
+                                  let i = index
+                                "
+                              >
+                                <div
+                                  class="form-check pr-4"
+                                  *ngIf="
+                                    item?.value?.toString()?.toLowerCase() ==
+                                    'none'
+                                  "
+                                >
+                                  <input
+                                    type="radio"
+                                    value="None"
+                                    name="firstEdgeTreatment"
+                                    id="firstEdgeNone"
+                                    #firstEdgeNone
+                                    formControlName="firstEdgeTreatment"
+                                    (change)="
+                                      getFirstEdgeValues(
+                                        $event,
+                                        item?.code,
+                                        'N',
+                                        true
+                                      )
+                                    "
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="firstEdgeNone"
+                                    >None</label
+                                  >
+                                </div>
+                                <div
+                                  class="form-check pr-4"
+                                  *ngIf="
+                                    item?.value?.toString()?.toLowerCase() ==
+                                    'flashguard'
+                                  "
+                                >
+                                  <input
+                                    type="radio"
+                                    value="Flashguard"
+                                    name="firstEdgeTreatment"
+                                    id="firstEdgeFlashGuard"
+                                    #firstEdgeFlashGuard
+                                    (change)="
+                                      getFirstEdgeValues(
+                                        $event,
+                                        item?.code,
+                                        'F'
+                                      )
+                                    "
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="firstEdgeFlashGuard"
+                                    >Flashguard</label
+                                  >
+                                </div>
+                                <div
+                                  class="form-check pr-4"
+                                  *ngIf="
+                                    item?.value?.toString()?.toLowerCase() ==
+                                    'crush'
+                                  "
+                                >
+                                  <input
+                                    type="radio"
+                                    value="Crush"
+                                    name="firstEdgeTreatment"
+                                    id="firstEdgeCrush"
+                                    #firstEdgeCrush
+                                    formControlName="firstEdgeTreatment"
+                                    (change)="
+                                      getFirstEdgeValues(
+                                        $event,
+                                        item?.code,
+                                        'C'
+                                      )
+                                    "
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="firstEdgeCrush"
+                                    >Crush</label
+                                  >
+                                </div>
+                                <div
+                                  class="form-check"
+                                  *ngIf="
+                                    item?.value?.toString()?.toLowerCase() ==
+                                    'opencrush'
+                                  "
+                                >
+                                  <input
+                                    type="radio"
+                                    value="OpenCrush"
+                                    id="firstEdgeOpenCrush"
+                                    name="firstEdgeTreatment"
+                                    #firstEdgeOpenCrush
+                                    formControlName="firstEdgeTreatment"
+                                    (change)="
+                                      getFirstEdgeValues(
+                                        $event,
+                                        item?.code,
+                                        'OC'
+                                      )
+                                    "
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="firstEdgeOpenCrush"
+                                    >Open Crush</label
+                                  >
+                                </div>
+                              </ng-container>
+                            </div>
+
+                            <ng-container
+                              *ngIf="
+                                firstEdgeConfigValues &&
+                                (firstEdgeTreatmentVals?.gapVal != null ||
+                                  firstEdgeTreatmentVals?.dimensionVal !=
+                                    null ||
+                                  firstEdgeTreatmentVals?.foldsVal != null)
+                              "
+                              formArrayName="firstEdgeTreatmentDetails"
+                            >
+                              <ng-container
+                                *ngFor="
+                                  let val of templateProductForm.get(
+                                    'firstEdgeTreatmentDetails'
+                                  )['controls'];
+                                  let i = index
+                                "
+                                [formGroupName]="i"
+                              >
+                                <div
+                                  class="gap border-top pt-4 pl-3 pr-3"
+                                  *ngIf="val?.get('gap')"
+                                >
+                                  <input
+                                    type="range"
+                                    [min]="firstEdgeOpenCrushDefaultGapMin"
+                                    [max]="firstEdgeOpenCrushDefaultGapMax"
+                                    steps="1"
+                                    [value]="firstEdgeOpenCrushDefaultGap"
+                                    id="firstEdgeGap"
+                                    name="firstEdgeGap"
+                                    formControlName="gap"
+                                    (change)="
+                                      updateFirstEdgeValues($event, 'gapVal')
+                                    "
+                                    list="firstEdgeOpenCrushGapList"
+                                  />
+
+                                  <!-- <datalist id="firstEdgeOpenCrushGapList">
+                                    <ng-container
+                                      *ngFor="
+                                        let item of firstEdgeOpenCrushGapList
+                                      "
+                                    >
+                                      <option
+                                        [value]="item"
+                                        [label]="item + 'mm'"
+                                      >
+                                        {{ item }}
+                                      </option>
+                                    </ng-container>
+                                  </datalist> -->
+                                  <div class="data-list" id="firstEdgeOpenCrushGapList">
+                                    <ng-container
+                                      *ngFor="
+                                        let item of firstEdgeOpenCrushGapList
+                                      "
+                                    >
+                                      <span>
+                                        {{ item }}mm
+                                      </span>
+                                    </ng-container>
+                                  </div>
+                                </div>
+
+                                <div
+                                  class="box-dimensions d-flex pt-4"
+                                  [ngClass]="{
+                                    'border-top': !firstEdgeOpenCrush?.checked
+                                  }"
+                                >
+                                  <div
+                                    class="d-flex flex-column pr-5"
+                                    *ngIf="val?.get('dimensions')"
+                                  >
+                                    <div class="col-heading mb-3">
+                                      Dimension (mm)
+                                    </div>
+                                    <div>
+                                      <input
+                                        inputmode="numeric"
+                                        class="form-control dimensions"
+                                        type="text"
+                                        formControlName="dimensions"
+                                        (blur)="
+                                          updateFirstEdgeValues(
+                                            $event,
+                                            'dimensionVal'
+                                          )
+                                        "
+                                      />
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="d-flex flex-column foldingColumn"
+                                    *ngIf="val?.get('folds')"
+                                  >
+                                    <div class="col-heading mb-3">Fold</div>
+
+                                    <div class="d-flex">
+                                      <div
+                                        class="form-check pr-4"
+                                        *ngFor="let fold of firstEdgeFolds"
+                                      >
+                                        <input
+                                          type="radio"
+                                          [id]="'firstEdgeFold' + fold"
+                                          name="firstEdgeFold"
+                                          [value]="fold"
+                                          formControlName="folds"
+                                          (change)="
+                                            updateFirstEdgeValues(
+                                              $event,
+                                              'foldsVal',
+                                              fold
+                                            )
+                                          "
+                                        />
+                                        <label
+                                          class="form-check-label"
+                                          [for]="'firstEdgeFold' + fold"
+                                          >{{ fold | titlecase }}</label
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="col-12 mr-0 pr-0 pl-0 mt-3 mb-3 pt-2"
+                    [ngClass]="{ 'has-width': checkWidth() && isBundleEnabled }"
+                  >
+                    <ng-container *ngIf="!hasCustomisation && isBundleEnabled">
+                      <div
+                        class="col-12 mb-4 pr-2 pl-0"
+                        *ngIf="cdsDetails?.variations?.otherValues"
+                      >
+                        <h4>
+                          <label class="font-weight-bold mb-1">{{
+                            cdsDetails?.variations?.fieldName
+                          }}</label>
+                        </h4>
+                        <select
+                          class="form-control form-select profile"
+                          formControlName="profile"
+                          (change)="updateCDS($event, 'profile')"
+                          (click)="
+                            mobileView($event, null, true, null, 'profile')
+                          "
+                        >
+                          <option
+                            *ngFor="
+                              let item of cdsDetails?.variations?.otherValues
+                            "
+                          >
+                            {{ item?.title }}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-12 mb-4 pr-2 pl-0" *ngIf="hasPitch">
+                        <label class="font-weight-bold mb-3"
+                          >Pitch(degree)</label
+                        >
+                        <input
+                          inputmode="numeric"
+                          type="text"
+                          class="form-control width"
+                          formControlName="pitch"
+                          [ngClass]="{ 'border-red': invalidPitch }"
+                          (click)="
+                            mobileView($event, null, true, null, 'pitch')
+                          "
+                          (blur)="
+                          isPitchChanged = true; updateCDS($event, 'pitch', true);
+                            checkPitch($event, true)
+                          "
+                        />
+                        <div
+                          class="col-12 mt-2 text-danger"
+                          *ngIf="pitchErrors()"
+                        >
+                          Please enter valid Pitch
+                        </div>
+                      </div>
+
+                      <div
+                        class="mb-4 col-12 pr-2 pl-0"
+                        formArrayName="width"
+                        *ngIf="checkWidth()"
+                      >
+                        <ng-container
+                          *ngFor="let val of widthForm?.controls; let i = index"
+                          [formGroupName]="i"
+                        >
+                          <label class="font-weight-bold mb-3"> {{getSimpleFieldName(i) == 'angle'? 'Angle(degree)' : 'Width(mm)'}} </label>
+                          <input
+                            inputmode="numeric"
+                            type="text"
+                            class="form-control width"
+                            minlength="1"
+                            maxlength="3"
+                            OnlyNumber="true"
+                            [formControlName]="getSimpleFieldName(i)"
+                            (click)="
+                              mobileView($event, null, true, null, 'width')
+                            "
+                            (blur)="isAngleChanged = getSimpleFieldName(i) == 'angle'? true: false ;  updateCDS($event, getSimpleFieldName(i) , true)"
+                          />
+                          <div
+                            class="col-12 mt-2 text-danger"
+                            *ngIf="widthErrors()"
+                          >
+                            Please enter valid data
+                          </div>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="!isBundleEnabled && !hasCustomisation">
+                      <div
+                        class="col-sm-12 col-xs-12 col-md-12 col-lg-6 pl-0 ml-0 pt-3 pr-1"
+                      >
+                        <label class="font-weight-bold mb-2"
+                          >Total Width (mm)
+                          <span
+                            class="info-icon cursor-pointer"
+                            ngbTooltip="Please include an additional 12mm for each Flashguard. Please include the gap used for each Open Crush."
+                            placement="bottom"
+                          >
+                          </span>
+                        </label>
+                        <select
+                          class="form-control form-select"
+                          formControlName="totalWidth"
+                          (change)="getPayload($event , false)"
+                        >
+                          <option
+                            *ngFor="let item of totalWidth"
+                            [selected]="item == selectedTotalWidth"
+                          >
+                            {{ item }}
+                          </option>
+                        </select>
+                      </div>
+                      <div
+                        class="col-sm-12 col-xs-12 col-md-12 col-lg-6 pl-0 pt-3 pr-1"
+                      >
+                        <label class="font-weight-bold mb-2"
+                          >Number of Bends
+                          <span
+                            class="info-icon cursor-pointer"
+                            ngbTooltip="A closed or open crush on an edge treatment counts as a bend."
+                            placement="bottom"
+                          >
+                          </span>
+                        </label>
+                        <select
+                          class="form-control form-select"
+                          formControlName="totalBends"
+                          (change)="getPayload($event , false)"
+                        >
+                          <option
+                            *ngFor="let item of totalBends"
+                            [selected]="item == selectedTotalBends"
+                          >
+                            {{ item }}
+                          </option>
+                        </select>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <ng-container
+                    *ngIf="hasCustomisation"
+                    #customisationContainer
+                  >
+                    <div class="mb-4 customisation-details">
+                      <table class="table dimension-details no-border">
+                        <thead>
+                          <th>Dimension</th>
+                          <th class="extra-width">Angle (Internal)</th>
+                          <th></th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td colspan="2">
+                              <div class="display-table">
+                                <div class="table-row">
+                                  <div
+                                    class="table-cell pr-3"
+                                    formArrayName="dimensions"
+                                  >
+                                    <ng-container
+                                      *ngFor="
+                                        let val of dimensionsForm?.controls;
+                                        let i = index
+                                      "
+                                      [formGroupName]="i"
+                                    >
+                                      <div class="mb-0">
+                                        <p class="label p-0 m-0">
+                                          D{{ i + 1 }}
+                                        </p>
+                                        <input
+                                          inputmode="numeric"
+                                          type="text"
+                                          class="form-control"
+                                          minlength="1"
+                                          maxlength="3"
+                                          OnlyNumber="true"
+                                          (click)="
+                                            mobileView(
+                                              $event,
+                                              null,
+                                              true,
+                                              i,
+                                              null
+                                            )
+                                          "
+                                          formControlName="dimension"
+                                          (blur)="
+                                            updateCDS(
+                                              $event,
+                                              'dimension',
+                                              true,
+                                              i
+                                            )
+                                          "
+                                        />
+                                      </div>
+                                      <div
+                                        class="mt-2 text-danger error-content"
+                                        *ngIf="getCustomErrors(i)"
+                                      >
+                                        Please enter valid value.
+                                      </div>
+                                    </ng-container>
+                                  </div>
+                                  <div
+                                    class="table-cell"
+                                    formArrayName="angles"
+                                  >
+                                    <ng-container
+                                      *ngFor="
+                                        let val of anglesForm?.controls;
+                                        let i = index
+                                      "
+                                      [formGroupName]="i"
+                                    >
+                                      <div class="mb-0">
+                                        <p class="label p-0 m-0">
+                                          A{{ i + 1 }}
+                                        </p>
+                                        <input
+                                          inputmode="numeric"
+                                          type="text"
+                                          class="form-control"
+                                          minlength="1"
+                                          maxlength="4"
+                                          (click)="
+                                            mobileView(
+                                              $event,
+                                              null,
+                                              true,
+                                              i,
+                                              null
+                                            )
+                                          "
+                                          [ngClass]="{
+                                            'border-red': invalidAngle(i)
+                                          }"
+                                          OnlyNumber="true"
+                                          formControlName="angle"
+                                          (blur)="
+                                          isAngleChanged = true;  updateCDS($event, 'angle', true, i)
+                                          "
+                                        />
+                                      </div>
+                                      <div
+                                        class="mt-2 text-danger error-content"
+                                        *ngIf="getCustomErrors(i)"
+                                      ></div>
+                                    </ng-container>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div
+                                class="cell-div mb-4"
+                                *ngFor="
+                                  let item of dimensionsForm?.controls;
+                                  let i = index
+                                "
+                              >
+                                <div *ngIf="hasBothDimensionsAndAngles()">
+                                  <div class="btn-group dropleft">
+                                    <a
+                                      type="button"
+                                      class="dropdown-toggle"
+                                      href="#"
+                                      role="button"
+                                      data-toggle="dropdown"
+                                      aria-haspopup="true"
+                                      aria-expanded="false"
+                                    >
+                                      <i class="fa fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                      <a
+                                        class="dropdown-item m-0"
+                                        (click)="addBefore(i, $event)"
+                                      >
+                                        Add Before
+                                      </a>
+                                      <a
+                                        class="dropdown-item m-0"
+                                        *ngIf="dimension[i]"
+                                        (click)="addAfter(i, $event)"
+                                      >
+                                        Add After
+                                      </a>
+                                      <a
+                                        class="dropdown-item m-0"
+                                        *ngIf="
+                                          dimension?.length > 2 &&
+                                          angle?.length > 0
+                                        "
+                                        (click)="
+                                          removeDimensionAndAngle(i, $event)
+                                        "
+                                      >
+                                        Remove
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="mt-2 text-danger error-content btn-err"
+                                    *ngIf="getCustomErrors(i)"
+                                  ></div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </ng-container>
+
+                  <div class="last-edge-treatement">
+                    <div class="dropdown-main">
+                      <h4 class="heading">Last Edge Treatment</h4>
+                      <div class="dropdown show dropdown_dialog main-screen">
+                        <a
+                          class="btn dropdown-toggle dropdownlink"
+                          href="#"
+                          role="button"
+                          id="lastEdgeDropdownMenuLink"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          (click)="mobileView($event, null, true, null, 'last')"
+                          aria-expanded="false"
+                        >
+                          <div class="open_item">
+                            {{
+                              getFullEdgeName(
+                                this.lastEdgeTreatmentVals?.configVal
+                              )
+                            }}
+                            {{ this.lastEdgeTreatmentVals?.gapVal }}
+                          </div>
+                          <div class="dimentions">
+                            {{ this.lastEdgeTreatmentVals?.dimensionVal }}
+                            <span
+                              *ngIf="
+                                this.lastEdgeTreatmentVals?.dimensionVal &&
+                                this.lastEdgeTreatmentVals?.foldsVal
+                              "
+                              >,
+                            </span>
+                            {{
+                              this.lastEdgeTreatmentVals?.foldsVal | titlecase
+                            }}
+                          </div>
+                        </a>
+
+                        <i class="fas fa-chevron-down dropdown-icon"></i>
+
+                        <div
+                          class="dropdown-menu mobile-drop-menu"
+                          aria-labelledby="lastEdgeDropdownMenuLink"
+                        >
+                          <div class="box pr-4 pl-4 pt-3 pb-4">
+                            <div class="box-container mb-3">
+                              <input
+                                type="hidden"
+                                formControlName="lastEdgeTreatmentCode"
+                              />
+                              <ng-container
+                                *ngFor="let item of lastEdgeConfigValues"
+                              >
+                                <div
+                                  class="form-check pr-4"
+                                  *ngIf="
+                                    item?.value?.toString()?.toLowerCase() ==
+                                    'none'
+                                  "
+                                >
+                                  <input
+                                    type="radio"
+                                    value="None"
+                                    name="lastEdgeTreatment"
+                                    id="lastEdgeNone"
+                                    #lastEdgeNone
+                                    formControlName="lastEdgeTreatment"
+                                    (change)="
+                                      getLastEdgeValues($event, item?.code, 'N')
+                                    "
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="lastEdgeNone"
+                                    >None</label
+                                  >
+                                </div>
+                                <div
+                                  class="form-check pr-4"
+                                  *ngIf="
+                                    item?.value?.toString()?.toLowerCase() ==
+                                    'flashguard'
+                                  "
+                                >
+                                  <input
+                                    type="radio"
+                                    value="Flashguard"
+                                    name="lastEdgeTreatment"
+                                    id="lastEdgeFlashGuard"
+                                    formControlName="lastEdgeTreatment"
+                                    #lastEdgeFlashGuard
+                                    (change)="
+                                      getLastEdgeValues($event, item?.code, 'F')
+                                    "
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="lastEdgeFlashGuard"
+                                    >Flashguard</label
+                                  >
+                                </div>
+                                <div
+                                  class="form-check pr-4"
+                                  *ngIf="
+                                    item?.value?.toString()?.toLowerCase() ==
+                                    'crush'
+                                  "
+                                >
+                                  <input
+                                    type="radio"
+                                    value="Crush"
+                                    name="lastEdgeTreatment"
+                                    id="lastEdgeCrush"
+                                    #lastEdgeCrush
+                                    formControlName="lastEdgeTreatment"
+                                    (change)="
+                                      getLastEdgeValues($event, item?.code, 'C')
+                                    "
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="lastEdgeCrush"
+                                    >Crush</label
+                                  >
+                                </div>
+                                <div
+                                  class="form-check"
+                                  *ngIf="
+                                    item?.value?.toString()?.toLowerCase() ==
+                                    'opencrush'
+                                  "
+                                >
+                                  <input
+                                    type="radio"
+                                    value="OpenCrush"
+                                    id="lastEdgeOpenCrush"
+                                    name="lastEdgeTreatment"
+                                    #lastEdgeOpenCrush
+                                    formControlName="lastEdgeTreatment"
+                                    (change)="
+                                      getLastEdgeValues(
+                                        $event,
+                                        item?.code,
+                                        'OC'
+                                      )
+                                    "
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="lastEdgeOpenCrush"
+                                    >Open Crush</label
+                                  >
+                                </div>
+                              </ng-container>
+                            </div>
+
+                            <ng-container
+                              *ngIf="
+                                lastEdgeConfigValues &&
+                                (lastEdgeTreatmentVals?.gapVal != null ||
+                                  lastEdgeTreatmentVals?.dimensionVal != null ||
+                                  lastEdgeTreatmentVals?.foldsVal != null)
+                              "
+                              formArrayName="lastEdgeTreatmentDetails"
+                            >
+                              <ng-container
+                                *ngFor="
+                                  let val of templateProductForm.get(
+                                    'lastEdgeTreatmentDetails'
+                                  )['controls'];
+                                  let i = index
+                                "
+                                [formGroupName]="i"
+                              >
+                                <div
+                                  class="gap border-top pt-4 pl-3 pr-3"
+                                  *ngIf="val?.get('gap')"
+                                >
+                                  <input
+                                    type="range"
+                                    [min]="lastEdgeOpenCrushDefaultGapMin"
+                                    [max]="lastEdgeOpenCrushDefaultGapMax"
+                                    steps="1"
+                                    [value]="lastEdgeOpenCrushDefaultGap"
+                                    id="lastEdgeGap"
+                                    name="lastEdgeGap"
+                                    formControlName="gap"
+                                    (change)="
+                                      updateLastEdgeValues($event, 'gapVal')
+                                    "
+                                    list="lastEdgeOpenCrushGapList"
+                                  />
+
+                                  <!-- <datalist id="lastEdgeOpenCrushGapList">
+                                    <ng-container
+                                      *ngFor="
+                                        let item of lastEdgeOpenCrushGapList
+                                      "
+                                    >
+                                      <option
+                                        [value]="item"
+                                        [label]="item + 'mm'"
+                                      >
+                                        {{ item }}
+                                      </option>
+                                    </ng-container>
+                                  </datalist> -->
+                                  <div class="data-list" id="lastEdgeOpenCrushGapList">
+                                    <ng-container
+                                      *ngFor="
+                                        let item of lastEdgeOpenCrushGapList
+                                      "
+                                    >
+                                      <span>
+                                        {{ item }}mm
+                                      </span>
+                                    </ng-container>
+                                  </div>
+                                </div>
+
+                                <div
+                                  class="box-dimensions d-flex pt-4"
+                                  [ngClass]="{
+                                    'border-top': !lastEdgeOpenCrush?.checked
+                                  }"
+                                >
+                                  <div
+                                    class="d-flex flex-column pr-5"
+                                    *ngIf="val?.get('dimensions')"
+                                  >
+                                    <div class="col-heading mb-3">
+                                      Dimension (mm)
+                                    </div>
+                                    <div>
+                                      <input
+                                        inputmode="numeric"
+                                        class="form-control dimensions"
+                                        type="text"
+                                        formControlName="dimensions"
+                                        (blur)="
+                                          updateLastEdgeValues(
+                                            $event,
+                                            'dimensionVal'
+                                          )
+                                        "
+                                      />
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="d-flex flex-column foldingColumn"
+                                    *ngIf="val?.get('folds')"
+                                  >
+                                    <div class="col-heading mb-3">Fold</div>
+
+                                    <div class="d-flex">
+                                      <div
+                                        class="form-check pr-4"
+                                        *ngFor="let fold of lastEdgeFolds"
+                                      >
+                                        <input
+                                          type="radio"
+                                          [id]="'lastEdgeFold' + fold"
+                                          name="lastEdgeFold"
+                                          [value]="fold"
+                                          formControlName="folds"
+                                          (change)="
+                                            updateLastEdgeValues(
+                                              $event,
+                                              'foldsVal',
+                                              fold
+                                            )
+                                          "
+                                        />
+                                        <label
+                                          class="form-check-label"
+                                          [for]="'lastEdgeFold' + fold"
+                                          >{{ fold | titlecase }}</label
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="quantity border p-2" *ngIf="!isOutOfStock()">
+                <ng-container formArrayName="productQuantity">
+                  <datalist id="bundleList" *ngIf="!isTemplateProduct">
+                    <option *ngFor="let bundle of bundleList">
+                      {{ bundle }}
+                    </option>
+                  </datalist>
+                  <table
+                    class="no-border"
+                    [ngClass]="{
+                      'has-bundle': hasBundle,
+                      accessories: isFinishedProduct,
+                      'flashing-product': isTemplateProduct,
+                      'bundling-table': !isTemplateProduct
+                    }"
+                  >
+                    <thead>
+                      <th>Quantity</th>
+                      <th *ngIf="!isFinishedProduct && isComplexProduct">
+                        Length ({{ unitType }})
+                        <span
+                          class="info-icon cursor-pointer"
+                          [ngbTooltip]="productLengthInfoContent"
+                          placement="bottom"
+                        >
+                        </span>
+                      </th>
+                      <th *ngIf="hasBundle && !isTemplateProduct">
+                        Bundle
+                        <span
+                          class="info-icon cursor-pointer"
+                          [ngbTooltip]="bundleInfoContent"
+                          placement="bottom"
+                        >
+                        </span>
+                      </th>
+                      <th
+                        *ngIf="hasBundle && !isTemplateProduct"
+                        class="d-none d-lg-block"
+                      >
+                        Reference
+                        <span
+                          class="info-icon cursor-pointer"
+                          [ngbTooltip]="referenceInfoContent"
+                          placement="bottom"
+                        >
+                        </span>
+                      </th>
+                      <th></th>
+                    </thead>
+                    <tbody>
+                      <ng-container
+                        *ngFor="
+                          let val of !isTemplateProduct
+                            ? productForm.get('productQuantity')
+                              ? productForm.get('productQuantity')['controls']
+                              : ''
+                            : templateProductForm.get('productQuantity')[
+                                'controls'
+                              ];
+                          let i = index
+                        "
+                        [formGroupName]="i"
+                      >
+                        <tr>
+                          <td>
+                            <input
+                              inputmode="numeric"
+                              class="form-control prod-qty"
+                              formControlName="prodQty"
+                              minlength="1"
+                              type="text"
+                              maxlength="2"
+                              Digitonly
+                              (focusout)="updateTotal(); prodQtyErrors(i)"
+                              (blur)="updateTotal(); prodQtyErrors(i)"
+                              (keyup)="updateTotal(); prodQtyErrors(i)"
+                            />
+                          </td>
+                          <td *ngIf="!isFinishedProduct && isComplexProduct">
+                            <input
+                              inputmode="decimal"
+                              class="form-control prod-len"
+                              formControlName="prodLen"
+                              #prodLen
+                              minlength="1"
+                              maxlength="7"
+                              OnlyNumber="true"
+                              (focusout)="
+                                updateTotal();
+                                prodLenErrors(i);
+                                minLenErrors(i);
+                                maxLenErrors(i);
+                                updateLenthValue(prodLen, i)
+                              "
+                              (blur)="
+                                updateTotal();
+                                prodLenErrors(i);
+                                minLenErrors(i);
+                                maxLenErrors(i);
+                                updateLenthValue(prodLen, i)
+                              "
+                              (keyup)="
+                                updateTotal();
+                                prodLenErrors(i);
+                                minLenErrors(i);
+                                maxLenErrors(i);"
+                            />
+                          </td>
+                          <td
+                            *ngIf="
+                              hasBundle &&
+                              !isFinishedProduct &&
+                              !isTemplateProduct
+                            "
+                          >
+                            <div class="d-none d-lg-block">
+                              <input
+                                class="form-control prod-bundle"
+                                formControlName="prodBundle"
+                                #prodBundle
+                                (input)="
+                                  prodBundle.value =
+                                    prodBundle.value.toUpperCase()
+                                "
+                                minlength="1"
+                                maxlength="2"
+                                (blur)="
+                                  updateTotal();
+                                  populateSameBundleReference(null, i);
+                                  prodBundleErrors(i)
+                                "
+                                (focus)="updateBundleList()"
+                                list="bundleList"
+                              />
+                            </div>
+                            <div class="d-lg-none d-xl-none">
+                              <p
+                                class="p-0 m-0"
+                                *ngFor="let value of getBundleValues(i)"
+                              >
+                                {{ value }}
+                              </p>
+                            </div>
+                          </td>
+                          <td
+                            *ngIf="
+                              hasBundle &&
+                              !isFinishedProduct &&
+                              !isTemplateProduct
+                            "
+                          >
+                            <div class="d-none d-lg-block">
+                              <input
+                                class="form-control prod-reference"
+                                minlength="1"
+                                maxlength="15"
+                                (focus)="populateSameBundleReference($event, i)"
+                                formControlName="prodRef"
+                                (blur)="
+                                  updateTotal();
+                                  updateSameBundleReference($event, i, true);
+                                  prodRefErrors(i)
+                                "
+                              />
+                            </div>
+                          </td>
+                          <td class="p-0">
+                            <button
+                              *ngIf="i > 0 || productQuantityForm.length > 1"
+                              class="simple close d-lg-block d-xl-block"
+                              [ngClass]="{
+                                'd-none d-xs-none d-sm-none d-md-none':
+                                  hasBundle
+                              }"
+                              (click)="removeProductQuantityForm(i, $event)"
+                            >
+                              <i
+                                class="fas fa-times-circle custom-arrow remove-icon"
+                              ></i>
+                            </button>
+
+                            <div class="d-lg-none d-xl-none">
+                              <div class="btn-group dropleft" *ngIf="hasBundle">
+                                <a
+                                  type="button"
+                                  class="dropdown-toggle"
+                                  href="#"
+                                  role="button"
+                                  data-toggle="dropdown"
+                                  aria-haspopup="true"
+                                  aria-expanded="false"
+                                >
+                                  <i class="fa fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                  <a
+                                    class="dropdown-item m-0"
+                                    data-toggle="modal"
+                                    data-target="#bundleModal"
+                                    (click)="editBundleValue(i)"
+                                  >
+                                    Edit Bundle Value
+                                  </a>
+                                  <a
+                                    class="dropdown-item m-0"
+                                    *ngIf="
+                                      i > 0 || productQuantityForm.length > 1
+                                    "
+                                    (click)="
+                                      removeProductQuantityForm(i, $event)
+                                    "
+                                  >
+                                    Remove
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr *ngIf="hasErrors(i)">
+                          <td colspan="4" class="text-danger">
+                            <div class="mt-0" *ngIf="prodQtyErrors(i)">
+                              Please enter valid Quantity
+                            </div>
+                            <div class="mt-2" *ngIf="prodLenErrors(i)">
+                              Please enter valid Length
+                            </div>
+                            <div class="mt-2" *ngIf="minLenErrors(i)">
+                              Minimum length should be greater than
+                              {{ cuttingValidation?.minLength }}
+                            </div>
+                            <div class="mt-2" *ngIf="maxLenErrors(i)">
+                              Maximum length should not be exceeded to
+                              {{ cuttingValidation?.maxLength }}
+                            </div>
+                            <div
+                              class="mt-2"
+                              *ngIf="!isTemplateProduct && prodBundleErrors(i)"
+                            >
+                              Please enter valid Bundle Name
+                            </div>
+                            <div
+                              class="mt-2"
+                              *ngIf="!isTemplateProduct && prodRefErrors(i)"
+                            >
+                              Please enter valid Reference
+                            </div>
+                          </td>
+                        </tr>
+                        <tr *ngIf="hasErrorIndex(i)">
+                          <td colspan="4" class="text-danger">
+                            Should not exceed maximum bundle size
+                          </td>
+                        </tr>
+                        <tr
+                          *ngIf="!isTemplateProduct && hasProdRefErrorIndex(i)"
+                        >
+                          <td colspan="4" class="text-danger">
+                            This Reference value is already used. Please use
+                            other value
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                  <div class="row">
+                    <div class="col-5">
+                      <button
+                        class="simple pl-1"
+                        *ngIf="
+                          !isFinishedProduct &&
+                          !disableAddMore &&
+                          isComplexProduct
+                        "
+                        (click)="addProductQuantityFormGroup($event)"
+                      >
+                        <span class="mr-1 add-more"> </span>
+                        Add more
+                      </button>
+                    </div>
+                    <div class="col-7 text-right d-flex justify-content-end align-items-center">
+                      <div
+                        class="text-right bundling"
+                        *ngIf="
+                          !isFinishedProduct &&
+                          !isTemplateProduct &&
+                          isComplexProduct
+                        "
+                      >
+                        <span class="pr-2 font-weight-bold text"
+                          >Bundling
+                          <span
+                            class="info-icon cursor-pointer"
+                            [ngbTooltip]="bundleReferenceInfoContent"
+                            placement="bottom"
+                          >
+                          </span>
+                        </span>
+                        <span class="d-flex">
+                          <label class="switch">
+                            <input
+                              type="checkbox"
+                              (change)="updateBundling($event)"
+                            />
+                            <span class="slider round"></span>
+                          </label>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="jobRefrence mt-4" *ngIf="!isOutOfStock()">
+                <div class="p-0 m-0">
+                  <label class="font-weight-bold">
+                    Job Reference
+                    <span
+                      class="info-icon cursor-pointer"
+                      [ngbTooltip]="jobReferenceInfoContent"
+                      placement="bottom"
+                    >
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="jobReference"
+                    minlength="1"
+                    maxlength="15"
+                  />
+                </div>
+                <div
+                  class="col-12 mt-2 text-danger"
+                  *ngIf="jobReferenceErrors()"
+                >
+                  Please enter valid Reference
+                </div>
+              </div>
+            </div>
+            <div
+              class="mt-4 col-sm-12 alert alert-danger justify-content-start add-to-cart-error"
+              role="alert"
+              #cartError
+              *ngIf="addToCartError"
+            >
+              <img
+                class="mr-3"
+                src="../../../../assets/images/erroricon.svg"
+                alt="alert"
+              />
+              {{ addToCartError }}
+            </div>
+          </ng-container>
+
+          <div class="flashing-popup" tabindex="-1" *ngIf="hasFlashingModal">
+            <div
+              class="modal-dialog"
+              role="document"
+              [formGroup]="templateProductPopupForm"
+            >
+              <div class="modal-content">
+                <div
+                  class="modal-body nextScreen d-flex justify-content-center mb-2"
+                >
+                  <div
+                    [ngClass]="{ hidden: !prevFieldVal }"
+                    class="col-2 nav-buttons"
+                    (click)="
+                      mobileView(
+                        $event,
+                        null,
+                        true,
+                        prevDimensionAngle,
+                        prevFieldName
+                      )
+                    "
+                  >
+                    <div class="buttons mb-2">
+                      <div class="left-btn">
+                        <i class="fas fa-chevron-left dropdown-icon"></i>
+                      </div>
+                    </div>
+                    <div class="text-next">Prev</div>
+                    <div class="text-width" *ngIf="prevFieldVal">
+                      (<span class="nav-text" [title]="prevFieldVal">{{
+                        prevFieldVal
+                      }}</span
+                      >)
+                    </div>
+                  </div>
+
+                  <div class="col-8 p-0 m-0">
+                    <div *ngIf="!hasCustomisation; else customisationFields">
+                        <div *ngIf="showFirstEdge || showLastEdge" class="text-center font-weight-bold" [ngClass]="{'edge-name' : showFirstEdge || showLastEdge}">
+                          {{ getEdgeName() }}
+                        </div>
+                      <div class="col-12" *ngIf="showProfile">
+                        <label class="font-weight-bold mb-1">{{
+                          cdsDetails?.variations?.fieldName
+                        }}</label>
+                        <select
+                          class="form-control form-select profile"
+                          formControlName="profile"
+                          (change)="updateCDS($event, 'profile')"
+                        >
+                          <option
+                            *ngFor="
+                              let item of cdsDetails?.variations?.otherValues
+                            "
+                          >
+                            {{ item?.title }}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-12" *ngIf="showPitch">
+                        <label class="font-weight-bold mb-1"
+                          >Pitch(degree)</label
+                        >
+                        <input
+                          inputmode="numeric"
+                          type="text"
+                          class="form-control width"
+                          formControlName="pitch"
+                          [ngClass]="{ 'border-red': invalidPitch }"
+                          (blur)="
+                            updateCDS($event, 'pitch'); checkPitch($event)
+                          "
+                        />
+                        <div
+                          class="col-12 mt-2 text-danger"
+                          *ngIf="pitchErrorsPopup()"
+                        >
+                          Please enter valid Pitch
+                        </div>
+                      </div>
+                      <ng-container *ngIf="showWidth">
+                        <div class="col-12" formArrayName="width">
+                          <ng-container
+                            *ngFor="
+                              let val of widthPopupForm?.controls;
+                              let i = index
+                            "
+                            [formGroupName]="i"
+                          >
+                            <label class="font-weight-bold mb-1"
+                              >{{getSimpleFieldName(i) == 'angle'? 'Angle(degree)' : 'Width(mm)'}} {{getSimpleFieldName(i) == 'angle' }} </label
+                            >
+                            <input
+                              inputmode="numeric"
+                              type="text"
+                              class="form-control width"
+                              minlength="1"
+                              maxlength="3"
+                              OnlyNumber="true"
+                              [formControlName]="getSimpleFieldName(i)"
+                              (blur)="isAngleChanged = getSimpleFieldName(i) == 'angle'? true: false ; updateCDS($event, getSimpleFieldName(i))"
+                            />
+                            <div
+                              class="col-12 mt-2 text-danger"
+                              *ngIf="widthErrorsPopup()"
+                            >
+                              Please enter valid data
+                            </div>
+                          </ng-container>
+                        </div>
+                      </ng-container>
+                    </div>
+                    <ng-template #customisationFields>
+                      <div
+                        class="display-table"
+                        *ngIf="
+                          !showFirstEdge && !showLastEdge;
+                          else dispayEdgeName
+                        "
+                      >
+                        <div class="table-row">
+                          <div
+                            class="table-cell mt-3"
+                            formArrayName="dimensions"
+                          >
+                            <ng-container
+                              *ngFor="
+                                let val of dimensionsForm?.controls;
+                                let i = index
+                              "
+                              [formGroupName]="i"
+                            >
+                              <div
+                                class="mb-0"
+                                *ngIf="
+                                  currentDimensionAngle == i &&
+                                  prevFieldName != null
+                                "
+                              >
+                                <p class="label p-0 m-0">D{{ i + 1 }}</p>
+                                <input
+                                  inputmode="numeric"
+                                  type="text"
+                                  class="form-control"
+                                  minlength="1"
+                                  maxlength="3"
+                                  OnlyNumber="true"
+                                  formControlName="dimension"
+                                  (blur)="
+                                    updateCDS($event, 'dimension', false, i)
+                                  "
+                                />
+                              </div>
+                              <div
+                                class="mt-2 text-danger error-content"
+                                *ngIf="getCustomErrors(i)"
+                              >
+                                Please enter valid value.
+                              </div>
+                            </ng-container>
+                          </div>
+                          <div class="table-cell" formArrayName="angles">
+                            <ng-container
+                              *ngFor="
+                                let val of anglesForm?.controls;
+                                let i = index
+                              "
+                              [formGroupName]="i"
+                            >
+                              <div
+                                class="mb-0"
+                                *ngIf="
+                                  currentDimensionAngle == i &&
+                                  prevFieldName != null
+                                "
+                              >
+                                <p class="label p-0 m-0">A{{ i + 1 }}</p>
+                                <input
+                                  inputmode="numeric"
+                                  type="text"
+                                  class="form-control"
+                                  minlength="1"
+                                  maxlength="4"
+                                  [ngClass]="{
+                                    'border-red': invalidAngle(i)
+                                  }"
+                                  OnlyNumber="true"
+                                  formControlName="angle"
+                                  (blur)="updateCDS($event, 'angle', false, i)"
+                                />
+                              </div>
+                              <div
+                                class="mt-2 text-danger error-content"
+                                *ngIf="getCustomErrors(i)"
+                              ></div>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                      <ng-template #dispayEdgeName>
+                        <div class="text-center d-flex font-weight-bold" [ngClass]="{'edge-name' : showFirstEdge || showLastEdge}">
+                          {{ getEdgeName() }}
+                        </div>
+                      </ng-template>
+                    </ng-template>
+                  </div>
+
+                  <div
+                    class="col-2 nav-buttons"
+                    (click)="
+                      mobileView(
+                        $event,
+                        null,
+                        true,
+                        nextDimensionAngle,
+                        nextFieldName
+                      )
+                    "
+                    [ngClass]="{ hidden: !nextFieldVal }"
+                  >
+                    <div class="buttons mb-2">
+                      <div class="left-btn">
+                        <i class="fas fa-chevron-right dropdown-icon"></i>
+                      </div>
+                    </div>
+                    <div class="text-next">Next</div>
+                    <div class="text-width" *ngIf="nextFieldVal">
+                      (<span class="nav-text" [title]="nextFieldVal">{{
+                        nextFieldVal
+                      }}</span
+                      >)
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="modal-body treatment_main last"
+                  *ngIf="showFirstEdge"
+                >
+                  <!-- <label for="first edge treatment"> </label>
+                  <b> First Edge Treatment</b> -->
+                  <div class="trereatment_options py-4">
+                    <ng-container *ngFor="let item of firstEdgeConfigValues">
+                      <div
+                        class="form-check"
+                        *ngIf="item?.value?.toString()?.toLowerCase() == 'none'"
+                      >
+                        <input
+                          type="radio"
+                          value="None"
+                          name="firstEdgeTreatment"
+                          formControlName="firstEdgeTreatment"
+                          #firstEdgeNonePopup
+                          (change)="
+                            updateEdgeValues($event, 'N');
+                            getFirstEdgeValues($event, item?.code, 'N', true)
+                          "
+                        />
+                        <span><b> None </b></span>
+                      </div>
+                      <div
+                        class="form-check"
+                        *ngIf="
+                          item?.value?.toString()?.toLowerCase() == 'flashguard'
+                        "
+                      >
+                        <input
+                          type="radio"
+                          value="Flashguard"
+                          name="firstEdgeTreatment"
+                          formControlName="firstEdgeTreatment"
+                          #firstEdgeFlashGuardPopup
+                          (change)="
+                            updateEdgeValues($event, 'F');
+                            getFirstEdgeValues($event, item?.code, 'F')
+                          "
+                        />
+                        <span><b> Flash guard</b></span>
+
+                        <ng-container
+                          *ngIf="isFirstEdgeFlashGuardPopup"
+                          formArrayName="firstEdgeTreatmentDetailsFlashing"
+                        >
+                          <ng-container
+                            *ngFor="
+                              let val of templateProductPopupForm.get(
+                                'firstEdgeTreatmentDetailsFlashing'
+                              )['controls'];
+                              let i = index
+                            "
+                            [formGroupName]="i"
+                          >
+                            <div class="box-dimensions d-flex pt-2">
+                              <div
+                                class="d-flex flex-column foldingColumn"
+                                *ngIf="val?.get('folds')"
+                              >
+                                <div class="col-heading mb-1 font-weight-bold">
+                                  Fold
+                                </div>
+
+                                <div class="d-flex pt-0 folds">
+                                  <div
+                                    class="form-check pr-4"
+                                    *ngFor="let fold of firstEdgeFolds"
+                                  >
+                                    <input
+                                      type="radio"
+                                      [id]="'firstEdgeFlashingPopupFold' + fold"
+                                      name="firstEdgeFoldFlashingPopup"
+                                      [value]="fold"
+                                      formControlName="folds"
+                                      (change)="
+                                        updateFirstEdgeValues(
+                                          $event,
+                                          'foldsVal',
+                                          fold
+                                        )
+                                      "
+                                    />
+                                    <label
+                                      class="form-check-label"
+                                      [for]="
+                                        'firstEdgeFlashingPopupFold' + fold
+                                      "
+                                      >{{ fold | titlecase }}</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+
+                      <div
+                        class="form-check"
+                        *ngIf="
+                          item?.value?.toString()?.toLowerCase() == 'crush'
+                        "
+                      >
+                        <input
+                          type="radio"
+                          value="Crush"
+                          name="firstEdgeTreatment"
+                          formControlName="firstEdgeTreatment"
+                          #firstEdgeCrushPopup
+                          (change)="
+                            updateEdgeValues($event, 'C');
+                            getFirstEdgeValues($event, item?.code, 'C')
+                          "
+                        />
+                        <span><b> Crush </b></span>
+
+                        <ng-container
+                          *ngIf="isFirstEdgeCrushPopup"
+                          formArrayName="firstEdgeTreatmentDetailsCrush"
+                        >
+                          <ng-container
+                            *ngFor="
+                              let val of templateProductPopupForm.get(
+                                'firstEdgeTreatmentDetailsCrush'
+                              )['controls'];
+                              let i = index
+                            "
+                            [formGroupName]="i"
+                          >
+                            <div
+                              class="box-dimensions d-flex pt-4 negative-margin"
+                            >
+                              <div
+                                class="d-flex flex-column dimensions mr-2"
+                                *ngIf="val?.get('dimensions')"
+                              >
+                                <div class="col-heading mb-2 font-weight-bold">
+                                  Dimension (mm)
+                                </div>
+                                <div>
+                                  <input
+                                    inputmode="numeric"
+                                    class="form-control dimensions"
+                                    type="text"
+                                    formControlName="dimensions"
+                                    (blur)="
+                                      updateFirstEdgeValues(
+                                        $event,
+                                        'dimensionVal'
+                                      )
+                                    "
+                                  />
+                                </div>
+                              </div>
+                              <div
+                                class="d-flex flex-column foldingColumn"
+                                *ngIf="val?.get('folds')"
+                              >
+                                <div class="col-heading mb-2 font-weight-bold">
+                                  Fold
+                                </div>
+
+                                <div class="d-flex">
+                                  <div
+                                    class="form-check pr-2"
+                                    *ngFor="let fold of firstEdgeFolds"
+                                  >
+                                    <input
+                                      type="radio"
+                                      [id]="'firstEdgeCrushPopupFold' + fold"
+                                      name="firstEdgeFoldCrushPopup"
+                                      [value]="fold"
+                                      formControlName="folds"
+                                      (change)="
+                                        updateFirstEdgeValues(
+                                          $event,
+                                          'foldsVal',
+                                          fold
+                                        )
+                                      "
+                                    />
+                                    <label
+                                      class="form-check-label"
+                                      [for]="'firstEdgeCrushPopupFold' + fold"
+                                      >{{ fold | titlecase }}</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+
+                      <div
+                        class="form-check"
+                        *ngIf="
+                          item?.value?.toString()?.toLowerCase() == 'opencrush'
+                        "
+                      >
+                        <input
+                          type="radio"
+                          value="OpenCrush"
+                          name="firstEdgeTreatment"
+                          #firstEdgeOpenCrushPopup
+                          formControlName="firstEdgeTreatment"
+                          (change)="
+                            updateEdgeValues($event, 'OC');
+                            getFirstEdgeValues($event, item?.code, 'OC')
+                          "
+                        />
+                        <span><b> Open Crush </b></span>
+
+                        <ng-container
+                          *ngIf="isFirstEdgeOpenCrushPopup"
+                          formArrayName="firstEdgeTreatmentDetailsOpenCrush"
+                        >
+                          <ng-container
+                            *ngFor="
+                              let val of templateProductPopupForm.get(
+                                'firstEdgeTreatmentDetailsOpenCrush'
+                              )['controls'];
+                              let i = index
+                            "
+                            [formGroupName]="i"
+                          >
+                            <div
+                              class="gap pt-3 mt-2 negative-margin"
+                              *ngIf="val?.get('gap')"
+                            >
+                              <input
+                                type="range"
+                                [min]="firstEdgeOpenCrushDefaultGapMin"
+                                [max]="firstEdgeOpenCrushDefaultGapMax"
+                                steps="1"
+                                [value]="firstEdgeOpenCrushDefaultGap"
+                                name="firstEdgeGap"
+                                formControlName="gap"
+                                class="range-slider"
+                                (change)="
+                                  updateFirstEdgeValues($event, 'gapVal')
+                                "
+                                list="firstEdgeOpenCrushGapListPopup"
+                              />
+
+                              <!-- <datalist id="firstEdgeOpenCrushGapListPopup">
+                                <ng-container
+                                  *ngFor="let item of firstEdgeOpenCrushGapList"
+                                >
+                                  <option [value]="item" [label]="item + 'mm'">
+                                    {{ item }}
+                                  </option>
+                                </ng-container>
+                              </datalist> -->
+                              <div class="data-list" id="firstEdgeOpenCrushGapListPopup">
+                                <ng-container
+                                  *ngFor="let item of firstEdgeOpenCrushGapList"
+                                >
+                                  <span>
+                                    {{ item }}mm
+                                  </span>
+                                </ng-container>
+                              </div>
+                            </div>
+
+                            <div
+                              class="box-dimensions d-flex pt-4 negative-margin"
+                            >
+                              <div
+                                class="d-flex flex-column mr-2 dimensions"
+                                *ngIf="val?.get('dimensions')"
+                              >
+                                <div class="col-heading mb-2 font-weight-bold">
+                                  Dimension (mm)
+                                </div>
+                                <div>
+                                  <input
+                                    inputmode="numeric"
+                                    class="form-control dimensions"
+                                    type="text"
+                                    formControlName="dimensions"
+                                    (blur)="
+                                      updateFirstEdgeValues(
+                                        $event,
+                                        'dimensionVal'
+                                      )
+                                    "
+                                  />
+                                </div>
+                              </div>
+                              <div
+                                class="d-flex flex-column foldingColumn"
+                                *ngIf="val?.get('folds')"
+                              >
+                                <div class="col-heading mb-2 font-weight-bold">
+                                  Fold
+                                </div>
+
+                                <div class="d-flex">
+                                  <div
+                                    class="form-check pr-2"
+                                    *ngFor="let fold of firstEdgeFolds"
+                                  >
+                                    <input
+                                      type="radio"
+                                      [id]="
+                                        'firstEdgeOpenCrushPopupFold' + fold
+                                      "
+                                      name="firstEdgeFoldOpenCrushPopup"
+                                      [value]="fold"
+                                      formControlName="folds"
+                                      (change)="
+                                        updateFirstEdgeValues(
+                                          $event,
+                                          'foldsVal',
+                                          fold
+                                        )
+                                      "
+                                    />
+                                    <label
+                                      class="form-check-label"
+                                      [for]="
+                                        'firstEdgeOpenCrushPopupFold' + fold
+                                      "
+                                      >{{ fold | titlecase }}</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+                <div
+                  class="modal-body treatment_main last"
+                  *ngIf="showLastEdge"
+                >
+                  <!-- <label for="last edge treatment"> </label>
+                  <b> Last Edge Treatment</b> -->
+                  <div class="trereatment_options py-4">
+                    <ng-container *ngFor="let item of lastEdgeConfigValues">
+                      <div
+                        class="form-check"
+                        *ngIf="item?.value?.toString()?.toLowerCase() == 'none'"
+                      >
+                        <input
+                          type="radio"
+                          value="None"
+                          name="lastEdgeTreatment"
+                          formControlName="lastEdgeTreatment"
+                          #lastEdgeNone
+                          (change)="
+                            updateEdgeValues($event, 'N', false);
+                            getLastEdgeValues($event, item?.code, 'N')
+                          "
+                        />
+                        <span><b> None </b></span>
+                      </div>
+                      <div
+                        class="form-check"
+                        *ngIf="
+                          item?.value?.toString()?.toLowerCase() == 'flashguard'
+                        "
+                      >
+                        <input
+                          type="radio"
+                          value="Flashguard"
+                          name="lastEdgeTreatment"
+                          formControlName="lastEdgeTreatment"
+                          #lastEdgeFlashGuardPopup
+                          (change)="
+                            updateEdgeValues($event, 'F', false);
+                            getLastEdgeValues($event, item?.code, 'F')
+                          "
+                        />
+                        <span><b> Flash guard</b></span>
+
+                        <ng-container
+                          *ngIf="isLastEdgeFlashGuardPopup"
+                          formArrayName="lastEdgeTreatmentDetailsFlashing"
+                        >
+                          <ng-container
+                            *ngFor="
+                              let val of templateProductPopupForm.get(
+                                'lastEdgeTreatmentDetailsFlashing'
+                              )['controls'];
+                              let i = index
+                            "
+                            [formGroupName]="i"
+                          >
+                            <div class="box-dimensions d-flex pt-2">
+                              <div
+                                class="d-flex flex-column foldingColumn"
+                                *ngIf="val?.get('folds')"
+                              >
+                                <div class="col-heading mb-1 font-weight-bold">
+                                  Fold
+                                </div>
+
+                                <div class="d-flex pt-0 folds">
+                                  <div
+                                    class="form-check pr-4"
+                                    *ngFor="let fold of lastEdgeFolds"
+                                  >
+                                    <input
+                                      type="radio"
+                                      [id]="'lastEdgeFlashingPopupFold' + fold"
+                                      name="lastEdgeFoldFlashingPoupup"
+                                      [value]="fold"
+                                      formControlName="folds"
+                                      (change)="
+                                        updateLastEdgeValues(
+                                          $event,
+                                          'foldsVal',
+                                          fold
+                                        )
+                                      "
+                                    />
+                                    <label
+                                      class="form-check-label"
+                                      [for]="'lastEdgeFlashingPopupFold' + fold"
+                                      >{{ fold | titlecase }}</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+
+                      <div
+                        class="form-check"
+                        *ngIf="
+                          item?.value?.toString()?.toLowerCase() == 'crush'
+                        "
+                      >
+                        <input
+                          type="radio"
+                          value="Crush"
+                          name="lastEdgeTreatment"
+                          formControlName="lastEdgeTreatment"
+                          #lastEdgeCrushPopup
+                          (change)="
+                            updateEdgeValues($event, 'C', false);
+                            getLastEdgeValues($event, item?.code, 'C')
+                          "
+                        />
+                        <span><b> Crush </b></span>
+
+                        <ng-container
+                          *ngIf="isLastEdgeCrushPopup"
+                          formArrayName="lastEdgeTreatmentDetailsCrush"
+                        >
+                          <ng-container
+                            *ngFor="
+                              let val of templateProductPopupForm.get(
+                                'lastEdgeTreatmentDetailsCrush'
+                              )['controls'];
+                              let i = index
+                            "
+                            [formGroupName]="i"
+                          >
+                            <div
+                              class="box-dimensions d-flex pt-4 negative-margin"
+                            >
+                              <div
+                                class="d-flex flex-column dimensions mr-2"
+                                *ngIf="val?.get('dimensions')"
+                              >
+                                <div class="col-heading mb-2 font-weight-bold">
+                                  Dimension (mm)
+                                </div>
+                                <div>
+                                  <input
+                                    inputmode="numeric"
+                                    class="form-control dimensions"
+                                    type="text"
+                                    formControlName="dimensions"
+                                    (blur)="
+                                      updateLastEdgeValues(
+                                        $event,
+                                        'dimensionVal'
+                                      )
+                                    "
+                                  />
+                                </div>
+                              </div>
+                              <div
+                                class="d-flex flex-column foldingColumn"
+                                *ngIf="val?.get('folds')"
+                              >
+                                <div class="col-heading mb-2 font-weight-bold">
+                                  Fold
+                                </div>
+
+                                <div class="d-flex">
+                                  <div
+                                    class="form-check pr-3"
+                                    *ngFor="let fold of lastEdgeFolds"
+                                  >
+                                    <input
+                                      type="radio"
+                                      [id]="'lastEdgeCrushPopupFold' + fold"
+                                      name="lastEdgeFoldCrushPopup"
+                                      [value]="fold"
+                                      formControlName="folds"
+                                      (change)="
+                                        updateLastEdgeValues(
+                                          $event,
+                                          'foldsVal',
+                                          fold
+                                        )
+                                      "
+                                    />
+                                    <label
+                                      class="form-check-label"
+                                      [for]="'lastEdgeCrushPopupFold' + fold"
+                                      >{{ fold | titlecase }}</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+
+                      <div
+                        class="form-check"
+                        *ngIf="
+                          item?.value?.toString()?.toLowerCase() == 'opencrush'
+                        "
+                      >
+                        <input
+                          type="radio"
+                          value="OpenCrush"
+                          name="lastEdgeTreatment"
+                          #lastEdgeOpenCrushPopup
+                          formControlName="lastEdgeTreatment"
+                          (change)="
+                            updateEdgeValues($event, 'OC', false);
+                            getLastEdgeValues($event, item?.code, 'OC')
+                          "
+                        />
+                        <span><b> Open Crush </b></span>
+
+                        <ng-container
+                          *ngIf="isLastEdgeOpenCrushPopup"
+                          formArrayName="lastEdgeTreatmentDetailsOpenCrush"
+                        >
+                          <ng-container
+                            *ngFor="
+                              let val of templateProductPopupForm.get(
+                                'lastEdgeTreatmentDetailsOpenCrush'
+                              )['controls'];
+                              let i = index
+                            "
+                            [formGroupName]="i"
+                          >
+                            <div
+                              class="gap pt-3 mt-2 negative-margin"
+                              *ngIf="val?.get('gap')"
+                            >
+                              <input
+                                type="range"
+                                [min]="lastEdgeOpenCrushDefaultGapMin"
+                                [max]="lastEdgeOpenCrushDefaultGapMax"
+                                steps="1"
+                                [value]="lastEdgeOpenCrushDefaultGap"
+                                name="lastEdgeGap"
+                                formControlName="gap"
+                                class="range-slider"
+                                (change)="
+                                  updateLastEdgeValues($event, 'gapVal')
+                                "
+                                list="lastEdgeOpenCrushGapListPopup"
+                              />
+
+                              <!-- <datalist id="lastEdgeOpenCrushGapListPopup">
+                                <ng-container
+                                  *ngFor="let item of lastEdgeOpenCrushGapList"
+                                >
+                                  <option [value]="item" [label]="item + 'mm'">
+                                    {{ item }}
+                                  </option>
+                                </ng-container>
+                              </datalist> -->
+                              <div class="data-list" id="lastEdgeOpenCrushGapListPopup">
+                                <ng-container
+                                  *ngFor="let item of lastEdgeOpenCrushGapList"
+                                >
+                                  <span>
+                                    {{ item }}mm
+                                  </span>
+                                </ng-container>
+                              </div>
+                            </div>
+
+                            <div
+                              class="box-dimensions d-flex pt-4 negative-margin"
+                            >
+                              <div
+                                class="d-flex flex-column mr-2 dimensions"
+                                *ngIf="val?.get('dimensions')"
+                              >
+                                <div class="col-heading mb-2 font-weight-bold">
+                                  Dimension (mm)
+                                </div>
+                                <div>
+                                  <input
+                                    inputmode="numeric"
+                                    class="form-control dimensions"
+                                    type="text"
+                                    formControlName="dimensions"
+                                    (blur)="
+                                      updateLastEdgeValues(
+                                        $event,
+                                        'dimensionVal'
+                                      )
+                                    "
+                                  />
+                                </div>
+                              </div>
+                              <div
+                                class="d-flex flex-column foldingColumn"
+                                *ngIf="val?.get('folds')"
+                              >
+                                <div class="col-heading mb-2 font-weight-bold">
+                                  Fold
+                                </div>
+
+                                <div class="d-flex">
+                                  <div
+                                    class="form-check pr-3"
+                                    *ngFor="let fold of lastEdgeFolds"
+                                  >
+                                    <input
+                                      type="radio"
+                                      [id]="'lastEdgeOpenCrushPopupFold' + fold"
+                                      name="lastEdgeFoldOpenCrushPopup"
+                                      [value]="fold"
+                                      formControlName="folds"
+                                      (change)="
+                                        updateLastEdgeValues(
+                                          $event,
+                                          'foldsVal',
+                                          fold
+                                        )
+                                      "
+                                    />
+                                    <label
+                                      class="form-check-label"
+                                      [for]="
+                                        'lastEdgeOpenCrushPopupFold' + fold
+                                      "
+                                      >{{ fold | titlecase }}</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-between">
+                  <span>
+                    <a
+                      (click)="mobileView($event, 'cancel')"
+                      class="link-danger cancelModal"
+                      >Cancel</a
+                    >
+                  </span>
+                  <!-- <a href="#" class="link-dark showLink">TextLink</a> -->
+
+                  <button
+                    type="button"
+                    class="btn btn-dark rounded-0"
+                    data-dismiss="modal"
+                    (click)="mobileView($event, 'done')"
+                  >
+                    Done
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="price-package-details col-lg-3 bg-white mb-3 p-sm-3 mt-sm-4"
+          [ngClass]="isMobile ? '' : 'p-4'"
+          #priceInfo
+          id="priceInfo"
+        >
+          <div *ngIf="isPricingPermission" class="mb-3 mt-1">
+            <label *ngIf="currentPrice" class="font-weight-bold mb-2">
+              Price (per {{ unitType }})
+            </label>
+            <p *ngIf="currentPrice">
+              {{ currentPrice }}
+              <sub class="gst"> excl GST</sub>
+            </p>
+          </div>
+          <div
+            class="mb-3"
+            *ngIf="totalLength && !isFinishedProduct && isComplexProduct"
+          >
+            <label class="lead font-weight-bold mb-2"
+              >Total Length ({{ unitType }})</label
+            >
+            <p>{{ totalLength | number : "1.3-3" }}</p>
+          </div>
+          <hr *ngIf="checkPrice() && !isOutOfStock()" />
+          <div
+            class="mb-3 mt-2"
+            *ngIf="checkPrice() && !isOutOfStock() && isPricingPermission"
+          >
+            <label class="font-weight-bold mb-2">Your Price</label>
+            <h3>
+              ${{ totalPrice | number : "1.2-2" }}
+              <sub class="gst"> excl GST</sub>
+            </h3>
+          </div>
+          <button
+            class="add-to-cart"
+            *ngIf="!isOutOfStock()"
+            [disabled]="enableDisableCart()"
+            (click)="addToCartClicked = true;getPayload($event, true)"
+          >
+            ADD TO CART
+          </button>
+          <div class="technical-details-link">
+            <a
+              target="_blank"
+              *ngIf="productDetails?.categories[2]?.documentDownloadLink"
+              [href]="productDetails?.categories[2]?.documentDownloadLink"
+              class="documents"
+            >
+              Technical Details</a
+            >
+            <!-- <ng-template #noLink>
+              <a [ngClass]="{disable:  !productDetails?.categories[2]?.documentDownloadLink}"> Technical Details</a>
+            </ng-template> -->
+          </div>
+          <p class="mt-3" *ngIf="!isBundleEnabled && isTemplateProduct">
+            Please upload your custom design in the above section to 'Add to
+            Cart'
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-4" #productInfo id="productInfo">
+        <app-custom-product-attributes
+          [productAttributes]="productAttributes"
+        ></app-custom-product-attributes>
+      </div>
+      <div class="mt-3">
+        <ul class="tabs px-0">
+          <li
+            [ngClass]="{ disable: !productDetails?.externalDownloadLink }"
+            class="tab-link"
+            (click)="viewTab($event, productDetails?.externalDownloadLink)"
+          >
+            <span class="icon product-overiew"></span>
+            <span class="label">PRODUCT OVERVIEW</span>
+          </li>
+          <li
+            [ngClass]="{
+              disable: !productDetails?.categories[0]?.documentDownloadLink
+            }"
+            (click)="
+              viewTab(
+                $event,
+                productDetails?.categories[0]?.documentDownloadLink
+              )
+            "
+            class="tab-link"
+          >
+            <span class="icon downloads"></span>
+            <span class="label">DOWNLOADS</span>
+          </li>
+          <li
+            class="tab-link"
+            [ngClass]="{ disable: relatedProductsData?.length == 0 }"
+            (click)="
+              relatedProductsData?.length > 0 &&
+                viewTab($event, 'relatedProducts')
+            "
+          >
+            <span class="icon related-products"></span>
+            <span class="label"
+              >RELATED PRODUCTS
+              <span
+                *ngIf="
+                  relatedProductsData?.length > 0;
+                  else emptyProductContainer
+                "
+              >
+                ({{ productsCount }})
+              </span>
+              <ng-template #emptyProductContainer>(0)</ng-template>
+            </span>
+          </li>
+        </ul>
+        <div
+          class="mt-4 p-3 col col-12"
+          id="relatedProducts"
+          *ngIf="selectedTab == 'relatedProducts'"
+          #relatedProducts
+        >
+          <div class="row relatedproduct-container" *ngIf="isRelatedProducts">
+            <div class="col-sm-12 relatedproduct-title">
+              <h3>
+                <span>Related Products: {{ productName }}</span>
+                <i
+                  class="fa fa-times float-right pr-3 pt-2"
+                  role="button"
+                  (click)="hideRelatedProducts()"
+                  aria-hidden="true"
+                ></i>
+              </h3>
+            </div>
+            <div class="col-sm-12">
+              <app-custom-product-related
+                [relatedProductsData]="relatedProductsData"
+              >
+              </app-custom-product-related>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="p-3 col col-12">
+          <hr />
+          <div #productDesc id="productDesc">
+            <label class="font-weight-bold mt-4">Product Description</label>
+            <div
+              class="col-sm-9 pl-0"
+              [innerHtml]="productDetails.description"
+            ></div>
+            <div class="mt-3" *ngIf="productDetails?.detailImages">
+              <img class="full-width" [src]="getDetailImage()" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Colours Popup -->
+      <div
+        class="modal fade"
+        id="additionalColorsModal"
+        role="dialog"
+        aria-labelledby="additionalColorsLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Additional Colours</h4>
+              <i
+                class="icon-close invite-pop-close"
+                #closeInviteModal
+                data-dismiss="modal"
+                aria-label="Close"
+              ></i>
+            </div>
+            <div class="modal-body">
+              <div class="more-content">
+                <img
+                  class="mr-3"
+                  src="../../../../assets/images/warningicon.svg"
+                  alt="alert"
+                />
+                <cx-page-slot position="AdditionalColoursSlot"></cx-page-slot>
+                <!-- <div>{{ additionalPara?.content }}</div> -->
+              </div>
+
+              <div
+                *ngIf="additionalColours && additionalColours?.length"
+                class="colours m-1 pt-3"
+              >
+                <ng-container *ngFor="let modalcolour of additionalColours">
+                  <div
+                    (click)="modalSelectedColor($event, modalcolour)"
+                    class="colour m-1 mb-3 main"
+                    [ngStyle]="{
+                      background: getColourInfo(modalcolour)?.hexadecimalCode
+                    }"
+                    [ngClass]="{
+                      selected: getColourInfo(modalcolour)?.hexadecimalCode
+                        ? getColourInfo(modalcolour)?.hexadecimalCode ==
+                          getColourInfo(this.modalSelectedColour)
+                            ?.hexadecimalCode
+                        : getColourInfo(modalcolour)?.code ==
+                          getColourInfo(this.modalSelectedColour)?.code
+                    }"
+                  >
+                    <div class="checkbox"></div>
+                    <p
+                      class="colour-title"
+                      placement="bottom"
+                      ngbTooltip="{{ getColourInfo(modalcolour)?.name }}"
+                    >
+                      {{ getColourInfo(modalcolour)?.name }}
+                      <!-- {{ modalcolour | json }} -->
+                    </p>
+                  </div>
+                </ng-container>
+              </div>
+
+              <div
+                class="m-1 pt-3"
+                *ngIf="getColourInfo(additionalselectedColour)?.code"
+              >
+                <h6 class="font-weight-bold c1">Colour Selection</h6>
+                <div
+                  *ngIf="getColourInfo(additionalselectedColour)?.code"
+                  class="selected_color_section"
+                >
+                  <div
+                    class="selected_color"
+                    [ngStyle]="{
+                      background:
+                        getColourInfo(additionalselectedColour)
+                          ?.hexadecimalCode || '#fff'
+                    }"
+                  ></div>
+                  <div>
+                    {{
+                      getColourInfo(additionalselectedColour)?.name || "None"
+                    }}
+                  </div>
+                </div>
+              </div>
+              <cx-page-slot
+                class="my-3 border-top pt-2"
+                position="AdditionalColoursBottomSlot"
+              ></cx-page-slot>
+              <div class="d-sm-flex justify-content-end d-block">
+                <button
+                  type="button"
+                  (click)="cancelModal()"
+                  class="btn mobile-cancel-btn secondary-button mr-lg-5"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="btn mobile-save-btn primary-button float-right"
+                  (click)="proceedWithSelectedColours()"
+                >
+                  Proceed
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade edit-bundle-form"
+        id="bundleModal"
+        role="dialog"
+        aria-hidden="true"
+        *ngIf="!isFinishedProduct"
+      >
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Bundle Value</h4>
+              <i
+                class="icon-close invite-pop-close"
+                data-dismiss="modal"
+                aria-label="Close"
+              ></i>
+            </div>
+            <div class="modal-body m-0 pl-2 pr-2">
+              <table class="table no-border">
+                <thead>
+                  <th>
+                    Bundle
+                    <span
+                      class="info-icon cursor-pointer"
+                      [ngbTooltip]="bundleInfoContent"
+                      placement="bottom"
+                    >
+                    </span>
+                  </th>
+                  <th>
+                    Reference
+                    <span
+                      class="info-icon cursor-pointer"
+                      [ngbTooltip]="referenceInfoContent"
+                      placement="bottom"
+                    >
+                    </span>
+                  </th>
+                </thead>
+                <tbody [formGroup]="modalBundleForm">
+                  <tr>
+                    <td>
+                      <datalist id="modBundleList">
+                        <option *ngFor="let bundle of bundleList">
+                          {{ bundle }}
+                        </option>
+                      </datalist>
+                      <input
+                        class="form-control"
+                        maxlength="2"
+                        formControlName="modBundle"
+                        #modBundle
+                        (focus)="updateBundleList()"
+                        (input)="
+                          modBundle.value = modBundle.value.toUpperCase()
+                        "
+                        list="modBundleList"
+                        (blur)="
+                          populateSameBundleReference(null, selectedIndex)
+                        "
+                      />
+                    </td>
+                    <td>
+                      <input
+                        class="form-control"
+                        maxlength="15"
+                        (focus)="
+                          populateSameBundleReference($event, selectedIndex)
+                        "
+                        formControlName="modRef"
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="modal-footer">
+              <button
+                type="submit"
+                data-dismiss="modal"
+                #closebutton
+                class="btn btn-light"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                (click)="saveBundleDetails($event)"
+                class="btn rounded-0"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<!-- code for Flashibg larger image-->
+<div
+  class="modal fade imageLargerModal"
+  id="imageLargerModal"
+  role="dialog"
+  aria-labelledby="imageModal"
+  aria-hidden="true"
+  #imageLargerModal
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <i
+          class="icon-close cds-popup-close cursor-pointer"
+          title="Close"
+          data-dismiss="modal"
+          aria-label="Close"
+        ></i>
+      </div>
+      <div class="modal-body text-center">
+        <img
+          class="img-fluid"
+          [src]="flashingLargerImage"
+          alt="Flashing Image"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngb-toast *ngIf="showToast" [autohide]="true" [delay]="4000">
+  <img src="../../../../assets/images/Invited.svg" /> Cart updated successfully!
+  <i
+    class="icon-close toast-close"
+    aria-label="Close"
+    (click)="closeToast()"
+  ></i>
+</ngb-toast>

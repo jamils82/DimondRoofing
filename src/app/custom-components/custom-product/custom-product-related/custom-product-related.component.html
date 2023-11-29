@@ -1,0 +1,46 @@
+<div class="table-outer-container">
+    <div class="row header-container">
+      <div class="col-md-8 col-sm-12 header-text">PRODUCT TYPE</div>
+      <div class="col-md-2 header-text d-none d-md-block">DIMENSIONS</div>
+      <div class="col-md-2 header-text d-none d-md-block text-center">ACTION</div>
+    </div>
+    <div class="row body-container">
+      <div class="col-sm-12 px-0">
+        <div id="accordion">
+          <div class="card" *ngFor="let prod of relatedProductsData; let i=index;">
+            <div class="card-header custom-card-header">
+              <a class="card-link" data-toggle="collapse" [attr.aria-expanded]="isDesktop ? true: false" href="#collapsePanel{{i}}">
+                {{prod.name}} ({{prod.products?.length}})
+              </a>              
+            </div>
+            <div class="col-sm-12">
+              <div class="row collapse relatedproduct-scroll" [ngClass]="{ show: isDesktop }" id="collapsePanel{{i}}" data-parent="#accordion">
+                <div *ngFor="let product of prod.products" class="col-sm-12">
+                  <div class="card-body custom-card-body row">
+                    <div class="col-sm-8">
+                      <div class="row product-img-container">
+                        <p class="col-sm-4 col-lg-1 pr-3 relatedproduct-image">
+                          <img *ngIf="!product?.firstVariantImage"  src="../../../../assets/images/search-noimage.svg" alt="Default Image" />
+                          <img  class="products-image" *ngIf="product?.firstVariantImage" src="{{imageBaseUrl + product?.firstVariantImage}}" alt="productname">
+                        </p>
+                        <p class="col-sm-8 col-lg-11 relatedproduct-name">
+                          {{product?.name}}
+                          </p>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <!-- data binding need to be done here-->
+                      <p>-</p>
+                    </div>
+                    <div class="col-sm-2 text-lg-center viewproduct-container">
+                      <p><a class="relatedproduct-link" title="View Product" href="{{product?.url}}" target="_blank" >View Product</a></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

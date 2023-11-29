@@ -1,0 +1,119 @@
+@import "../../../shared/styles/theme.scss";
+
+.file-uploader-steps {
+  h3 {
+    font-size: var(--fontsize28);
+  }
+}
+
+.upload-main-container {
+  border: 1px dashed $gray-variant5;
+  padding: 2rem 1rem 1rem 1rem;
+  margin: 1rem auto;
+
+  .pre-fileupload-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .invisible-container {
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .fileupload-progress-container {
+    display: flex;
+    flex-direction: row;
+
+    .file-uploding {
+      //padding-left: 2rem;
+
+      .custom-progressbar {
+        .progress {
+          height: 10px;
+          padding: 0;
+
+          .progress-bar {
+            background: $gree-variant;
+            border-radius: 5px;
+          }
+        }
+      }
+
+      .progress-bar-value {
+        span {
+          background: $black-variant2;
+          color: $white-color;
+          padding: 1px 15px;
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+
+  .post-fileupload-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .file-uploding {
+      //padding-left: 2rem;
+    }
+  }
+
+  .fileupload-error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .email-link {
+    color: $error-textcolor;
+    text-decoration: underline;
+  }
+  p {
+    word-break: break-all;
+    white-space: pre-wrap;
+    &.word-break{
+      word-break: break-word;
+     }
+   }
+}
+
+.error-text {
+  color: $error-textcolor;
+}
+
+.uploaded-preview-modal {
+  .modal-header {
+    .modal-title {
+      font-size: var(--fontsize28);
+      word-break: break-all;
+      white-space: pre-wrap;
+    }
+  }
+
+  .uploaded-image {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .modal-body {
+    max-height: 65vh;
+    overflow: auto;
+  }
+}
+@media screen and (max-width: $mobileScreenPotrait-767) {
+  ::ng-deep .file-uploader-steps {
+    p{
+      h3 {
+        font-size: var(--fontsize20);
+      }
+    }
+  }
+}

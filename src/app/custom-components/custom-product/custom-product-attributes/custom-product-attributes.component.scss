@@ -1,0 +1,19 @@
+@import "../../../shared/styles/theme.scss";
+
+::ng-deep {
+  .attribute-header {
+    @include font-ArialBold();
+    font-size: var(--fontsize14);
+    background: $table-header-bg;
+    color: $white-color;
+  }
+}
+@media screen and (max-width: $mobileScreenPotrait-767) {
+  .col-sm-6 {
+    width: 50%;
+  }
+  .attribute-header {
+    background: none;
+    color: $black-variant2;
+  }
+}

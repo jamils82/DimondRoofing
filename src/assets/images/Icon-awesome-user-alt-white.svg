@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="23" viewBox="0 0 23 23">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="icon_outlined_application_user_clip_mask_" data-name="icon/outlined/application/user (clip mask)" width="23" height="23" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="icon_outlined_application_user" data-name="icon/outlined/application/user" clip-path="url(#clip-path)">
+    <g id="icon_outlined_application_user_clip_group_" data-name="icon/outlined/application/user (clip group)">
+      <rect id="icon_outlined_application_user_style_" data-name="icon/outlined/application/user (style)" width="23" height="23" fill="none"/>
+      <path id="Vector" d="M16.711,17.879H15.364a.177.177,0,0,1-.18-.175,6.741,6.741,0,0,0-13.477,0,.18.18,0,0,1-.179.175H.18a.181.181,0,0,1-.07-.014.193.193,0,0,1-.059-.041.2.2,0,0,1-.039-.06A.178.178,0,0,1,0,17.7a8.418,8.418,0,0,1,2.473-5.787A8.39,8.39,0,0,1,5.157,10.1l.011,0,.016-.007a5.572,5.572,0,1,1,6.523,0l.013.006.013.006a8.441,8.441,0,0,1,5.157,7.6.178.178,0,0,1-.012.07.17.17,0,0,1-.039.06.174.174,0,0,1-.059.041A.178.178,0,0,1,16.711,17.879ZM8.446,1.707a3.866,3.866,0,1,0,2.731,1.132A3.835,3.835,0,0,0,8.446,1.707Z" transform="translate(3.055 2.561)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

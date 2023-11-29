@@ -1,0 +1,9 @@
+<div class="loading " *ngIf="showWaitCursor | async ">Loading&#8230;</div>
+<ul class="social-links d-flex flex-md-column">
+    <!-- <li *ngFor="let item of socialLinks" class="social-links-item">
+        <a [href]="item?.urlLink" target="_blank">
+            <cx-media [container]="item?.media"></cx-media>
+        </a>
+    </li> -->
+     <cx-page-slot class="social-links-item" position="FooterSection4Slot"></cx-page-slot>
+</ul>

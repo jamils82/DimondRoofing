@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="98.225" height="126.033" viewBox="0 0 98.225 126.033">
+  <g id="Group_14473" data-name="Group 14473" transform="translate(-1615 -309.967)">
+    <g id="Icon_feather-shopping-cart" data-name="Icon feather-shopping-cart" transform="translate(1616.5 343.467)">
+      <path id="Path_820" data-name="Path 820" d="M20.384,34.192A4.192,4.192,0,1,1,16.192,30,4.192,4.192,0,0,1,20.384,34.192Z" transform="translate(18.844 51.149)" fill="none" stroke="#6f6f6f" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+      <path id="Path_821" data-name="Path 821" d="M36.884,34.192A4.192,4.192,0,1,1,32.692,30,4.192,4.192,0,0,1,36.884,34.192Z" transform="translate(48.457 51.149)" fill="none" stroke="#6f6f6f" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+      <path id="Path_822" data-name="Path 822" d="M1.5,1.5H18.268L29.5,57.632a8.384,8.384,0,0,0,8.384,6.749H78.634a8.384,8.384,0,0,0,8.384-6.749L93.725,22.46H22.46" transform="translate(0 0)" fill="none" stroke="#6f6f6f" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+    </g>
+    <g id="Group_13457" data-name="Group 13457" transform="translate(709.72 -1010.693) rotate(45)">
+      <line id="Line_412" data-name="Line 412" y2="24" transform="translate(1671.25 292.5)" fill="none" stroke="#707070" stroke-linecap="round" stroke-width="4"/>
+      <line id="Line_413" data-name="Line 413" x2="24" transform="translate(1658.5 304.5)" fill="none" stroke="#707070" stroke-linecap="round" stroke-width="4"/>
+    </g>
+    <g id="Group_13458" data-name="Group 13458" transform="translate(0.127 -14)">
+      <line id="Line_414" data-name="Line 414" x2="24" transform="translate(1702.672 334.183) rotate(120)" fill="none" stroke="#707070" stroke-linecap="round" stroke-width="4"/>
+      <line id="Line_416" data-name="Line 416" x2="24" transform="translate(1648.328 334.183) rotate(60)" fill="none" stroke="#707070" stroke-linecap="round" stroke-width="4"/>
+      <line id="Line_415" data-name="Line 415" x2="24" transform="translate(1675.5 325.967) rotate(90)" fill="none" stroke="#707070" stroke-linecap="round" stroke-width="4"/>
+    </g>
+  </g>
+</svg>

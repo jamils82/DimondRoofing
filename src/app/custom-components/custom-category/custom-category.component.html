@@ -1,0 +1,78 @@
+<div class="loading " *ngIf="showWaitCursor | async ">Loading&#8230;</div>
+<!-- <app-welcome-text [welcomeNote]="categoryTitle"></app-welcome-text>-->
+
+
+
+<app-custom-breadcrum class="products-breadcums" 
+[ngStyle]="{top: breadcrumbTop}" *ngIf="isDataLoaded" [customCrumbData]="breadcrumbData">
+</app-custom-breadcrum>
+<div class="container categoryPageView" (window:resize)="onResize($event)" infiniteScroll [infiniteScrollDistance]="0" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
+    <div class="row">
+        <div class="col-sm-3" *ngIf="isDesktop">
+            <app-product-facets (facetsQuery)="getSelectedFacets($event)" [customFacetsData]="facetsData" *ngIf="isDataLoaded"></app-product-facets>
+        </div>
+        <div class="col-sm-12 col-lg-9">
+            <app-category-paragraph></app-category-paragraph>
+            <div class="d-flex justify-content-end mt-4 mb-4">
+                <div class="main-view" *ngIf="isDesktop">
+                    <button [ngClass]="{'active': listview === false}" class="btn btn-sm" (click)="gridView()">
+                        <img *ngIf="listview === false" src="../../../assets/images/Grid-light.svg" alt="gridviewlight">
+                        <img *ngIf="listview === true" src="../../../assets/images/Grid-dark.svg" alt="gridviewdark">
+                        Grid</button>
+                    <button [ngClass]="{'active': listview === true}" class="btn btn-sm active" (click)="listView()">
+                        <img *ngIf="listview === true" class="list-img" src="../../../assets/images/List-light.svg"
+                            alt="listview">
+                        <img *ngIf="listview === false" class="list-img" src="../../../assets/images/List-dark.svg"
+                            alt="listview">
+                        List</button>
+                </div>
+            </div>
+            <div class="filter-btn text-right" *ngIf="!isDesktop">
+                <button class="btn" type="button" data-toggle="modal" data-target="#filterModal">Filters</button>
+            </div>
+            <ng-container *ngIf="isDesktop ">  
+                <div *ngIf=" totalResults > 0; else noResults"> 
+                <app-custom-categorylist [categoriesData]="responseData" [clpPage]="categoryPage" *ngIf="listview && isDataLoaded">
+                </app-custom-categorylist>
+
+                <app-custom-categorygrid [categoriesData]="responseData" [clpPage]="categoryPage" *ngIf="!listview && isDataLoaded">
+                </app-custom-categorygrid>
+             </div>
+            </ng-container>
+            <ng-container *ngIf="!isDesktop "> 
+                <div *ngIf=" totalResults > 0; else noResults">
+                <app-custom-categorygrid [categoriesData]="responseData" [clpPage]="categoryPage" *ngIf="isDataLoaded">
+                </app-custom-categorygrid>
+                </div>
+            </ng-container>
+            <ng-template #noResults>
+                <p class="text-center"> No results are available</p>  
+            </ng-template>
+            <p *ngIf="showSelectedFilters"> We are displaying results based on - <b> {{selectedNames}} </b></p>
+            <ng-container *ngIf="loaderImage | async">
+                <div class="col-sm-12 mx-auto text-center mb-4">
+                    <span class="product-loader">
+                        <i class="loader-icon fas fa-spinner fa-pulse"></i>
+                        <span class="loader-text">loading….</span>
+                    </span>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!isDesktop" class="modal fade modal-right" id="filterModal" role="dialog" aria-labelledby="filterModal" #filterModal aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="icon-close branch-pop-close ml-auto" data-dismiss="modal" aria-label="Close"></i>
+            </div>
+            <div class="modal-body">
+                <app-product-facets [totalResults]="totalResults" (mobileFacets)="mobileFacetsClose()" (facetsQuery)="getSelectedFacets($event)" [customFacetsData]="facetsData" *ngIf="isDataLoaded"></app-product-facets>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <app-category-paragraph></app-category-paragraph> -->

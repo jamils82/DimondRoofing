@@ -1,0 +1,99 @@
+<app-custom-breadcrum></app-custom-breadcrum>
+<div class="loading " *ngIf="showWaitCursor | async ">Loading&#8230;</div>
+
+<div class="container preference-container-top">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="pageTitle">User {{pageTitle}}</h1>
+			<!-- <div class="text-left pageParaText mb-4 col-sm-12 pl-0" [innerHTML]="preferencesHeaderContent"></div> -->
+            <cx-page-slot class="text-left pageParaText col-sm-9 p-0 ml-0" position="PreferencesHeaderSlot"></cx-page-slot>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 my-3 useremail-container">
+
+			<h3 class="userHdName">User: <span class="font-weight-bold">{{userDetailsObject?.displayUid}} | Dimond </span></h3> 
+
+		</div>
+		<div class="col-sm-12 tabmenu-container">
+			<ul class="nav nav-tabs" id="userpreferences" role="tablist">
+				<li class="nav-item" role="presentation">
+          <button class="nav-link" [ngClass]="{ 'active': isUserDetailsClicked}" id="userdetails-tab" data-toggle="tab" data-target="#userdetails" type="button" role="tab" aria-controls="userdetails" (click)="onTabClick('userdetails')" aria-selected="false">User Details</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" [ngClass]="{ 'active': isCommPreferencesClicked}" id="communication-tab" data-toggle="tab" data-target="#communication-preferences" type="button" role="tab" aria-controls="communication" (click)="onTabClick('commpreferences')" aria-selected="false">Communication Preferences</button>
+				</li> 
+			</ul>
+			<div class="tab-content preferencestab-container" id="preferencesTabContent">
+        <div class="tab-pane fade" [ngClass]="{ 'active': isUserDetailsClicked, 'show' :  isUserDetailsClicked}" id="userdetails" role="tabpanel" aria-labelledby="dashboard-tab">
+          <div class="row">
+              <div class="col-sm-12 py-4">
+                  <p class="mb-3">Email: <span class="font-weight-bold">{{userDetailsObject.email}}</span></p>
+                  <p class="mb-3">First name: <span class="font-weight-bold">{{userDetailsObject.firstName}}</span></p>
+                  <p class="mb-3">Last name: <span class="font-weight-bold">{{userDetailsObject.lastName}}</span></p>
+                  <p class="mb-3">User Role: <span *ngFor="let role of displayedRoles; let last = last" class="font-weight-bold">{{role}} {{ last == false? ',': '' }} </span></p>
+              </div>
+          </div> 
+				</div>
+				<div class="communication-preferences tab-pane fade" [ngClass]="{ 'active': isCommPreferencesClicked, 'show' :  isCommPreferencesClicked}" id="communication-preferences" role="tabpanel" aria-labelledby="communication-tab">				
+					<div class="row">
+                        <div class="col-sm-12 py-4">
+                          <cx-page-slot class="text-left pageParaText col-sm-9 p-0 ml-0" position="CommunicationPreferencesSlot"></cx-page-slot>
+                            <!-- <div class="text-left pageParaText col-sm-9 pl-0" [innerHTML]="communicationPreferencesContent"></div> -->
+                        </div>
+                        <div class="col-sm-12">
+                          <form [formGroup]="preferencesForm" (ngSubmit)="onSubmit()">
+                            <div class="form-group col-sm-4 pl-0">
+                                <label for="email">Preferred Email address 
+                                    <i *ngIf="emailPreferencesContent" class="fa fa-question-circle ml-2" ngbTooltip="{{emailPreferencesContent}}" placement="bottom"></i></label>
+                                <input type="email" class="form-control"  placeholder="Enter email address"
+                                 id="subscribedEmail" name="subscribedEmail" formControlName="subscribedEmail"
+                                 [ngClass]="{ 'border-danger': formValid?.subscribedEmail?.errors }">
+                                 <div *ngIf="formValid?.subscribedEmail?.errors" class="invalid-feedback">
+                                  <div *ngIf="formValid?.subscribedEmail?.errors?.required">Email is required</div>
+                                  <div *ngIf="formValid?.subscribedEmail?.errors?.pattern">Email is invalid</div>
+                              </div>
+                             </div>
+                             <div class="form-check custom-radio-btn">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" value="false"
+                                  id="unsubscribed"
+                                  [checked]="!this.userDetailsObject?.userPreferences?.subscribed"
+                                  name="subscribed" 
+                                  (change)="changeSubscribe($event)"
+                                  >Unsubscribe
+                                </label>
+                              </div>
+                              <div class="form-check custom-radio-btn">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" value="true"
+                                  id="subscribed"
+                                  [checked]="this.userDetailsObject?.userPreferences ? this.userDetailsObject?.userPreferences?.subscribed : true"
+                                  name="subscribed" 
+                                  (change)="changeSubscribe($event)"
+                                  >Subscribe
+                                </label>
+                              </div>  
+
+                              <div class="col-sm-9 pl-0">
+                                <p class="float-right">
+                                    <button type="button" class="btn secondary-button mr-5 my-3" (click)="onReset()">Reset</button>
+                                    <button type="submit" class="btn primary-button my-3" [disabled]="formValid?.subscribedEmail?.errors">Confirm</button>
+                                  </p>
+                              </div>
+                              <div class=" col-sm-12 alert alert-danger alert-danger-custom justify-content-start mt-3" role="alert" *ngIf="errorInd$ | async">
+                                <img class="mr-3" src="../../../../assets/images/erroricon.svg" alt="alert"> {{infoMessage}}
+                            </div>
+                            </form> 
+                        </div>
+                    </div> 
+				</div> 
+			</div>
+		</div>
+	</div>
+</div>
+<ngb-toast *ngIf="showToast" [autohide]="true" [delay]="4000">
+  <img [src]="!isActive ?'../../../../assets/images/ActivateIcon.svg' : '../../../../assets/images/DisableIcon.svg'">
+  Email subscription has been updated successfully.
+  <i class="icon-close toast-close" aria-label="Close" (click)="closeToast()"></i>
+</ngb-toast>

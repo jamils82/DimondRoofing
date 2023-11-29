@@ -1,0 +1,12 @@
+<svg id="Group_12186" data-name="Group 12186" xmlns="http://www.w3.org/2000/svg" width="30.646" height="19" viewBox="0 0 30.646 19">
+  <rect id="Rectangle_1158" data-name="Rectangle 1158" width="24.646" height="19" transform="translate(6)" fill="#fff"/>
+  <path id="Rectangle_1158_-_Outline" data-name="Rectangle 1158 - Outline" d="M1,1V18H23.646V1H1M0,0H24.646V19H0Z" transform="translate(6)" fill="#1d1d1b"/>
+  <circle id="Ellipse_334" data-name="Ellipse 334" cx="6.5" cy="6.5" r="6.5" transform="translate(0 2.989)" fill="#fff"/>
+  <path id="Ellipse_334_-_Outline" data-name="Ellipse 334 - Outline" d="M6.5,1A5.5,5.5,0,1,0,12,6.5,5.506,5.506,0,0,0,6.5,1m0-1A6.5,6.5,0,1,1,0,6.5,6.5,6.5,0,0,1,6.5,0Z" transform="translate(0 2.989)" fill="#1d1d1b"/>
+  <path id="Line_231" data-name="Line 231" d="M10.323.5H0v-1H10.323Z" transform="translate(15.955 4.413)" fill="#1d1d1b"/>
+  <path id="Line_233" data-name="Line 233" d="M10.323.5H0v-1H10.323Z" transform="translate(15.955 9.799)" fill="#1d1d1b"/>
+  <path id="Line_232" data-name="Line 232" d="M10.323.5H0v-1H10.323Z" transform="translate(15.955 7.106)" fill="#1d1d1b"/>
+  <path id="Line_234" data-name="Line 234" d="M10.323.5H0v-1H10.323Z" transform="translate(15.955 12.492)" fill="#1d1d1b"/>
+  <path id="Line_235" data-name="Line 235" d="M10.323.5H0v-1H10.323Z" transform="translate(15.955 15.185)" fill="#1d1d1b"/>
+  <text id="_" data-name="$" transform="translate(4 12.989)" font-size="10" font-family="OpenSans-Bold, Open Sans" font-weight="700"><tspan x="0" y="0">$</tspan></text>
+</svg>

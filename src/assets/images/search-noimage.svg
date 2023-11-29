@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="100" viewBox="0 0 140 100">
+  <g id="Group_14002" data-name="Group 14002" transform="translate(2476 4469)">
+    <g id="Group_14001" data-name="Group 14001" transform="translate(44 -241)">
+      <rect id="Rectangle_1465" data-name="Rectangle 1465" width="140" height="100" transform="translate(-2520 -4228)" fill="#e8e8e8"/>
+      <g id="Navlink_Inverse" data-name="Navlink Inverse" transform="translate(-2486 -4156)">
+        <rect id="Rectangle_807" data-name="Rectangle 807" width="72" height="1" transform="translate(0 15)" fill="#8d8d8d" opacity="0"/>
+        <text id="NO_IMAGE" data-name="NO IMAGE" transform="translate(0 13)" fill="#8d8d8d" font-size="14" font-family="Arial-BoldMT, Arial" font-weight="700"><tspan x="0" y="0">NO IMAGE</tspan></text>
+      </g>
+      <g id="Group_14005" data-name="Group 14005">
+        <path id="noun-camera-4325388" d="M167.881,60.7h-27.92a9.35,9.35,0,0,0-9.35,9.35v27.92a9.35,9.35,0,0,0,9.35,9.35h27.92a9.35,9.35,0,0,0,9.35-9.35V70.049a9.35,9.35,0,0,0-9.35-9.35Zm5.61,37.27a5.61,5.61,0,0,1-5.61,5.61h-27.92a5.61,5.61,0,0,1-5.61-5.61V70.049a5.61,5.61,0,0,1,5.61-5.61h27.92a5.61,5.61,0,0,1,5.61,5.61ZM153.93,74.463a9.556,9.556,0,1,0,6.745,2.806,9.558,9.558,0,0,0-6.745-2.806Zm0,15.353h0a2.4,2.4,0,1,0,0-.037Zm16.027-20.384h0a1.871,1.871,0,0,1-1.87,1.87h-1.87a1.87,1.87,0,1,1,0-3.74h1.87a1.871,1.871,0,0,1,1.87,1.87Z" transform="translate(-2603.921 -4273.699)" fill="#8d8d8d"/>
+        <circle id="Ellipse_360" data-name="Ellipse 360" cx="10.5" cy="10.5" r="10.5" transform="translate(-2460 -4200)" fill="#e8e8e8"/>
+        <path id="Ellipse_360_-_Outline" data-name="Ellipse 360 - Outline" d="M10.5,4A6.5,6.5,0,1,0,17,10.5,6.507,6.507,0,0,0,10.5,4m0-4A10.5,10.5,0,1,1,0,10.5,10.5,10.5,0,0,1,10.5,0Z" transform="translate(-2460 -4200)" fill="#8d8d8d"/>
+      </g>
+    </g>
+  </g>
+</svg>

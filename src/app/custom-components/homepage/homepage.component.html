@@ -1,0 +1,15 @@
+<app-welcome-text [isDashboard]="true"></app-welcome-text>
+<div class="container home-dashboard-container">
+    <div class="row tile-main-container">
+        <div *ngFor="let data of navigationData" class="col-6 col-md-3 tile-container d-flex flex-column justify-content-center align-items-center text-center">
+            <a href="javascript:void(0)" (click)="tilesNavigation(data.urlLink)" class="inner-tile-container">
+                <p class="tile-image">
+                    <cx-media [container]="data?.media"></cx-media>
+                    <p class="tile-heading">{{data?.name | uppercase }}</p>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="newsfeed-container">
+    <app-shared-news-updates></app-shared-news-updates>
+</div>

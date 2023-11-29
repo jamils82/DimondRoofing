@@ -1,0 +1,210 @@
+<div class="createAccountForm container mb-3 pb-3">
+  <div class="row">
+      <form (ngSubmit)="submit()" [formGroup]="createAccountForm" class="mt-1 w-100" autocomplete="off">
+        <div class="col-sm-12 col-md-12 col-lg-6 mt-3">
+          <p>{{createAccountFormConstants.requiredField}} *</p>
+          <div class="form-group searchformfld">
+            <input type="text" id="emailAddress" class="form-control" placeholder=" " formControlName="emailAddress"
+              (change)="emailInputVal()" [ngClass]="{ error: emailCheck }">
+            <label for="emailAddress">{{createAccountFormLabel.emailLabel}}</label>
+            <span *ngIf="emailCheck" class="help-block text-danger">{{createAccountFormConstants.requiredField}}</span>
+            <span *ngIf="
+                      !createAccountForm.controls['emailAddress'].errors?.required &&
+                      !createAccountForm.controls['emailAddress'].valid && 
+                      createAccountForm.controls['emailAddress'].touched " class="help-block text-danger font-smaller"><i
+                class="fa fa-exclamation-triangle fa_custom"></i>
+              {{createAccountFormConstants.emailValidationMessage}}
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 mt-4">
+          <div class="form-group searchformfld">
+            <input type="text" class="form-control" id="customerName" placeholder=" " formControlName="customerName"
+              (change)="nameInputVal()" [ngClass]="{ error: nameCheck }">
+            <label for="customerName">{{createAccountFormLabel.nameLabel}}</label>
+            <span *ngIf="nameCheck" class="help-block text-danger">{{createAccountFormConstants.requiredField}}</span>
+            <span *ngIf="
+                      !createAccountForm.controls['customerName'].errors?.required &&
+                      !createAccountForm.controls['customerName'].valid &&
+                      createAccountForm.controls['customerName'].touched" class="help-block text-danger font-smaller"><i
+                class="fa fa-exclamation-triangle fa_custom"></i>
+              {{createAccountFormConstants.firstNameRequired}}
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 mt-4">
+          <div class="form-group searchformfld">
+            <input inputmode="numeric" type="tel" class="form-control" id="phoneNumber" placeholder=" " formControlName="phoneNumber"
+            (keypress)="validateChar($event);" onpaste="return false;" maxlength="16"
+              [ngClass]="{ error: nameCheck && (!this.createAccountForm.controls['phoneNumber'].valid && this.createAccountForm.controls['phoneNumber'].touched)}">
+            <label for="phoneNumber">{{createAccountFormLabel.mobileNoLabel}}</label>
+            <span *ngIf="
+                      !createAccountForm.controls['phoneNumber'].valid"
+              class="help-block text-danger font-smaller">{{createAccountFormConstants.phoneNumberNumeric}}<i
+                class="fa fa-exclamation-triangle fa_custom"></i>
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 mt-4">
+          <label for="dimondAccountDropdown">{{createAccountFormLabel.dimondAccountLabel}}</label>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6">
+          <select class="form-control" formControlName="dimondAccountDropdown" (change)="dropDownCheckSelectVal()"
+            [ngClass]="{ error: dropDownCheck }">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <span *ngIf="dropDownCheck" class="help-block text-danger">{{createAccountFormConstants.dimondAccountValidationMessage}}</span>
+        </div>
+
+        <!--Handle Case If Customer Already Have Dimond Account -->
+        <div *ngIf="createAccountForm.controls['dimondAccountDropdown'].value === 'Yes'" class="subFormContainer">
+          <div class="mt-4">
+            <div class="col-sm-12 col-md-12 col-lg-6 mt-4">
+              <div class="form-group searchformfld">
+                <input type="text" class="form-control" id="accountNumber" placeholder=" "
+                  formControlName="accountNumber" (change)="accountNoInputVal()" [ngClass]="{ error: accountNoCheck }">
+                <label for="accountNumber">{{createAccountFormLabel.accountNumberLabel}}</label>
+                <span *ngIf="accountNoCheck" class="help-block text-danger">{{createAccountFormConstants.requiredField}}</span>
+                <span *ngIf="
+                    !createAccountForm.controls['accountNumber'].errors?.required &&
+                    !createAccountForm.controls['accountNumber'].valid &&
+                    createAccountForm.controls['accountNumber'].touched" class="help-block text-danger font-smaller">
+                    {{createAccountFormConstants.accountNumberValidationMessage}}<i class="fa fa-exclamation-triangle fa_custom"></i>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 mt-4">
+              <div class="form-group searchformfld">
+                <input type="text" class="form-control" id="companyName" placeholder=" " formControlName="companyName"
+                  (change)="companyNameInputVal()" [ngClass]="{ error: companyNameCheck }">
+                <label for="companyName">{{createAccountFormLabel.companyNameLabel}}</label>
+                <span *ngIf="companyNameCheck" class="help-block text-danger">{{createAccountFormConstants.requiredField}}</span>
+                <span *ngIf="
+                    !createAccountForm.controls['companyName'].errors?.required &&
+                    !createAccountForm.controls['companyName'].valid &&
+                    createAccountForm.controls['companyName'].touched" class="help-block text-danger font-smaller">
+                    {{createAccountFormConstants.companyNameValidationMessage}}<i class="fa fa-exclamation-triangle fa_custom"></i>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 mt-4 form-group">
+              <label for="companyDescription">{{createAccountFormLabel.additionalCommentsLabel}}</label>
+              <textarea class="form-control" id="" rows="5" formControlName="companyDescription"></textarea>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="createAccountForm.controls['dimondAccountDropdown'].value === 'No'">
+          <div class="mt-4">
+            <div class="col-sm-12 col-md-12 col-lg-6 mt-4">
+              <div class="form-group searchformfld">
+                <input type="text" class="form-control" id="companyName" placeholder=" " formControlName="companyName"
+                  (change)="companyNameInputVal()" [ngClass]="{ error: companyNameCheck }">
+                <label for="companyName">{{createAccountFormLabel.companyNameLabel}}</label>
+                <span *ngIf="companyNameCheck" class="help-block text-danger">{{createAccountFormConstants.requiredField}}</span>
+                <span *ngIf="
+                    !createAccountForm.controls['companyName'].errors?.required &&
+                    !createAccountForm.controls['companyName'].valid &&
+                    createAccountForm.controls['companyName'].touched" class="help-block text-danger font-smaller">
+                    {{createAccountFormConstants.companyNameValidationMessage}}<i class="fa fa-exclamation-triangle fa_custom"></i>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 mt-4">
+              <div class="form-group searchformfld">
+                <input type="text" class="form-control" id="companyAddress" placeholder=" "
+                  formControlName="companyAddress" (change)="companyAddressCheckInputVal()" [ngClass]="{ error: companyAddressCheck }">
+                <label for="companyAddress">{{createAccountFormLabel.companyAddressLabel}}</label>
+                <span *ngIf="companyAddressCheck" class="help-block text-danger">{{createAccountFormConstants.requiredField}}</span>
+                <span *ngIf="
+                    !createAccountForm.controls['companyAddress'].errors?.required &&
+                    !createAccountForm.controls['companyAddress'].valid &&
+                    createAccountForm.controls['companyAddress'].touched" class="help-block text-danger font-smaller">
+                    {{createAccountFormConstants.companyAddressValidationMessage}}<i class="fa fa-exclamation-triangle fa_custom"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-6 mt-4">
+              <div class="form-group searchformfld">
+                <input type="text" class="form-control" id="suburb" placeholder=" " formControlName="suburb"
+                  (change)="suburbInputVal()" [ngClass]="{ error: suburbCheck }">
+                <label for="suburb">{{createAccountFormLabel.suburbLabel}}</label>
+                <span *ngIf="suburbCheck" class="help-block text-danger">{{createAccountFormConstants.requiredField}}</span>
+                <span *ngIf="
+                    !createAccountForm.controls['suburb'].errors?.required &&
+                    !createAccountForm.controls['suburb'].valid &&
+                    createAccountForm.controls['suburb'].touched" class="help-block text-danger font-smaller">
+                    {{createAccountFormConstants.suburbValidationMessage}}<i class="fa fa-exclamation-triangle fa_custom"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-6 mt-4">
+              <div class="form-group searchformfld">
+                <input type="text" class="form-control" id="city" placeholder=" " formControlName="city"
+                  (change)="cityInputVal()" [ngClass]="{ error: cityCheck }">
+                <label for="city">{{createAccountFormLabel.cityLabel}}</label>
+                <span *ngIf="cityCheck" class="help-block text-danger">{{createAccountFormConstants.requiredField}}</span>
+                <span *ngIf="
+                    !createAccountForm.controls['city'].errors?.required &&
+                    !createAccountForm.controls['city'].valid &&
+                    createAccountForm.controls['city'].touched" class="help-block text-danger font-smaller">
+                  {{createAccountFormConstants.cityValidationMessage}}<i class="fa fa-exclamation-triangle fa_custom"></i>
+                </span>
+              </div>
+            </div>
+            <div class="d-block singleLineStyle">
+              <div class="col-sm-12 col-md-12 col-lg-6 mt-4 form-group searchformfld">
+                <input type="text" class="form-control" id="postalCode" placeholder=" " formControlName="postalCode" maxlength="4"
+                  (change)="postalCodeInputVal()" [ngClass]="{ error: postalCodeCheck }">
+                <label for="postalCode">{{createAccountFormLabel.postcodeLabel}}</label>
+                <span *ngIf="postalCodeCheck" class="help-block text-danger">{{createAccountFormConstants.requiredField}}</span>
+                <span *ngIf="
+                          !createAccountForm.controls['postalCode'].errors?.required &&
+                          !createAccountForm.controls['postalCode'].valid &&
+                          createAccountForm.controls['postalCode'].touched "
+                  class="help-block text-danger font-smaller">{{createAccountFormConstants.postalCodeValidationMessage}}<i
+                    class="fa fa-exclamation-triangle fa_custom"></i>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 mt-4 form-group">
+              <label for="companyDescription">{{createAccountFormLabel.companyInfoLabel}}</label>
+              <textarea class="form-control" id="" rows="5" formControlName="companyDescription"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="col d-flex justify-content-start mt-4 mb-2">
+          <button type="submit" class="btn text-white submitBtn"
+            [ngClass]="{ disabled: formValidationCheck() }">{{createAccountFormLabel.submitBtnLabel}}</button>
+        </div>
+      </form>
+  </div>
+</div>
+
+<ng-template #createAccountSuccessModal let-modal>
+
+  <div class=" modal-header position-relative">   
+      <button type="button" class="close" aria-label="Close">
+        <i class="icon-close search-pop-close" (click)="resetAndCloseForm()" title="Close" aria-label="Close"></i>
+      </button>    
+  
+  </div>
+  <div class="modal-body pt-1">
+    <ng-container *ngIf='!responseOpen'>
+      <div class="mt-0">
+        <ng-container *ngIf="responseSuccess; else noResponse">
+          <cx-page-slot class="messageDiv"  position="SubmitSuccessMessageSlotName"></cx-page-slot>
+        </ng-container>
+        <!-- <div class="messageDiv" *ngIf="responseSuccess" [innerHTML]="successMessageContent"></div>  -->
+        <!-- <div class="errorDiv" *ngIf="!responseSuccess" [innerHTML]="errorMessageContent"> 
+        </div> -->
+        <ng-template #noResponse>
+          <cx-page-slot class="errorDiv" position="SubmitErrorMessage"></cx-page-slot>
+        </ng-template>
+      </div>
+      
+    </ng-container>
+  </div>
+</ng-template>

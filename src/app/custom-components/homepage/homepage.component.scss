@@ -1,0 +1,82 @@
+//code for home page welcome banner 
+@import '../../shared/styles/theme.scss';
+
+.home-dashboard-container {
+    padding-bottom: 5rem; 
+    .tile-main-container {
+        box-shadow: 0px 0px 10px rgba($black-color, 0.1);
+        margin-top: -10rem;
+        justify-content: center;
+         background: $white-color;
+        a {
+            color: $black-color;
+            padding: 4rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            &:hover {
+                color: $black-color;
+                text-decoration: none !important;
+            }
+        }
+        .tile-container {
+            border: 1px solid rgba($gray-variant4, 0.5);
+            cursor: pointer; 
+            background: $white-color;
+            &:hover {
+                background: $gray-variant7;
+                
+            }
+            .tile-heading {
+                @include font-ArialBold();
+                text-transform: uppercase;
+            }
+        }
+        .inner-tile-container {
+            cx-media {
+                min-height: 110px;
+                justify-content: center;
+                display: flex;
+                align-items: center;
+            }
+        }
+    } 
+}
+@media screen and (max-width: $screenMedium-1024) {
+    .home-dashboard-container { 
+        .tile-main-container {  
+            .tile-container { 
+                a {
+                    padding: 1rem;
+                }
+            }
+            
+        }
+    }
+}
+@media screen and (max-width: $mobileScreenPotrait-767) {
+    .home-dashboard-container {
+        padding-bottom: 0; 
+        .tile-main-container { 
+            margin-top: -12rem;
+            padding: 10px;
+            box-shadow: none;
+            .tile-container {
+                .inner-tile-container {
+                    cx-media {
+                        width: 75%;
+                        min-height: auto;
+                        margin: auto;
+                    }
+                    p {
+                        margin-bottom: 1rem
+                    }
+                }
+            }
+            
+        }
+    }
+}
+

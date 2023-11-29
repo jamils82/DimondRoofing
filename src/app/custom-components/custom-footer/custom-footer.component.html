@@ -1,0 +1,58 @@
+<div class="loading " *ngIf="showWaitCursor | async ">Loading&#8230;</div>
+<div class="footer-top-wrapper" (window:resize)="onResize($event)">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-light justify-content-between footerNavBar">
+        <!-- <a href="{{logo?.urlLink}}" class="footer_logo d-inline-block" [target]="logo?.target == 'true' ? '_blank' : '' ">
+            <cx-media [container]="logoData | async"></cx-media>
+        </a> -->
+        <cx-page-slot class="footer_logo d-inline-block" position="FooterSiteLogo"></cx-page-slot>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#footerNavbar" aria-controls="footerNavbar" aria-expanded="false" aria-label="Footer navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse mt-4 mt-lg-0" id="footerNavbar">
+          <ul class="navbar-nav ml-auto footer-links-nav">
+            <!-- <li class="nav-item" *ngFor="let item of footerLinkArray">
+                <a href="{{item?.url}}" target="{{item.target}}" class="nav-link" >
+                    <span class="">
+                        {{item.title}}
+                    </span>
+                </a>
+            </li> -->
+            <cx-page-slot class="nav-link" position="FooterSiteLinks"></cx-page-slot>
+        </ul>
+        </div>
+      </nav>
+    <div class="footer-custom-container container mx-md-auto">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-margin">
+                <div class="heading-slashline"></div>
+                <!-- <div [innerHtml]="ForAssistanceTxt?.content" class="Assistance-Txt"></div> -->
+                <cx-page-slot class="Assistance-Txt" position="FooterSection1Slot"></cx-page-slot>
+            </div>
+            <div class="col-lg-3 col-md-6 col-margin">
+                <div class="heading-slashline"></div>
+                <!-- <div [innerHtml]="NereastBranchTxt?.content" class="sales-info"></div> -->
+                <cx-page-slot class="sales-info" position="FooterSection2Slot"></cx-page-slot>
+            </div>
+            <div class="col-lg-6 col-md-12 col-margin">
+                <ul class="brand-logo-sec d-flex flex-wrap align-items-center mx-lg-auto">
+                    <cx-page-slot position="FooterSection3Slot"></cx-page-slot>
+                    <!-- <li *ngFor="let data of getSortedData(AllClientLogo)">
+                        <a href="{{data?.value.urlLink}}" class="footer_brand_logo d-inline-block"
+                            target="_blank">
+                            <cx-media [container]="data?.value.media"></cx-media>
+                        </a>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div [ngClass]="!isMobile ? 'social' : 'col-sm-12'">
+    <app-custom-social-footer></app-custom-social-footer>
+</div>
+<div class="copyRightTxt">
+    <div class="container">
+        <!-- <p class="m-0 py-4" [innerHTML]="footerData?.notice"></p> -->
+        <cx-page-slot class="m-0 py-4" position="CopyrightSlot"></cx-page-slot>
+    </div>
+</div>

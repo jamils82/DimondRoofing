@@ -1,0 +1,136 @@
+<div (window:resize)="onResize($event)">
+  <ngx-masonry *ngIf="isDesktop" class="row justify-content-between">
+    <div
+      ngxMasonryItem
+      *ngFor="let data of updateData; let i = index"
+      class="grid-view col-md-6 col-12"
+    >
+      <ng-container
+        *ngTemplateOutlet="
+          sharedCategoryItem;
+          context: {
+            $implicit: data,
+            i: i
+          }
+        "
+      ></ng-container>
+    </div>
+  </ngx-masonry>
+
+  <div *ngIf="!isDesktop" class="row justify-content-between">
+    <div
+      *ngFor="let data of updateData; let i = index"
+      class="grid-view col-md-6 col-12"
+    >
+      <ng-container
+        *ngTemplateOutlet="
+          sharedCategoryItem;
+          context: {
+            $implicit: data,
+            i: i
+          }
+        "
+      ></ng-container>
+    </div>
+  </div>
+  <ng-template let-data #sharedCategoryItem>
+    <div class="grid-tile">
+      <div class="grid-sec text-center">
+        <ng-container *ngIf="clpPage">
+          <ng-container *ngIf="data?.image; else clpNoImage">
+            <a
+              href="{{ storeFrontUrl + '/c/' + data?.code + rootCategory }}"
+              class="text-center"
+            >
+              <cx-media
+                class="category-image"
+                [alt]="data?.name"
+                [container]="data?.image"
+                *ngIf="data?.image?.url"
+              ></cx-media>
+            </a>
+          </ng-container>
+          <ng-template #clpNoImage>
+            <a
+              href="{{ storeFrontUrl + '/c/' + data?.code + rootCategory }}"
+              class="text-center"
+            >
+              <img
+                class="d-block"
+                src="../../../../assets/images/plp-grid-noimage.svg"
+                alt="image"
+              />
+            </a>
+          </ng-template>
+        </ng-container>
+        <ng-container *ngIf="!clpPage">
+          <ng-container *ngIf="getImageGridview(data); else plpNoImage">
+            <a
+              href="{{ storeFrontUrl + '/p/' + data?.code + rootCategory }}"
+              class="text-center"
+            >
+              <cx-media
+                class="category-image"
+                [alt]="data?.name"
+                [container]="getImageGridview(data)"
+                format="zoom" 
+                *ngIf="getImageGridview(data)"
+              ></cx-media>
+            </a>
+          </ng-container>
+          <ng-template #plpNoImage>
+            <a
+              href="{{ storeFrontUrl + '/p/' + data?.code + rootCategory }}"
+              class="text-center"
+            >
+              <img
+                class="d-block"
+                src="../../../../assets/images/plp-grid-noimage.svg"
+                alt="image"
+              />
+            </a>
+          </ng-template>
+        </ng-container>
+      </div>
+      <hr />
+      
+      <ng-container *ngIf="clpPage">
+        <a href="{{ storeFrontUrl + '/c/' + data?.code + rootCategory }}" class="product-title">
+          <h4 class="product-title" [innerHTML]="data?.name"></h4>
+        </a>
+      </ng-container>
+      <ng-container *ngIf="!clpPage">
+        <a href="{{ storeFrontUrl + '/p/' + data?.code + rootCategory }}" class="product-title">
+          <h4 class="product-title" [innerHTML]="data?.name"></h4>
+        </a>
+      </ng-container>
+      <a
+        target="_blank"
+        [href]="data?.documentDownloadLink"
+        class="d-flex justify-content-end doc-link"
+      >
+        <u> Technical Documents </u></a
+      >
+      <div *ngIf="data && data?.description">
+        <p class="desc-txt" [innerHTML]="data?.description"></p>
+      </div>
+      <div *ngIf="!clpPage">
+        <div class="col-md-12 px-0" *ngIf="data?.bpAdditionalAttribute?.colours">
+          <ul class="colorInfo d-flex flex-wrap">
+              <li class="colorItem" [ngStyle]="{'background-color':attr?.code}" *ngFor="let attr of data?.bpAdditionalAttribute?.colours"></li>
+          </ul>
+          <span *ngIf="data?.bpAdditionalAttribute?.additionalColours?.length > 0"class="colorsText d-inline-block mt-2">Additional Colours may be available</span>
+      </div>
+      </div>
+      <hr />
+      <div *ngFor="let attr of data?.attributes" class="px-3 list-item">
+        <div *ngIf="attr?.fieldLabel == 'Manufactured in'">
+          <span>
+            <b> {{ attr?.fieldLabel }} </b>
+          </span>
+          <p class="mb-0" *ngFor="let dat of attr?.fieldValues">{{ dat }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

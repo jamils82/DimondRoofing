@@ -1,0 +1,35 @@
+<!-- <app-welcome-text [welcomeNote]="'Products'"></app-welcome-text> -->
+
+<app-custom-breadcrum [customCrumbData]="breadcrumbData"></app-custom-breadcrum>
+
+
+<div class="loading " *ngIf="showWaitCursor | async ">Loading&#8230;</div>
+<div class="container landingone-dashboard-container">
+    <div class="row tile-main-container m-md-0">
+        <div *ngFor="let menu of tilesData" class="col-sm-4 col-6 tile-container d-flex flex-column justify-content-center align-items-center text-center">
+            <a [href]="menu.url" class="inner-tile-container">
+                <p>
+                    <span [ngClass]="menu.styleClasses"></span>
+                </p>
+                <p class="tile-heading">
+                    {{menu.title | uppercase}}
+                </p>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="categorypage-container">
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-lg-4 col-md-12">
+                <h2 class="heading-slashline" [innerHTML]="productHeading"></h2> 
+                 <cx-page-slot position="Section2Slot-ProductsPage"></cx-page-slot>
+            </div> -->
+            <div class="col-lg-12 col-md-12 category-content-container">
+                <cx-page-slot class="d-lg-flex" position="Section1Slot-ProductsPage"></cx-page-slot>
+            </div>
+        </div>
+    </div>
+    <app-shared-news-updates></app-shared-news-updates>
+</div>
+

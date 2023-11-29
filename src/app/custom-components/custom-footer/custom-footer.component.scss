@@ -1,0 +1,158 @@
+@import "../../shared/styles/theme.scss";
+::ng-deep cx-page-layout.footer {
+    position: relative;
+    background-color: $black-variant2;
+    .Footer {
+        // min-height: 533px;
+        //max-width: 1920px;
+        width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+        .social {
+            position: absolute;
+            right: 0;
+            top: 110px;
+        }
+    }
+}
+::ng-deep.footer {
+    .navbar-toggler{
+        padding: 0;
+    }
+    .navbar.footerNavBar{
+        background-color:  transparent !important;
+        padding: 30px 96px 30px 38px;
+    }
+    .footer_logo {
+        max-width: 200px;
+        cx-media {
+            display: flex;
+            width: 100%;
+            max-width: 181px;
+        }
+    }
+    .footer-links-nav {
+        cx-page-slot {
+            padding:0 1rem;
+            font-size: var(--fontsize14);
+            @include font-Arial();
+            text-transform: uppercase;
+            cx-link{
+                margin: 0.5rem 1.5rem;
+                &:hover{
+                    text-decoration: underline;
+                }
+                &:last-child {
+                    margin-right: 0 !important;
+                }
+            }
+            a {
+                color: $white-color;
+                :hover{
+                    color:$brand-color-variant3;
+                }
+            }
+            
+        }
+    }
+
+    .sales-info,
+    .Assistance-Txt {
+        font-size: var(--fontsize30);
+        @include font-Arial();
+        line-height: var(--fontsize40);
+        a {
+            color: $white-color;
+        }
+        strong {
+            line-height: var(--fontsize40);
+        }
+    }
+    .brand-logo-sec {
+        justify-content: space-around;
+        // max-width: 590px;
+        cx-banner {
+            display: flex;
+            min-height: 60px;
+            align-items: center;
+            padding: 14px 0;
+            min-width: 150px;
+            justify-content: center;
+            flex: auto;
+            .footer_brand_logo {
+                margin: 0 24px;
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+    .col-margin{
+        margin-top: 43px;
+    }
+    .copyRightTxt{
+        background-color: $black-variant6;
+        margin-top: 150px;
+        p{
+            font-size: var(--fontsize14);
+            line-height: var(--fontsize18);
+            color: $white-color;
+        }
+    }
+    @media screen and (max-width: $screenMedium-1024) {
+        .navbar.footerNavBar {
+            padding: 17px 24px;
+            border-bottom: 1px solid rgba($gray-variant5, $alpha: 0.8);
+        }
+        // .footer-links-nav {
+        //     li {
+        //         font-size: 0.813rem;
+        //     }
+        // }
+        .sales-info,
+        .Assistance-Txt {
+            font-size: 1.875rem;
+        }
+        .brand-logo-sec {
+            li {
+                .footer_brand_logo {
+                    margin: 0 48px 0 0;
+                }
+            }
+        }
+        .copyRightTxt{
+            margin-top: 50px;
+        }
+    }
+    @media screen and (max-width: $screenMedium-992) {
+        .footer-links-nav {
+            cx-page-slot {
+                font-size: 14px;
+                padding: 0.2rem 0;
+                cx-link{
+                    display: block;
+                    margin: 1rem;
+                    a {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+    
+    @media screen and (max-width: $mobileScreenPotrait-767) {
+        .navbar.footerNavBar {
+            padding: 17px 16px;
+        }
+        .sales-info,
+        .Assistance-Txt {
+            font-size: 1.5rem;
+            line-height: 2rem ;
+        }
+        .copyRightTxt{
+            p{
+                text-align: center;
+            }
+        }
+    }
+}

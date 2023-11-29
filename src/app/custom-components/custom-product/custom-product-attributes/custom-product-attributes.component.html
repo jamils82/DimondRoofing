@@ -1,0 +1,15 @@
+<ng-container
+  class="mt-2 p-4"
+  *ngIf="productAttributes && productAttributes?.length > 0"
+>
+  <div class="row col col-12">
+      <div class="col-sm-6 col-lg p-0 bg-white" *ngFor="let attribute of productAttributes">
+        <p class="attribute-header font-weight-bold m-0 pt-2 pb-1 pl-2 pr-2 p-lg-2">{{ attribute?.key }}</p>
+        <div class="pt-0 pb-2 pl-2 pr-2 p-lg-2">
+          <p class="m-0" *ngFor="let value of attribute?.value">
+            {{ value }}
+          </p>
+        </div>
+    </div>
+  </div>
+</ng-container>

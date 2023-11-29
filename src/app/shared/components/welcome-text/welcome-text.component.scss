@@ -1,0 +1,47 @@
+@import '../../../shared/styles/theme.scss';
+::ng-deep {
+.homepage-container {
+    &.homepage-welcomebanner {
+        background: url('../../../../assets/images/home_banner.png') no-repeat 50% 50%;
+        background-size: cover;
+        height: 25rem;
+    }
+}
+.CategoryPageTemplate, .CategoryGridPageTemplate, .ProductGridPageTemplate  {
+    .homepage-container {
+        &.homepage-welcomebanner { 
+            height: 20rem; 
+        }
+    } 
+}
+
+@media screen and (min-width: $ScreenMedium-1300) and (max-width: $Largescreen-1440) {
+    .CategoryPageTemplate, .CategoryGridPageTemplate, .ProductGridPageTemplate  {
+        .homepage-container {
+            &.homepage-welcomebanner { 
+                height: 15rem;
+                .heading-leve1 {
+                    padding: 3rem 0 1rem 0;
+                }
+            }
+        } 
+    }
+}
+
+@media screen and (max-width: $screenMedium-991) {
+    .homepage-container {
+        &.homepage-welcomebanner {
+            height: 20rem;
+        }
+    }
+}
+@media screen and (max-width: $mobileScreenPotrait-767) {
+    .CategoryPageTemplate, .CategoryGridPageTemplate, .ProductGridPageTemplate  {
+        .homepage-container {
+            &.homepage-welcomebanner { 
+                height: 10rem; 
+            }
+        } 
+    }
+}
+}

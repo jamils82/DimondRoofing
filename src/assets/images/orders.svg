@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="101.516" height="99.871" viewBox="0 0 101.516 99.871">
+  <g id="Group_12762" data-name="Group 12762" transform="translate(-1077.627 -510.716)">
+    <g id="Group_10895" data-name="Group 10895" transform="translate(1079 500.137)">
+      <g id="Group_10893" data-name="Group 10893">
+        <g id="Group_10892" data-name="Group 10892" transform="matrix(0.985, -0.174, 0.174, 0.985, 0, 14.934)">
+          <path id="Path_802" data-name="Path 802" d="M0,0,15.68,13.96l.23,55.4" transform="translate(0 0)" fill="none" stroke="#1d1d1b" stroke-width="3.5"/>
+          <g id="Group_10891" data-name="Group 10891" transform="translate(30.493 28.687)">
+            <path id="Path_803" data-name="Path 803" d="M55.5,58.516,1.917,58.38h0L0,0H42.662V58.516" transform="translate(0 0)" fill="none" stroke="#1d1d1b" stroke-width="3.5"/>
+            <path id="Path_804" data-name="Path 804" d="M0,0H41.706" transform="translate(1.209 29.258)" fill="none" stroke="#1d1d1b" stroke-width="3.5"/>
+          </g>
+        </g>
+        <g id="Ellipse_5" data-name="Ellipse 5" transform="translate(15.644 78.581)" fill="none" stroke="#1d1d1b" stroke-width="3">
+          <ellipse cx="16.235" cy="15.934" rx="16.235" ry="15.934" stroke="none"/>
+          <ellipse cx="16.235" cy="15.934" rx="14.735" ry="14.434" fill="none"/>
+        </g>
+        <ellipse id="Ellipse_6" data-name="Ellipse 6" cx="11.848" cy="11.548" rx="11.848" ry="11.548" transform="translate(20.031 82.968)" fill="rgba(166,166,165,0.15)"/>
+      </g>
+      <path id="Path_805" data-name="Path 805" d="M1197.805,3386.881l35.959-6.979,4.109,22.267-34.715,7.271Z" transform="translate(-1160.25 -3346.746)" fill="rgba(166,166,165,0.1)"/>
+      <path id="Path_806" data-name="Path 806" d="M1197.805,3386.881l35.959-6.979,4.109,22.267-34.715,7.271Z" transform="translate(-1153.231 -3317.207)" fill="rgba(166,166,165,0.1)"/>
+    </g>
+    <path id="Oval" d="M0,0A8.58,8.58,0,0,1,2.246.3,8.574,8.574,0,0,1,8.57,8.57" transform="translate(1111.658 585.316)" fill="none" stroke="#1d1d1b" stroke-linecap="round" stroke-width="2.5"/>
+  </g>
+</svg>

@@ -1,0 +1,66 @@
+@import '../../shared/styles/theme.scss';
+
+.products-breadcums{
+    position: sticky;
+    top: 142px;
+    z-index: 1;
+}
+.categoryPageView {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+}
+
+#filterModal {
+    .modal-dialog {
+        position: fixed;
+        width: 100%;
+        margin-top: 0px;
+        right: 0px;
+        padding-bottom: 2rem;
+    }
+
+    .modal-content {
+        height: 100vh;
+    }
+}
+
+@media (max-width: $screenMedium-991) and (min-width: $mobileScreenPotrait-768) {
+    .filter-btn {
+        margin-bottom: 30px;
+
+        .btn {
+            background-color: $white-color;
+            border: 1px solid $black-variant2;
+            border-radius: 0;
+            width: 155px;
+            text-align: center;
+            cursor: pointer;
+            text-transform: uppercase;
+            color: $black-variant2;
+            font-size: var(--fontsize16);
+            @include font-ArialBold();
+        }
+    }
+}
+
+@media screen and (max-width: $mobileScreenPotrait-767) {
+    .filter-btn {
+        display: block;
+        margin-bottom: 30px;
+    }
+
+    .btn {
+        width: 100%;
+        background-color: $white-color;
+        border: 1px solid $black-variant2;
+        border-radius: 0;
+    }
+}
+@media screen and (max-width: $screenMedium-991) {
+
+    .products-breadcums {
+        position: sticky;
+        top: 60px;
+        z-index: 1;
+    }
+}

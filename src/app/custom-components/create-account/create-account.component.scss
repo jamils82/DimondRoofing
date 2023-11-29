@@ -1,0 +1,233 @@
+/* Textbox click move label up and outside click down */
+@import '../../shared/styles/theme.scss';
+::ng-deep cx-storefront.stop-navigating:before{
+        height: 0px !important;
+}
+
+::ng-deep.RequestAccessPageTemplate {
+    .SiteLogo {
+        background-color: $brand-color;
+        padding: 32px;
+        width: 100%;
+        height: 92px;
+        cx-banner, a, cx-generic-link{
+            display: inline-block;
+            cx-media{
+                max-width: 181px;
+            }
+        }
+        .storeLogo{
+            bottom: 28px;
+        }
+        .homeLogo{
+            display: none;
+        }
+    }
+
+    &.stop-navigating:after{
+        height: 0;
+    }
+    .RequestAccessHeader{
+        cx-paragraph:first-child{
+            background-color: $black-variant2;
+            color: $white-color;
+            p{
+                margin: 0;
+                padding: 1rem;
+                .container{
+                    font-size: var(--fontsize20);
+                }
+            }
+        }
+        cx-paragraph:nth-child(2){           
+            p{
+                margin: 0;
+                padding: 1rem;
+                .container{
+                    font-size: var(--fontsize16);
+                }
+            }
+        }
+    }
+    @media screen and (max-width: $screenMedium-992) {
+        .PreHeader{
+            display: none;
+        }
+        .SiteLogo{
+            max-width:unset;
+            margin-left: 0;
+        }
+    }
+    @media screen and (max-width: $smallmobileScreenPotrait576) {
+        .SiteLogo{
+            max-width: unset;
+            .storeLogo{
+                display: block;
+            }
+        }
+    }
+}
+
+.createAccountForm { 
+    background-color: $white-color;  
+    .searchformfld {
+        position: relative;
+        margin: 5px 0px; 
+        input {
+            width: 100%;
+            padding-left: 10px; 
+            border-radius: 0; 
+            color: $black-variant2;
+        }
+        label {
+            transition: all 0.2s;
+            transition-timing-function: ease;
+            transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+            opacity: 1;
+            position: absolute;
+            padding-left: 10px;
+            top: 9px;
+            cursor: text;
+        }
+    } 
+}
+.modal-header{
+    .close{
+        position: absolute;
+        top: 15px;
+        right: 5px;
+        font-size: var(--fontsize24);
+        z-index: 9;
+    }
+}
+::ng-deep.message {
+    a {
+        color:$black-variant2;
+        text-decoration: underline;
+        &:hover {
+          color: $brand-color;  
+        }
+    }
+}
+.searchformfld input:focus + label,
+.searchformfld input:not(:placeholder-shown) + label {
+    opacity: 1;
+    transform: scale(0.9) translateY(-100%) translateX(9px); 
+    background-color: $white-color;
+    padding-right: 9px;
+}
+
+
+form { 
+    > *input {
+        border: 1px solid $light;
+        background-color: $white-color !important;
+        z-index: 1;
+        margin-bottom: 0; 
+        &:visited {
+            background-color: $white-color;
+        }
+        &:focus {
+            background-color: $white-color;
+            box-shadow: none;
+            outline-style: hidden !important;
+            outline-color: transparent;
+            border: 1px solid $light;
+        }
+        &:hover {
+            background-color: $white-color;
+            box-shadow: none;
+        }
+        &:-webkit-autofill {
+            background-color: $white-color !important;
+            box-shadow: none;
+        }
+        &:-webkit-internal-autofill-selected {
+            background-color: $white-color !important;
+            box-shadow: none;
+        }
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+            background-color: $white-color !important;
+            box-shadow: none;
+        }
+    }
+    
+    input.ng-invalid.ng-touched,
+    input.error {
+        border: 1px solid $danger !important;
+    }
+    select.ng-invalid.ng-touched,
+    select.error {
+        border: 1px solid $danger !important;
+    }
+    .fa_custom {
+        color: $danger;
+        position: absolute;
+        right: 1rem;
+        top: 0.8rem;
+        transform: scale(1.1);
+    }
+    .row {
+        justify-content: center;
+        .form-group {
+            position: relative;
+            margin-bottom: 0.5rem !important;
+            label {
+                position: absolute;
+                font-size: var(--fontsize14);
+                color: $black-variant2;
+                cursor: text;
+                z-index: 0;
+                transition: all 0.15s ease-in-out 0s;
+            }
+        }
+    }
+    > *select {  
+        color: $black-variant2;
+        border: 1px solid $light;
+        border-radius: 0;
+
+        &:focus {
+            background-color: $white-color;
+        }
+        * > option {
+            color: $black-variant2; 
+        }
+    }
+    > *textarea {
+        background-color: $white-color;
+        color: $black-variant2; 
+        border-radius: 0;
+    }
+}
+ 
+.text-danger { 
+    margin-top: 0.1rem;
+    margin-bottom: 0.8rem;
+    display: block;
+    padding-left: 0.3rem;
+    color: $danger !important;
+    border-radius: 0.3rem;
+}
+
+.submitBtn {
+    background-color: $black-variant2;
+    width: 15rem; 
+    border-radius: 0;
+    text-transform: uppercase;
+    @include font-ArialBold();
+    &.disabled {
+        background-color: $black-variant9;
+    }
+}
+::ng-deep.modal-dialog {
+    .modal-content {
+        .modal-header { 
+            border: none !important;
+            padding:27px 30px 0 30px;
+        }
+    }
+}

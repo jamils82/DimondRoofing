@@ -1,0 +1,76 @@
+<div class="loading " *ngIf="showWaitCursor | async ">Loading&#8230;</div>
+<app-custom-breadcrum *ngIf="isDataLoaded" [customCrumbData]="breadcrumbData"></app-custom-breadcrum>
+<div class="container categoryPageView" *ngIf="model as model" infiniteScroll [infiniteScrollDistance]="0" [infiniteScrollThrottle]="1000" (scrolled)="onScroll()" (window:resize)="onResize($event)">
+    <div class="row" *ngIf='model?.freeTextSearch && model?.freeTextSearch != ""'>
+        <div class="col-md-12 mt-4 mb-5">
+            <h1 class="products m-0">Search results for '{{model?.freeTextSearch}}'</h1>
+            <div class="search-results">{{ model?.pagination?.totalResults  }}{{ model?.pagination?.totalResults  == 1 ? ' Product' : ' Products'}} found</div>
+        </div>
+    </div>
+    <ng-container *ngIf="productData.length>0; else productNotFound">
+        <div class="row">
+            <div class="col-sm-3" *ngIf="isDesktop">
+                <app-product-facets (facetsQuery)="getSelectedFacets($event)" [customFacetsData]="facetsData" *ngIf="isDataLoaded"></app-product-facets>
+            </div>
+            <div [ngClass]="{'col-sm-12' : !isDesktop}" class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <app-category-paragraph></app-category-paragraph>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end m-t-30 m-b-30">
+                    <div class="main-view" *ngIf="isDesktop">
+                        <button [ngClass]="{'active': listview === false}" class="btn btn-sm" (click)="gridView()">
+                                <img *ngIf="listview === false" src="../../../assets/images/Grid-light.svg" alt="gridviewlight">
+                        <img *ngIf="listview === true" src="../../../assets/images/Grid-dark.svg" alt="gridviewdark">
+                         Grid</button>
+                        <button [ngClass]="{'active': listview === true}" class="btn btn-sm active" (click)="listView()">
+                                <img *ngIf="listview === true" class="list-img" src="../../../assets/images/List-light.svg"
+                                alt="listview">
+                            <img *ngIf="listview === false" class="list-img" src="../../../assets/images/List-dark.svg"
+                                alt="listview"> List</button>
+                    </div>
+                </div>
+                <div class="filter-btn" *ngIf="!isDesktop">
+                    <button class="btn" type="button" data-toggle="modal" data-target="#filterModal">Filters</button>
+                </div>
+                <ng-container *ngIf="isDesktop">
+                    <app-custom-categorylist [categoriesData]="productData" *ngIf="listview && isDataLoaded">
+                    </app-custom-categorylist>
+
+                    <app-custom-categorygrid [categoriesData]="productData" *ngIf="!listview && isDataLoaded">
+                    </app-custom-categorygrid>
+                    <p *ngIf="showSelectedFilters"> We are displaying results based on - <b> {{selectedNames}} </b></p>
+                </ng-container>
+                <ng-container *ngIf="!isDesktop">
+                    <app-custom-categorygrid [categoriesData]="productData" *ngIf="isDataLoaded">
+                    </app-custom-categorygrid>
+                </ng-container>
+                <ng-container *ngIf="loaderImage | async">
+                    <div class="col-sm-12 mx-auto text-center mb-4">
+                        <span class="product-loader">
+                                <i class="loader-icon fas fa-spinner fa-pulse"></i>
+                                <span class="loader-text">loading….</span>
+                        </span>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #productNotFound>
+        <p class="text-center noresultFound d-flex align-items-center justify-content-center">Sorry, there are no results for the keyword you searched.</p>
+    </ng-template>
+</div>
+
+<div *ngIf="!isDesktop" class="modal fade modal-right" #filterModal id="filterModal" role="dialog" aria-labelledby="filterModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="icon-close branch-pop-close ml-auto" data-dismiss="modal" aria-label="Close"></i>
+            </div>
+            <div class="modal-body">
+                <app-product-facets (mobileFacets)="mobileFacetsClose()" [totalResults]="totalResults" (facetsQuery)="getSelectedFacets($event)" [customFacetsData]="facetsData" *ngIf="isDataLoaded"></app-product-facets>
+            </div>
+        </div>
+    </div>
+</div>

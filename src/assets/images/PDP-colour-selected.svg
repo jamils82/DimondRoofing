@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17.186" height="17.186" viewBox="0 0 17.186 17.186">
+  <g id="Group_12857" data-name="Group 12857" transform="translate(0.25 0.25)">
+    <circle id="Ellipse_14" data-name="Ellipse 14" cx="8.316" cy="8.316" r="8.316" transform="translate(0 0.039)"/>
+    <path id="Icon_ionic-md-checkmark-circle" data-name="Icon ionic-md-checkmark-circle" d="M11.718,3.375a8.343,8.343,0,1,0,8.343,8.343A8.367,8.367,0,0,0,11.718,3.375ZM10.005,16.166,5.729,11.89l1.2-1.2,3.08,3.08,6.5-6.5,1.2,1.2Z" transform="translate(-3.375 -3.375)" fill="#fff"/>
+    <path id="Icon_ionic-md-checkmark-circle_-_Outline" data-name="Icon ionic-md-checkmark-circle - Outline" d="M11.718,3.125a8.583,8.583,0,0,1,6.069,14.662A8.583,8.583,0,1,1,5.649,5.649,8.532,8.532,0,0,1,11.718,3.125Zm0,16.686A8.117,8.117,0,1,0,6,17.433,8.035,8.035,0,0,0,11.718,19.811ZM16.511,6.916l1.553,1.553-8.059,8.05L5.376,11.89l1.553-1.553,3.08,3.08Zm.846,1.553-.846-.846-6.5,6.5-3.08-3.08-.846.846,3.922,3.922Z" transform="translate(-3.375 -3.375)"/>
+  </g>
+</svg>

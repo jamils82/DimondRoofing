@@ -1,0 +1,72 @@
+@import '../../shared/styles/theme.scss';
+app-custom-breadcrum {
+    z-index: 6;
+    position: fixed !important;
+    width: 100%;
+    right: 0;
+}
+.preference-container-top {
+    margin-top: 40px;
+}
+::ng-deep .AccountPageTemplate {
+    cx-page-slot.CustomPreferencesSlot {
+        max-width: 100% !important;
+        padding: 0;
+    }
+    .pageParaText  {
+        a {
+            text-decoration: underline;
+        }
+    }
+    .tabmenu-container {
+        ul {
+            &.nav-tabs {
+                border-bottom: 1px solid $black-variant2;
+            }
+            li{
+               padding-right: 5rem;
+                .nav-link {
+                    padding-left: 0;
+                    padding-right: 0;
+                    background: transparent;
+                    @include font-ArialBold();
+                    &.active {
+                        color: $brand-color;
+                        border-bottom: 3px solid $brand-color;
+                    }
+                }
+                
+            }
+        }
+    }
+    .preferencestab-container { 
+        background: $white-color;
+        .tab-pane { 
+            padding: 0 1.5rem;  
+        }
+        .communication-preferences {
+            .custom-radio-btn {
+                line-height: 2.5rem;
+                margin-bottom: 0;
+                .form-check-label {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: $mobileScreenPotrait-767) {
+        .userHdName {
+            font-size: var(--fontsize16);
+            word-break: break-word;
+        }
+        .tabmenu-container {
+            ul {
+                li{
+                    padding-right: 1rem;
+                }
+            }
+         }
+    }
+    
+}

@@ -1,0 +1,49 @@
+<div class="loading" *ngIf="showWaitCursor | async ">Loading&#8230;</div>
+<div (window:resize)="onResize($event)" class="products-facet">
+    <div class=" d-flex justify-content-between main-view">
+        <div class="filter-head"> Filters </div>
+        <a href="javascript:void(0)" (click)="clearAllClick()" class="clearAll"> Clear all </a>
+    </div>
+    <div class="accordion">
+        <div class="cardview" *ngFor="let facetData of facetsData; let ind = index">
+            <div *ngIf="(isPLPPage && facetData.name.toLowerCase() != 'profile') || !isPLPPage" class="card-header">
+                <span class="btn btn-header-link collapsed" data-toggle="collapse" [attr.data-target]="'#facetList' + ind" aria-expanded="false" [attr.aria-controls]="'facetList' + ind">
+                    {{facetData.name}} </span>
+            </div>
+            <div *ngIf="(isPLPPage && facetData?.name?.toLowerCase() != 'profile') || !isPLPPage" [attr.id]="'facetList' + ind" class="collapse show">
+                <div class="card-body">
+                    <ul>
+                        <li *ngFor="let data of facetData?.values; let i = index" class="d-flex flex-row form-check">
+                            <label *ngIf="i < 5 " class="form-check-label">
+                                <input type="checkbox" [checked]="data.selected == true" name="dropdown-group"
+                                    class="rounded-0" (change)="checkValue($event , data  )"
+                                    [value]="data.query?.query?.value" 
+                                    [disabled]="disabled"/>
+                                {{data.name}}
+                            </label>
+                        </li>
+                        <div *ngIf="facetData?.values.length > 4" [attr.id]="'show' + ind" class="collapse">
+                            <ng-container>
+                                <li *ngFor="let data of facetData?.values;  let i = index" class="d-flex flex-row form-check">
+                                    <label *ngIf="i > 4 " class="form-check-label">
+                                        <input type="checkbox" [checked]="data.selected == true" name="dropdown-group"
+                                            class="rounded-0" (change)="checkValue($event , data )"
+                                            [value]="data.query?.query?.value" [disabled]="disabled"/>
+                                        {{data.name}}
+                                    </label>
+                                </li>
+                            </ng-container>
+                        </div>
+                        <a href="javascript:void(0)" class="showMoreBtn" [attr.id]="ind" *ngIf="facetData?.values.length > 5" (click)="showMore(ind)" data-toggle="collapse" [attr.data-target]="'#show' + ind" aria-expanded="false" [attr.aria-controls]="'show' + ind" [ngClass]="ind < 3 ? '' : 'collapsed' ">
+                            {{showDetails[ind] ==true ? 'Show less' : 'Show more'}}
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="show-result-button" *ngIf="!isDesktop">
+            <button class="btn dimond-primary-btn full-width-btn" (click)="showResults()"> Show {{totalResults}} Results </button>
+        </div>
+    </div>
+    <cx-page-slot  class="my-3 facet-anchor-link" position="AboutFiltersSlot"></cx-page-slot>
+</div>

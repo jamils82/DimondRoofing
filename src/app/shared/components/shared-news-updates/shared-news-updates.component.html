@@ -1,0 +1,46 @@
+
+<div class="container">
+    <div class="row">
+        <h2 class="heading-leve2 heading-slashline"> <cx-page-slot position="Section4Slot"></cx-page-slot></h2>
+    </div>
+
+    <div class="loading " *ngIf="showWaitCursor | async ">Loading&#8230;</div>
+    <div class="row">
+        <!-- <div *ngFor="let data of newsFeedData; let ind = index" class="col-lg-4 col-md-6">
+            <div class="card news-card-container">
+                <cx-media [container]="data?.media" class="card-img-top"></cx-media>
+                <div class="card-body">
+                    <div class="card-innerbox">
+                        <p class="card-text date-text"><small>{{data?.date}} </small></p>
+                        <h4 class="card-title"> {{data?.title}} </h4>
+                        <p class="card-text"> {{data?.content}} </p>
+                    </div>
+                    <div class="text-center card-footerlink">
+                        <a [href]="data?.urlLink" class="card-link d-block" [target]="data?.bpComponent.link.target == 'true' ? '_blank' : '' "> {{constantsData.readMore}}</a>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+          <div class="col-lg-4 col-md-4">
+            <div class="card news-card-container">
+                <cx-page-slot position="Section5Slot"></cx-page-slot>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <div class="card news-card-container">
+                <cx-page-slot position="Section5BSlot"></cx-page-slot>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <div class="card news-card-container">
+                <cx-page-slot position="Section5CSlot"></cx-page-slot>
+            </div>
+          </div>
+        
+        <p class="newsfeed-right-link">
+            <cx-page-slot position="Section5DSlot"></cx-page-slot>
+
+            <!-- <a [href]="siteLink" title="{{siteLinkName}}" [target]="siteLinkTarget == 'true' ? '_blank' : '' "> <i class="icon-right"></i> {{siteLinkName}} </a> -->
+        </p>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="424.5" height="274" viewBox="0 0 424.5 274">
+  <g id="Group_13352" data-name="Group 13352" transform="translate(-3951 -553)">
+    <g id="Group_13349" data-name="Group 13349">
+      <rect id="Image_31" data-name="Image 31" width="424" height="274" transform="translate(3951 553)" fill="#e8e8e8" opacity="0.996"/>
+      <g id="Group_14003" data-name="Group 14003" transform="translate(6518 5091)">
+        <g id="Group_14001" data-name="Group 14001" transform="translate(-2476 -4469)">
+          <rect id="Rectangle_1465" data-name="Rectangle 1465" width="175" height="141" transform="translate(34 -2)" fill="#e8e8e8"/>
+          <g id="Group_14004" data-name="Group 14004" transform="translate(12)">
+            <path id="noun-camera-4325388" d="M183.018,60.7H143.759a13.147,13.147,0,0,0-13.148,13.147v39.259a13.147,13.147,0,0,0,13.148,13.147h39.259a13.147,13.147,0,0,0,13.148-13.147V73.846A13.147,13.147,0,0,0,183.018,60.7Zm7.889,52.407a7.889,7.889,0,0,1-7.889,7.889H143.759a7.889,7.889,0,0,1-7.889-7.889V73.847a7.889,7.889,0,0,1,7.889-7.889h39.259a7.889,7.889,0,0,1,7.889,7.889ZM163.4,80.053A13.437,13.437,0,1,0,172.885,84a13.44,13.44,0,0,0-9.484-3.945Zm0,21.588h0a3.372,3.372,0,1,0,0-.052Zm22.536-28.662h0a2.63,2.63,0,0,1-2.63,2.63h-2.63a2.63,2.63,0,1,1,0-5.259h2.63a2.63,2.63,0,0,1,2.63,2.63Z" transform="translate(-53.611 -39.607)" fill="#8d8d8d"/>
+            <g id="Navlink_Inverse" data-name="Navlink Inverse" transform="translate(61 101)">
+              <rect id="Rectangle_807" data-name="Rectangle 807" width="97" height="6" transform="translate(0 15)" fill="#8d8d8d" opacity="0"/>
+              <text id="NO_IMAGE" data-name="NO IMAGE" transform="translate(0 17)" fill="#8d8d8d" font-size="19" font-family="Arial-BoldMT, Arial" font-weight="700"><tspan x="0" y="0">NO IMAGE</tspan></text>
+            </g>
+            <circle id="Ellipse_360" data-name="Ellipse 360" cx="13.5" cy="13.5" r="13.5" transform="translate(96 40)" fill="#e8e8e8"/>
+            <path id="Ellipse_360_-_Outline" data-name="Ellipse 360 - Outline" d="M13.5,4A9.5,9.5,0,1,0,23,13.5,9.511,9.511,0,0,0,13.5,4m0-4A13.5,13.5,0,1,1,0,13.5,13.5,13.5,0,0,1,13.5,0Z" transform="translate(96 40)" fill="#8d8d8d"/>
+          </g>
+        </g>
+      </g>
+      <path id="Line_457" data-name="Line 457" d="M424,.5H0v-1H424Z" transform="translate(3951.5 826.5)" fill="#e8e8e8"/>
+    </g>
+  </g>
+</svg>

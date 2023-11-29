@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="112.369" height="110.147" viewBox="0 0 112.369 110.147">
+  <g id="Group_12761" data-name="Group 12761" transform="translate(-727.601 -497.915)">
+    <g id="Group_10843" data-name="Group 10843" transform="matrix(0.848, -0.53, 0.53, 0.848, 720, 516.607)">
+      <g id="Group_10837" data-name="Group 10837" transform="matrix(0.438, 0.899, -0.899, 0.438, 59.377, 0)">
+        <g id="Union_4" data-name="Union 4" transform="translate(10.877 66.063) rotate(-103)" fill="#fff">
+          <path d="M 46.8508415222168 82.74783325195312 L 1.499995350837708 82.74783325195312 L 1.499995350837708 26.51322364807129 L 24.17573356628418 2.199300527572632 L 46.8508415222168 26.5132007598877 L 46.8508415222168 82.74783325195312 Z" stroke="none"/>
+          <path d="M 45.35083389282227 81.24783325195312 L 45.35084533691406 27.1041145324707 L 24.17572212219238 4.398596286773682 L 3.00000524520874 27.1041374206543 L 2.999992847442627 81.24783325195312 L 45.35083389282227 81.24783325195312 M 48.35083389282227 84.24783325195312 L -7.812906915205531e-06 84.24783325195312 L 5.520426384464372e-06 25.92230415344238 L 24.17575263977051 -3.37402343575377e-06 L 48.35084533691406 25.92230415344238 L 48.35083389282227 84.24783325195312 Z" stroke="none" fill="#1d1d1b"/>
+        </g>
+        <path id="Union_6" data-name="Union 6" d="M0,76.3V23.478L20.493,0,40.985,23.478V76.3Z" transform="translate(15.475 62.987) rotate(-103)" fill="rgba(166,166,165,0.15)"/>
+        <g id="Ellipse_4" data-name="Ellipse 4" transform="translate(19.377 34.627)" fill="#fff" stroke="#1d1d1b" stroke-width="3">
+          <ellipse cx="5.494" cy="5.494" rx="5.494" ry="5.494" stroke="none"/>
+          <ellipse cx="5.494" cy="5.494" rx="3.994" ry="3.994" fill="none"/>
+        </g>
+      </g>
+      <line id="Line_8" data-name="Line 8" y1="16.117" x2="19.047" transform="translate(48.215 60.397)" fill="none" stroke="#1d1d1b" stroke-width="3"/>
+      <line id="Line_9" data-name="Line 9" y1="16.117" x2="19.047" transform="translate(54.076 66.991)" fill="none" stroke="#1d1d1b" stroke-width="3"/>
+    </g>
+    <g id="Group_10842" data-name="Group 10842" transform="translate(722.125 488.373)">
+      <g id="Group_10837-2" data-name="Group 10837" transform="matrix(0.438, 0.899, -0.899, 0.438, 68.198, 0)">
+        <g id="Union_4-2" data-name="Union 4" transform="translate(12.492 75.877) rotate(-103)" fill="#fff">
+          <path d="M 54.03343963623047 95.26301574707031 L 1.499999761581421 95.26301574707031 L 1.499999761581421 30.3640308380127 L 27.76709747314453 2.199300527572632 L 54.03345489501953 30.3640079498291 L 54.03343963623047 95.26301574707031 Z" stroke="none"/>
+          <path d="M 52.53344345092773 93.76301574707031 L 52.53344345092773 30.95491409301758 L 27.7670726776123 4.398593902587891 L 2.999996662139893 30.95493698120117 L 2.999996662139893 93.76301574707031 L 52.53344345092773 93.76301574707031 M 55.53344345092773 96.76301574707031 L -3.258807737438474e-06 96.76301574707031 L -3.258807737438474e-06 29.77310752868652 L 27.76710510253906 1.812274632584376e-07 L 55.53344345092773 29.77310752868652 L 55.53344345092773 96.76301574707031 Z" stroke="none" fill="#1d1d1b"/>
+        </g>
+        <path id="Union_6-2" data-name="Union 6" d="M0,87.64V26.966L23.537,0,47.074,26.966V87.64Z" transform="translate(17.774 72.344) rotate(-103)" fill="rgba(166,166,165,0.1)"/>
+        <g id="Ellipse_4-2" data-name="Ellipse 4" transform="translate(22.255 39.771)" fill="#fff" stroke="#1d1d1b" stroke-width="3">
+          <ellipse cx="6.311" cy="6.311" rx="6.311" ry="6.311" stroke="none"/>
+          <ellipse cx="6.311" cy="6.311" rx="4.811" ry="4.811" fill="none"/>
+        </g>
+      </g>
+      <line id="Line_8-2" data-name="Line 8" y1="18.511" x2="21.877" transform="translate(55.377 69.369)" fill="none" stroke="#1d1d1b" stroke-width="3"/>
+      <line id="Line_9-2" data-name="Line 9" y1="18.511" x2="21.877" transform="translate(62.109 76.942)" fill="none" stroke="#1d1d1b" stroke-width="3"/>
+    </g>
+  </g>
+</svg>

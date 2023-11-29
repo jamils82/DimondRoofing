@@ -1,0 +1,117 @@
+@import "../../../shared/styles/theme.scss";
+
+.relatedproduct-container {
+  .relatedproduct-title {
+    background: $black-variant6;
+    h3 {
+      color: $white-color;
+      padding: 1rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: var(--fontsize28);
+      span {
+        font-size: var(--fontsize28);
+      }
+    }
+  }
+  .table-outer-container {
+    .header-container {
+      .header-text {
+        background: $table-header-bg;
+        color: $white-color;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        @include font-ArialBold();
+        font-size: var(--fontsize14);
+      }
+    }
+    .body-container {
+      .custom-card-header {
+        background: $gray-variant7;
+        padding: 1.25rem;
+        a {
+          color: $black-variant4;
+          @include font-ArialBold();
+          display: block;
+          font-size: var(--fontsize16);
+          &::after { 
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            float: right;
+            padding-left: 8px; 
+          }
+          &[aria-expanded="true"]::after {
+            content: "\f107";
+          }
+          &[aria-expanded="false"]::after {
+            content: "\f106";
+          }
+        }
+      }
+      .custom-card-body {
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid $gray-variant7;
+        padding: 10px 0;
+        .relatedproduct-image {
+          img {
+            width: 56px;
+            height: 56px;
+          }
+          .products-image {
+            width: 56px;
+            height: 56px;
+          }
+        }
+        .relatedproduct-name {
+          @include font-ArialBold();
+        }
+        .relatedproduct-link {
+          color: $brand-color;
+          text-decoration: underline;
+          font-size: var(--fontsize14);
+        }
+      }
+      .product-img-container {
+        display: flex;
+        align-items: center;
+      }
+      p {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+  .relatedproduct-scroll {
+    max-height: 25rem;
+    overflow: auto;
+    margin-bottom: 15px;
+  }
+}
+@media screen and (max-width: $mobileScreenPotrait-767) {
+  ::ng-deep main {
+    .category-image {
+      width: 100% !important;
+    }
+    .tabs {
+      flex-direction: row;
+      align-items: stretch;
+      .tab-link {
+        align-items: center;
+        flex-direction: column;
+        .icon {
+          border-right: none;
+        }
+      }
+    }
+   
+  }
+  .viewproduct-container {
+    position: absolute;
+    right: 0;
+    top: 10px;
+      p {
+        text-align: right;
+      }
+  }
+}

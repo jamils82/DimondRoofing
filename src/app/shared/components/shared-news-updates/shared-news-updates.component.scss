@@ -1,0 +1,122 @@
+@import '../../../shared/styles/theme.scss';
+
+//code for news and updates section 
+
+::ng-deep .news-card-container {
+    background: $white-color;
+    border: none;
+    z-index: 1;
+    box-shadow: 0 4px 10px 0 rgba($black-color, 0.05);
+    margin-bottom: 2rem;
+    .cards-img-top {
+        img {
+            max-width: 100%;
+        }
+    }
+    .card-body {
+        padding: 0;
+        .card-innerbox {
+            padding: 1rem 1.5rem;
+            height: 14.375rem;
+            .date-text {
+                @include font-ArialBold();
+                margin-bottom: 1rem;
+                font-size: var(--fontsize14);
+            }
+        }
+        .card-title {
+            font-size: var(--fontsize24);
+            color: $brand-color-variant1;
+            line-height: 1.3;
+        }
+    }
+    .card-footerlink {
+        a {
+            padding: 1.5rem 0;
+            border-top: 1px solid $gray-variant6;
+            @include font-ArialBold();
+            display: block;
+            font-size: var(--fontsize14);
+            &:link,
+            &:visited,
+            &:focus {
+                color: $black-variant2;
+                text-transform: uppercase;
+                text-decoration: none;
+            }
+            &:hover {
+                background: $brand-color-variant1;
+                color: $white-color;
+                text-decoration: none;
+            }
+        }
+    }
+    cx-page-slot {
+        cx-paragraph p {
+            &:first-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+::ng-deep .newsfeed-right-link {
+    a {
+        @include font-ArialBlack;
+        position: absolute;
+        right: 0;
+        width: 8rem;
+        height: 8rem;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        font-size: .75rem;
+        padding: 3rem 1rem 3rem 1.5rem;
+        color: $white-color;
+        text-transform: uppercase;
+        border: 0;
+        background: url('../../../../assets/images/see-more-bg.svg') no-repeat;
+        transition: all .2s;
+        z-index: 1;
+        &:hover { 
+            background: url('../../../../assets/images/see-more-bg-hover.svg') no-repeat;
+            text-decoration: none;
+            color: $white-color;
+        }
+        .icon-right {
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+::ng-deep {
+@media screen and (max-width: $Largescreen-1600) {
+
+    .newsfeed-right-link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        a { 
+            position: relative;
+            justify-content: center;
+            align-items: center; 
+            background:$brand-color-variant1;
+            margin-left: 15px;
+            padding: 1rem;
+            height: auto;
+            width: auto;
+            &:hover { 
+                background:$brand-color-variant1;
+                text-decoration: none;
+                color: $white-color;
+            }
+            .icon-right {
+                display: none;
+            }
+        }
+    }
+    
+    
+}
+}

@@ -1,0 +1,124 @@
+@import '../../../shared/styles/theme.scss';
+.filter-head {
+    @include font-ArialBold();
+}
+
+.cardview {
+    padding: 0 20px;
+}
+.products-facet {
+    position: sticky;
+    top: 200px;
+}
+.clearAll {
+    text-decoration: underline;
+}
+.disabled, :disabled {
+    cursor: default !important;
+}
+.show-result-button {
+    position: fixed;
+    display: flex;
+    bottom: 20px;
+    left: 15px;
+    width: 100%;
+    .full-width-btn {
+        max-width: 100%;
+        width: calc( 100% - 30px);
+    }
+}
+
+.accordion {
+    .cardview {
+        .card-header {
+            .btn-header-link:after {
+                content: "\f106";
+                font-family: 'Font Awesome 5 Free';
+                font-weight: 900;
+                float: right;
+                padding-left: 8px;
+            }
+            .collapsed.btn-header-link:after {
+                content: "\f107";
+            }
+        }
+    }
+}
+.btn{
+    height: unset;
+    max-height: unset;
+}
+.accordion {
+    margin-top: 15px;
+    padding: 15px 0 45px;
+    background-color: $white-color;
+    max-height: 65vh;
+    overflow: auto;
+    .card-body {
+        padding: 10px 0;
+    }
+}
+
+.accordion .card-header {
+    background-color: $white-color;
+    span {
+        padding-left: 0px;
+    }
+}
+
+.btn-header-link {
+    border-bottom: 1px solid $light;
+    @include font-ArialBold();
+    width: 100%;
+    text-align: left; 
+}
+
+.form-check {
+    margin-bottom: 0px;
+    line-height: 35px;
+}
+
+.showMore {
+    max-height: 175px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.card-header {
+    padding: 0;
+}
+
+.showMoreBtn {
+    text-decoration: underline;
+    color: $brand-color;
+}
+
+::ng-deep .BottomHeaderSlot {
+    display: none !important;
+}
+::ng-deep .facet-anchor-link  {
+    a {
+        text-decoration: underline;
+        color: $brand-color;
+    }
+}
+@media screen and (min-width: $ScreenMedium-1300) and (max-width: $Largescreen-1500) {
+    .accordion { 
+        max-height: 65vh;
+    }
+}
+
+@media screen and (max-width: $screenMedium-991) {
+
+    .products-facet{
+        position: sticky;
+        top: 0 !important;
+    }
+    .accordion{
+        max-height: 60vh;
+    }
+    .cardview {
+        padding: 0;
+    }
+
+}

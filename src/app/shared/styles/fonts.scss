@@ -1,0 +1,366 @@
+@font-face {
+  font-family: "Arial Regular";
+  src: url('../../../assets/fonts/ArialMT.eot') format('embedded-opentype'),
+       url('../../../assets/fonts/ArialMT.woff2') format('woff2'),
+       url('../../../assets/fonts/ArialMT.woff') format('woff'),
+       url('../../../assets/fonts/ArialMT.ttf') format('truetype'),
+       url('../../../assets/fonts/ArialMT.svg') format('svg');  
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+    font-family: "Arial Bold";
+    src: url('../../../assets/fonts/Arial-BoldMT.eot');
+       src: url('../../../assets/fonts/Arial-BoldMT.eot?#iefix') format('embedded-opentype'),
+         url('../../../assets/fonts/Arial-BoldMT.woff2') format('woff2'),
+         url('../../../assets/fonts/Arial-BoldMT.woff') format('woff'),
+         url('../../../assets/fonts/Arial-BoldMT.ttf') format('truetype'),
+         url('../../../assets/fonts/Arial-BoldMT.svg#Arial-BoldMT') format('svg');  
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+@font-face {
+  font-family: "Arial Black";
+  src: url('../../../assets/fonts/arialblack-webfont.woff') format('woff'),
+       url('../../../assets/fonts/arialblack-webfont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+    font-family: 'Helvetica Neue Reqular';
+    src: url('../../../assets/fonts/helveticaneue.woff') format('woff'),
+         url('../../../assets/fonts/helveticaneue.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Helvetica Neue Thin';
+    src: url('../../../assets/fonts/helveticaneuethin-webfont.woff') format('woff'),
+         url('../../../assets/fonts/helveticaneuethin-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Helvetica Neue Medium';
+    src: url('../../../assets/fonts/helveticaneuemedium-webfont.woff') format('woff'),
+         url('../../../assets/fonts/helveticaneuemedium-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@mixin font-Arial() {
+    font-family: "Arial Regular", sans-serif;
+}
+@mixin font-ArialBold() {
+  font-family: "Arial Bold", sans-serif;
+}
+@mixin font-ArialBlack() {
+  font-family: "Arial Black", sans-serif;
+}
+@mixin font-HelveticaRegular() {
+    font-family: 'Helvetica Neue Regular', sans-serif;
+}
+@mixin font-HelveticaThin() {
+    font-family: 'Helvetica Neue Thin', sans-serif;
+}
+@mixin font-HelveticaMedium() {
+    font-family: 'Helvetica Neue Medium', sans-serif;
+}
+
+@media screen and (min-width: $ScreenMedium-1366) {
+    :root {
+      --fontsize12: 0.75rem;
+      --fontsize14: 0.875rem;
+      --fontsize16: 1rem;
+      --fontsize17: 1.063rem;
+      --fontsize17-5: 1.1rem;
+      --fontsize18: 1.125rem;
+      --fontsize18-4: 1.5rem;
+      --fontsize20: 1.25rem;
+      --fontsize21: 1.313rem;
+      --fontsize22: 1.375rem;
+      --fontsize23: 1.438rem;
+      --fontsize24: 1.5rem;
+      --fontsize26: 1.625rem;
+      --fontsize28: 1.75rem;
+      --fontsize30: 1.625rem;
+      --fontsize32: 2rem;
+      --fontsize34: 2.125rem;
+      --fontsize36: 2rem;
+      --fontsize40: 2.25rem;
+      --fontsize46: 2.875rem;
+      --fontsize54: 3.375rem;
+      --fontsize80: 5rem;
+    }
+  }
+
+  @media screen and (max-width: $ScreenMedium-1365) and (min-width: $mobileScreenPotrait-768) {
+    :root {
+      --fontsize12: 0.75rem;
+      --fontsize14: 0.875rem;
+      --fontsize16: 1rem;
+      --fontsize17: 0.90rem;
+      --fontsize17-5: 1rem;
+      --fontsize18: 0.875rem;
+      --fontsize20: 1rem;
+      --fontsize21: 1.063rem;
+      --fontsize22: 1.125rem;
+      --fontsize23: 1.188rem;
+      --fontsize24: 1rem;
+      --fontsize28: 1.5rem;
+      --fontsize30: 1.25rem;
+      --fontsize32: 1.75rem;
+      --fontsize34: 1.875rem;
+      --fontsize36: 1.625rem;
+      --fontsize40: 2.5rem;
+      --fontsize46: 2.875rem;
+      --fontsize54: 3.0rem;
+      --fontsize80: 3.5rem;
+    }
+  }
+
+  @media screen and (max-width: $mobileScreenPotrait-767) {
+    :root {
+      --fontsize12: 0.75rem;
+      --fontsize14: 0.875rem;
+      --fontsize16: 1rem;
+      --fontsize16-5: 0.77rem;
+      --fontsize17: 0.90rem;
+      --fontsize17-5: 1rem;
+      --fontsize18: 0.875rem;
+      --fontsize19: 0.938rem;
+      --fontsize20: 1rem;
+      --fontsize21: 1.063rem;
+      --fontsize22: 1.125rem;
+      --fontsize23: 1.188rem;
+      --fontsize24: 1rem;
+      --fontsize26: 1.25rem;
+      --fontsize28: 1.5rem;
+      --fontsize30: 1.25rem;
+      --fontsize32: 1.75rem;
+      --fontsize34: 1.875rem;
+      --fontsize36: 1.625rem;
+      --fontsize40: 2.5rem;
+      --fontsize46: 2rem;
+      --fontsize54: 2.25rem;
+      --fontsize80: 2.5rem;
+    }
+  }
+
+@font-face {
+    font-family: icomoon;
+    font-weight: 400;
+    src: url('../../../assets/fonts/icomoon.ttf') format('ttf'),
+         url('../../../assets/fonts/icomoon.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+[class*=" icon-"],[class^=icon-] {
+    font-family: icomoon !important;
+    font-variant: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: none;
+    font-display: swap;
+}
+
+.icon-right:before {
+    content: "\e902"
+}
+
+.icon-materials:before {
+    content: "\e900"
+}
+
+.icon-natural-lighting:before {
+    content: "\e90a"
+}
+
+.icon-rainwater:before {
+    content: "\e901"
+}
+
+.icon-roofing:before {
+    content: "\e90b"
+}
+.icon-flashing{
+    position: relative;
+    display: inline-block;
+    height: 32px;
+    text-align: center;
+    width: 32px;
+}
+.icon-flashing:before, .mainnav-link-level-2.show .navTagChild .icon-flashing:before {
+    content:url('../../../assets/images/icon-flashing-white.svg');
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 15px;
+}
+li.megamenuSubChild:hover .icon-flashing:before{
+    content:url('../../../assets/images/icon-flashing-black.svg');
+}
+
+.icon-ridge{
+    position: relative;
+    display: inline-block;
+    height: 32px;
+    text-align: center;
+    width: 65px;
+}
+.icon-ridge:before, .mainnav-link-level-2.show .navTagChild .icon-ridge:before {
+    content:url('../../../assets/images/icon-ridge-white.svg');
+    height: 24px;
+    width: 65px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 15px;
+}
+li.megamenuSubChild:hover .icon-ridge:before{
+    content:url('../../../assets/images/icon-ridge-black.svg');
+}
+
+.icon-structural:before {
+    content: "\e90c"
+}
+
+.icon-accessories-old .path1:before {
+    content: "\e903"
+}
+
+.icon-accessories-old .path2:before {
+    margin-left: -1em;
+    content: "\e904"
+}
+
+.icon-accessories-old .path3:before {
+    margin-left: -1em;
+    content: "\e905"
+}
+
+.icon-cladding-old .path1:before {
+    content: "\e90d"
+}
+
+.icon-cladding-old .path2:before {
+    margin-left: -1em;
+    content: "\e90e"
+}
+
+.icon-close:before {
+    content: "\e90f"
+}
+
+.icon-message:before {
+    content: "\e910"
+}
+
+.icon-search .path1:before {
+    content: "\e906"
+}
+
+.icon-search .path2:before {
+
+    content: "\e907"
+}
+
+.icon-search .path3:before {
+    margin-left: -1.0156em;
+    content: "\e908"
+}
+
+.icon-summary:before {
+    content: "\e911"
+}
+
+.icon-branch:before {
+    content: "\e912"
+}
+
+.icon-delivery:before {
+    content: "\e913"
+}
+
+.icon-downloads:before {
+    content: "\e909"
+}
+
+.icon-drawings:before {
+    content: "\e914"
+}
+
+.icon-full:before {
+    content: "\e915"
+}
+
+.icon-manual:before {
+    content: "\e916"
+}
+
+.icon-payment:before {
+    content: "\e917"
+}
+
+.icon-empty .path1:before {
+    content: "\e918"
+}
+
+.icon-empty .path2:before {
+    margin-left: -1em;
+    content: "\e919"
+}
+
+.icon-empty .path3:before {
+    margin-left: -1em;
+    content: "\e91a"
+}
+
+.icon-product-overview:before {
+    content: "\e91b"
+}
+
+.icon-arrows:before {
+    content: "\e91c"
+}
+
+.icon-selected:before {
+    content: "\e91d"
+}
+
+.icon-accessories:before {
+    content: "\e91b"
+}
+
+.icon-cladding:before {
+    content: "\e91e"
+}
+
+.icon-Triangle:before {
+    content: "\e91f"
+}
+
+.icon-home:before {
+    content: "\e920"
+}
+
+.icon-faq:before {
+    content: "\e921"
+}
+
+.icon-temperature:before {
+    content: "\e922"
+}

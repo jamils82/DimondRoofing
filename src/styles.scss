@@ -1,0 +1,980 @@
+/* You can add global styles to this file, and also import other style files */
+
+$styleVersion: 4.3;
+//boostrap max width overwrite
+$grid-breakpoints: ( xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl:1400px);
+$container-max-widths: ( sm: 540px, md: 720px, lg: 960px, xl: 1140px, xxl:1320px) !default;
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@spartacus/styles/index';
+@import './app/shared/styles/theme.scss';
+*,
+:after,
+:before {
+    box-sizing: border-box;
+}
+app-addto-saved-carts .cart-header{
+    margin-top: 60px;
+}
+app-addto-saved-carts app-custom-breadcrum {
+    position: fixed;
+    width: 100%;
+    z-index: 3
+  }
+app-custom-breadcrum {
+    position: sticky;
+    z-index: 3
+}
+.UserDetailCheckout {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+}
+body {
+    @include font-Arial();
+    color: $dark;
+    background: $white-variant1;
+}
+
+h1,
+h2 {
+    @include font-HelveticaThin();
+}
+
+h1 {
+    font-size: var(--fontsize80);
+    &.heading-leve1 {
+        padding: 5rem 0 5rem;
+        text-transform: capitalize;
+    }
+}
+
+h2 {
+    font-size: var(--fontsize46);
+    &.heading-leve2 {
+        padding: 5rem 0 5rem;
+    }
+}
+
+a,
+a:link,
+a:visited {
+    color: $black-variant10;
+    &:hover {
+        color: $brand-color-variant3;
+    }
+}
+
+.anchor-link {
+    text-decoration: underline;
+    &:hover {
+        color: $brand-color-variant3 !important;
+    }
+}
+
+cx-global-message {
+    position: fixed;
+    top: 9rem;
+    width: 100%;
+    z-index: 13;
+}
+
+.btn.focus,
+.btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.modal-backdrop {
+    z-index: 9 !important;
+}
+
+.modal {
+    background: rgba($black-color, 0.3);
+}
+
+.dimond-primary-btn {
+    text-transform: uppercase;
+    background-color: $black-variant2;
+    color: $white-color;
+    width: 150px;
+    max-width: 170px;
+    font-size: var(--fontsize14);
+    @include font-ArialBold();
+    border: none;
+    border-radius: 0;
+    height: 40px;
+}
+
+.dimond-primary-btn:hover {
+    color: $white-color;
+}
+
+.dimond-secondary-btn {
+    text-transform: uppercase;
+    background-color: $white-color;
+    color: $black-variant2;
+    width: 150px;
+    max-width: 170px;
+    font-size: var(--fontsize14);
+    @include font-ArialBold();
+    border: 1px solid $black-variant2;
+    border-radius: 0;
+    height: 40px;
+}
+
+.dimond-secondary-btn:hover {
+    color: $black-variant2;
+}
+
+//application primary and secondary buttons
+.default-button {
+    text-transform: uppercase;
+    font-size: var(--fontsize14);
+    @include font-ArialBold();
+    border-radius: 0;
+    padding: .5rem 2rem;
+    border: 1px solid $black-variant2;
+    line-height: 2rem;
+}
+
+body .primary-button {
+    @extend .default-button;
+    background-color: $black-variant2;
+    color: $white-color;
+    cursor: pointer;
+    &:hover {
+        background-color: $white-color;
+        color: $black-variant2;
+        text-decoration: none;
+    }
+}
+
+body .secondary-button {
+    @extend .default-button;
+    background-color: $white-color;
+    color: $black-variant2;
+    &:hover {
+        background-color: $black-variant2;
+        color: $white-color;
+    }
+}
+
+.font-weight-bold {
+    @include font-ArialBold();
+}
+
+.font-weight-black {
+    @include font-ArialBlack();
+}
+
+// code for header slash line
+.heading-slashline {
+    color: $white-color;
+    &::before {
+        position: relative;
+        background: url("./assets/images/slash-small-white.svg");
+        width: 42px;
+        height: 30px;
+        top: -20px;
+        content: "";
+        display: block;
+    }
+}
+
+
+/*customize footer*/
+
+cx-page-layout {
+    ul,
+    li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        &.list-group-item {
+            background-color: unset;
+            a {
+                color: unset;
+            }
+        }
+    }
+}
+
+cx-page-layout.CompanyPageTemplate {
+    max-width: 100% !important;
+}
+
+cx-storefront {
+    header {
+        .header {
+            max-width: 100%;
+            padding: 0;
+        }
+        background-color: $black-variant2;
+        position: sticky;
+        top: 0;
+        background-size: 100% 25% !important;
+        background-repeat: no-repeat;
+        z-index: 10;
+        cx-banner cx-media img {
+            margin-top: 0.7rem;
+            margin-bottom: 0rem;
+        }
+        label {
+            display: inline-flex;
+        }
+        .SiteLinks {
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            cx-paragraph p {
+                color: $white-color;
+                font-size: var(--fontsize16);
+                line-height: var(--fontsize16);
+                margin-bottom: 0px;
+            }
+            cx-paragraph {
+                font-size: var(--fontsize16);
+            }
+            app-account-dropdown,
+            app-find-store {
+                width: calc(25% - 25px);
+                margin-right: 25px;
+                max-width: 328px;
+                margin-right: 25px;
+            }
+            app-contact-us {
+                width: calc(20% - 15px);
+                max-width: 145px;
+                margin-left: unset;
+                margin-right: auto;
+            }
+            app-custom-mini-cart {
+                width: 10%;
+            }
+            .preferenceLink {
+                margin-left: unset;
+                padding: 0.5rem 1rem;
+                cx-generic-link {
+                    margin: 0;
+                    cx-media img {
+                        height: 22px;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+        .SiteLogo {
+            width: unset;
+            .storeLogo {
+                position: absolute;
+                z-index: 99;
+                left: 40px;
+                bottom: 20px;
+                cx-media {
+                    max-width: 181px
+                }
+            }
+            .homeLogo {
+                max-width: 28px;
+                height: 28px;
+                position: absolute;
+                z-index: 99;
+                bottom: 47px;
+            }
+        }
+        .NavigationBar {
+            flex: 70%;
+            background-color: $brand-color;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            // z-index: 10;
+        }
+        .logoutMenu {
+            margin-top: 0 !important;
+            li {
+                cursor: pointer;
+                background-color: $black-variant6;
+                color: $white-color;
+                &:hover {
+                    text-decoration: underline;
+                    background-color: $black-variant6;
+                }
+            }
+        }
+        .MarketingContext {
+            width: 100%;
+            margin: auto;
+        }
+    }
+}
+
+// Loader
+.loading {
+    position: fixed;
+    z-index: 1051;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+
+/* Transparent Overlay */
+
+.loading:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
+    background: -webkit-radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
+}
+
+
+/* :not(:required) hides these rules from IE9 and below */
+
+.loading:not(:required) {
+    /* hide "loading..." text */
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+
+.loading:not(:required):after {
+    content: '';
+    display: block;
+    font-size: 10px;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.5em;
+    -webkit-animation: spinner 150ms infinite linear;
+    -moz-animation: spinner 150ms infinite linear;
+    -ms-animation: spinner 150ms infinite linear;
+    -o-animation: spinner 150ms infinite linear;
+    animation: spinner 150ms infinite linear;
+    border-radius: 0.5em;
+    -webkit-box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
+    box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
+}
+
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.modal {
+    &.fade.modal-right .modal-dialog {
+        transform: translate(125%, 0px);
+    }
+    &.show.modal-right .modal-dialog {
+        transform: none;
+    }
+}
+
+//code for custom scrollbar
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: $gray-variant13;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $gray-variant14;
+}
+
+.NotFoundPageTemplate {
+    cx-breadcrumb h1 {
+        display: none;
+    }
+    .MiddleContent {
+        text-align: center;
+        min-height: 300px;
+        padding: 4rem 0;
+    }
+}
+
+cx-page-layout.ErrorPageTemplate {
+    padding: 3rem;
+}
+
+cx-storefront header .SiteLinks {
+    @extend .container;
+}
+
+.form-check input[type=checkbox], input[type=checkbox] {
+    accent-color: $brand-color;
+    border-width: 1px !important;
+    border-color: $placeholder-grey;
+    border-radius: 0;
+    &:checked {
+        border-color: $brand-color;
+        background-color: $brand-color;
+    }
+}
+
+//code for news and updates section
+.newsfeed-container {
+    background: url('./assets/images/banner-image.png') no-repeat 100% 100%;
+    background-size: cover;
+    padding: 5rem 0 15rem;
+    margin: 5rem 0 0 0;
+    z-index: 1;
+    position: relative;
+}
+
+.form-control {
+    border-radius: 0;
+}
+
+.form-control:focus,
+.ng-select-focused,
+:focus,
+input:focus {
+    outline-color: transparent;
+}
+
+.SearchResultsGridPageTemplate,
+.CategoryGridPageTemplate {
+    cx-page-slot.BottomHeaderSlot {
+        display: none !important;
+    }
+}
+
+cx-page-layout.ProductGridPageTemplate {
+    max-width: 100% !important;
+    .ProductGridSlot {
+        max-width: 100% !important;
+    }
+}
+
+// product loader
+span.product-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+span.product-loader .loader-icon {
+    color: $brand-color;
+    font-size: 3.75rem;
+}
+
+span.product-loader .loader-text {
+    color: $black-color;
+    font-size: 1.25rem;
+}
+
+.main-view {
+    .btn.active {
+        background-color: $black-variant2;
+        color: $white-color;
+    }
+    .btn {
+        background-color: $gray-variant5;
+        border: none;
+        border-radius: 0;
+        width: 90px;
+        display: inline-flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+}
+
+.grid-view,
+.list-view {
+    .product-title {
+        color: $brand-color;
+        word-break: break-word;
+        font-size: 24px;
+        &:hover {
+            color: $brand-color;
+        }
+    }
+}
+
+//to hide OTB breadcrumb
+cx-breadcrumb {
+    display: none;
+}
+
+.pageTitle {
+    @include font-HelveticaRegular();
+    font-size: var(--fontsize54);
+    color: $black-variant2;
+    padding-top: 2rem;
+}
+
+ngb-datepicker {
+    .ngb-dp-arrow {
+        align-items: center;
+    }
+    .ngb-dp-weekday {
+        color: $black-variant2;
+        font-style: normal;
+    }
+}
+
+// Styles for checkout header
+.OrderSummaryTemplate,
+.OrderCheckoutTemplate {
+    .storeLogo {
+        cx-media {
+            max-width: 181px;
+        }
+    }
+    .UserDetailCheckout {
+        background: $brand-color;
+        flex-wrap: nowrap;
+        padding: 1.5rem;
+        .logOutContainer {
+            justify-content: right !important;
+        }
+        .storeLogo {
+            cx-generic-link {
+                width: 181px;
+            }
+        }
+        .storeLogo,
+        app-custom-user-account {
+            max-width: calc(1320px / 2);
+        }
+    }
+}
+
+//code for customized Error messages
+.alert-danger {
+    border: 1px solid $error-bgcolor;
+    font-weight: normal;
+    display: none;
+    &.add-to-cart-error, &.alert-danger-custom {
+        display: inline-flex;
+    }
+}
+
+.emptycart-savedcards {
+    text-decoration: underline;
+}
+
+// cds styling starts here
+#visualization-container {
+    text-align: center;
+    margin: 0 auto;
+}
+
+#cds-viewer-container-3d {
+    width: 302px;
+    height: 270px;
+}
+
+#cds-viewer-container-2d {
+    width: 302px;
+    height: 270px;
+}
+
+#cds-legend-help {
+    cursor: pointer;
+    //display: inline-block; // need to be uncommnet
+    display: none;
+    font-size: var(--fontsize16);
+    @include font-ArialBold();
+    margin-right: 4px;
+    padding: 6px 0;
+    text-align: center;
+    width: 38px;
+}
+
+#cds-legend-help img {
+    vertical-align: middle;
+    width: 30px;
+}
+
+#cds-menu-container {
+    position: relative;
+    width: 300px;
+}
+
+#cds-menu {
+    background-color: $gray-variant9;
+    border: 1px solid;
+    display: none;
+    font-size: var(--fontsize12);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+}
+
+#cds-menu li {
+    padding: 8px;
+}
+// cds styling ends here
+
+[aria-label="Close"] {
+    cursor: pointer;
+}
+
+cx-media.is-missing {
+    background: url("./assets/images/search-noimage.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.disabled, :disabled {
+    cursor: not-allowed !important;
+}
+
+.flashing-details {
+  color: $black-variant2;
+  font-size: var(--fontsize16);
+  text-transform: capitalize;
+  text-align: left;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.empty-cartpage-container {
+    margin-top: 5rem;
+}
+.text-underline {
+    text-decoration: underline;
+}
+@media screen and (max-width: $screenMedium-1200) {
+    cx-storefront header{
+        .SiteLinks {
+            .menuItemContainer{
+                .dropdown{
+                  .nav-link{
+                    padding: 0.5rem;
+                  }  
+                }
+            }
+            .preferenceLink {
+                padding: 0.5rem 1rem 0.5rem 0.5rem;
+            }
+            .logOutContainer .dropdown {
+                max-width: 100px;
+            }
+        }
+    }
+}
+//media query for tablet
+@media screen and (max-width: $screenMedium-991) {
+    cx-global-message {
+        top: 3.75rem;
+    }
+    cx-storefront {
+        header {
+            background-color: $brand-color;
+            cx-banner cx-media img {
+                margin: auto;
+            }
+            .SiteLogo {
+                width: 100%;
+                max-width: 211px;
+                margin: auto;
+                padding-left: 30px;
+                box-sizing: border-box;
+                .storeLogo {
+                    position: unset;
+                }
+            }
+            .SearchBox {
+                margin: 14px 0 10px 0;
+                width: 30px;
+            }
+            .miniCartStyle {
+                cx-paragraph{
+                    display: block !important;
+                }
+            }
+            .SiteLinks {
+                background-color: transparent;
+                width: 110px;
+                margin: auto 25px auto 0;
+                app-account-dropdown,
+                app-find-store,
+                app-contact-us,
+                cx-paragraph,
+                .preferenceLink {
+                    display: none;
+                }
+                app-custom-mini-cart,
+                app-custom-user-account {
+                    width: 35px;
+                }
+            }
+        }
+        header.is-expanded {
+            overflow-y: auto;
+            position: fixed;
+            bottom: 0;
+            top: 0;
+            width: calc( 100% - 99px);
+            .header {
+                background-color: $brand-color;
+                margin-left: 0;
+                position: relative;
+            }
+            .PreHeader {
+                position: absolute;
+                right: 0;
+                top: 5px;
+            }
+            .SearchBox {
+                display: none;
+            }
+            .SiteLogo {
+                position: absolute;
+                bottom: 110px;
+                z-index: 9;
+            }
+            .SiteLinks {
+                background-color: $black-variant2;
+                width: 100%;
+                margin: 15px auto 15px 0;
+                height: unset;
+                padding: 15px;
+                max-width: 100%;
+                position: relative;
+                z-index: 9;
+                top: 60px;
+                app-account-dropdown,
+                app-find-store,
+                app-contact-us,
+                cx-paragraph,
+                .preferenceLink {
+                    display: block;
+                }
+                app-custom-mini-cart,
+                app-custom-user-account {
+                    display: none;
+                }
+                app-account-dropdown {
+                    width: 100%;
+                    max-width: 100%;
+                }
+                app-find-store {
+                    width: 50%;
+                    max-width: 328px;
+                    min-width: 100% !important;
+                }
+                app-contact-us {
+                    margin-right: 40px;
+                    margin-left: auto;
+                    width: 135px;
+                    max-width: unset;
+                }
+            }
+            .navigation {
+                position: relative;
+                top: 45px;
+            }
+            &::before {
+                background-color: rgba($black-color, 0.3);
+                right: 0;
+                content: "";
+                position: fixed;
+                z-index: 2;
+                top: 0;
+                bottom: 0;
+                height: 100vh;
+                width: 99px;
+            }
+            &::after {
+                background-color: transparent;
+            }
+        }
+    }
+    h1 {
+        &.heading-leve1 {
+            font-size: 2.65rem;
+            padding: 1rem;
+        }
+    }
+    .newsfeed-container {
+        padding: 2rem 0;
+        margin: 3rem 0 0 0;
+    }
+}
+
+//common media query for mobile
+@media screen and (max-width: $mobileScreenPotrait-767) {
+    h1 {
+        &.heading-leve1 {
+            padding: 1rem;
+            font-size: 1.75rem;
+        }
+    }
+    h2 {
+        &.heading-leve2 {
+            padding: 1rem;
+            font-size: 1.75rem;
+        }
+    }
+    .newsfeed-container {
+        padding: 2rem 0;
+        margin: 2.5rem 0 0 0;
+    }
+    .toast {
+        min-width: 350px !important;
+    }
+
+    #cds-viewer-container-3d,
+    #cds-viewer-container-2d {
+        width: auto;
+        margin: 0 auto;
+        text-align: center;
+        height: 250px;
+      }
+    cx-storefront{
+        header.is-expanded {
+            .SiteLogo {
+                bottom: 160px;
+                max-width: 211px !important;
+                .storeLogo {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $smallmobileScreenPotrait576) {
+    cx-storefront {
+        header {
+            .SiteLogo {
+                max-width: 80px;
+                .storeLogo {
+                    display: none;
+                }
+            }
+        }
+        header.is-expanded {
+            width: 100%;
+            .header,
+            .navigation {
+                width: 100%;
+            }
+            .SiteLinks {
+                max-width: 100%;
+                width: 100%;
+                app-account-dropdown,
+                app-find-store,
+                app-contact-us,
+                cx-paragraph,
+                .preferenceLink {
+                    display: block;
+                }
+                app-custom-mini-cart,
+                app-custom-user-account {
+                    display: none;
+                }
+                app-find-store {
+                    width: 100%;
+                    max-width: 100%;
+                    margin-bottom: 10px;
+                }
+                app-contact-us {
+                    margin-left: 0;
+                }
+                cx-paragraph {
+                    margin-left: auto;
+                }
+            }
+            &::before {
+                display: none;
+            }
+        }
+    }
+    .pageTitle {
+        font-size: 28px;
+    }
+}
+
+

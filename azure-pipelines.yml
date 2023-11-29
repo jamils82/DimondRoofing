@@ -1,0 +1,87 @@
+trigger:
+- master
+#- main
+
+#variables:
+#- group: Config_var 
+ 
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+    displayName: 'Install Node.js'
+
+- script: |
+    npm cache clean --force
+    rm -rf node_modules
+    npm install -g @angular/cli@12.2.18
+    npm install --legacy-peer-deps
+    ng build --configuration=qa
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'DimondSpa-dev-tst'
+    repository: 'dimond'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: 'qa'
+
+#task: VSBuild@1
+#  inputs:
+#    solution: '$(solution)'
+#    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+#    platform: '$(buildPlatform)'
+#    configuration: '$(buildConfiguration)'
+#- task: PublishBuildArtifacts@1
+#  inputs:
+#    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#    ArtifactName: 'drop'
+#    publishLocation: 'Container'
+- script: |
+    npm cache clean --force
+    rm -rf node_modules
+    npm install -g @angular/cli@12.2.18
+    npm install --legacy-peer-deps
+    ng build --configuration=dev
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'DimondSpa-dev-tst'
+    repository: 'dimond'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: 'dev'
+
+- script: |
+    npm cache clean --force
+    rm -rf node_modules
+    npm install -g @angular/cli@12.2.18
+    npm install --legacy-peer-deps
+    ng build --configuration=uat
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'DimondSpa-uat-tst'
+    repository: 'dimond'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: 'uat'
+
+- script: |
+    npm cache clean --force
+    rm -rf node_modules
+    npm install -g @angular/cli@12.2.18
+    npm install --legacy-peer-deps
+    ng build --configuration=production
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Dimond-Production'
+    repository: 'dimond'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: 'prod'    
